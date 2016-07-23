@@ -1,5 +1,18 @@
 # Bubble project
 
+## 실환경 구축 방법
+
+페이스북, 트위터를 연결합니다. 각 키는 /data/canoe_web_2/shared/config/env.yml에 등록합니다. 트위터는 사용자 email을 얻어오기 위해 twitter에 따로 요청해야합니다.
+
+```
+production:
+  ...
+  FACEBOOK_APP_ID: xx
+  FACEBOOK_APP_SECRET: xx
+  TWITTER_APP_ID: xx
+  TWITTER_APP_SECRET: xx
+```
+
 ## 로컬 개발 환경 구축 방법
 
 기본적인 Rail 개발 환경에 rbenv, pow/powder를 이용합니다.
@@ -50,6 +63,16 @@ development:
     password: 암호
 ```
 
+### 로그인 준비
+
+페이스북, 트위터를 연결합니다. 각 키는 프로젝트 최상위 폴더에 .powenv에 등록합니다. 트위터는 사용자 email을 얻어오기 위해 twitter에 따로 요청해야합니다.
+
+```
+export FACEBOOK_APP_ID="xx"
+export FACEBOOK_APP_SECRET="xx"
+export TWITTER_APP_ID="xx"
+export TWITTER_APP_SECRET="xx"
+```
 
 #### 스키마
 
