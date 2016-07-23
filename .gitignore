@@ -6,12 +6,22 @@
 
 # Ignore bundler config.
 /.bundle
-
-# Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
+/.powenv
+.sass-cache
 
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
 /tmp
+.byebug_history
+db/*.sqlite3
+public/uploads/*
+public/sitemap.xml.gz
+dump.rdb
+
+app/assets/images/email/.DS_Store
+app/assets/images/.DS_Store
+
+app/assets/.DS_Store
+
+local_env.yml
