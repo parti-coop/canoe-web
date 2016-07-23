@@ -1,0 +1,16 @@
+%h4 "#{@canoe.title}" 카누
+
+%p= @canoe.body
+
+= image_tag @canoe.logo.url
+
+- if user_signed_in?
+  = link_to '가입신청', boarding_requests_path(canoe_id: @canoe), method: :post
+
+
+.boarding_requests
+  - @canoe.boarding_requests.each do |boarding_request|
+    .boarding_requests__user
+      = boarding_request.user.name
+    .boarding_requests__created_at
+      = boarding_request.user.created_at

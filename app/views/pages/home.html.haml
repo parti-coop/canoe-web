@@ -1,9 +1,15 @@
 test
 
 
-= link_to user_omniauth_authorize_path(provider: :facebook), class: 'btn btn-join btn-join-facebook btn-block' do
-  %i.fa.fa-facebook.fa-fw
-  페이스북으로 가입/로그인
-= link_to user_omniauth_authorize_path(provider: :twitter), class: 'btn btn-join btn-join-twitter btn-block' do
-  %i.fa.fa-twitter.fa-fw
-  트위터로 가입/로그인
+- if user_signed_in?
+  = current_user.name
+- else
+  = link_to user_omniauth_authorize_path(provider: :facebook), class: 'btn btn-join btn-join-facebook btn-block' do
+    %i.fa.fa-facebook.fa-fw
+    페이스북으로 가입/로그인
+  = link_to user_omniauth_authorize_path(provider: :twitter), class: 'btn btn-join btn-join-twitter btn-block' do
+    %i.fa.fa-twitter.fa-fw
+    트위터로 가입/로그인
+
+
+= link_to '카누만들기', new_canoe_path

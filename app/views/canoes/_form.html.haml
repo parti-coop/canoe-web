@@ -1,0 +1,11 @@
+= form_for Canoe.new do |f|
+  .form-group
+    = f.label :title
+    = f.text_field :title
+  .form-group
+    = f.label :body
+    = f.text_area :body
+  .form-group
+    = f.label :logo
+    = f.file_field :logo
+  = f.submit
