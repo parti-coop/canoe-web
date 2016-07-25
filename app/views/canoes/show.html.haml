@@ -1,16 +1,33 @@
-%h4 "#{@canoe.title}" 카누
 
-%p= @canoe.body
+.container-fluid
+  .row
+    .col-sm-3.col-md-2.sidebar
+      %ul.nav.nav-sidebar
+        %li.active
+          %a{:href => "#"}
+            Overview
+            %span.sr-only (current)
+        %li
+          %a{:href => "#"} Reports
+        %li
+          %a{:href => "#"} Analytics
+        %li
+          %a{:href => "#"} Export
 
-= image_tag @canoe.logo.url
+    .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
 
-- if user_signed_in?
-  = link_to '가입신청', boarding_requests_path(canoe_id: @canoe), method: :post
+      %h2.page-header "#{@canoe.title}" 카누
 
+      %p= @canoe.body
 
-.boarding_requests
-  - @canoe.boarding_requests.each do |boarding_request|
-    .boarding_requests__user
-      = boarding_request.user.name
-    .boarding_requests__created_at
-      = boarding_request.user.created_at
+      = image_tag @canoe.logo.url
+
+      - if user_signed_in?
+        = link_to '가입신청', boarding_requests_path(canoe_id: @canoe), method: :post
+
+      .boarding_requests
+        - @canoe.boarding_requests.each do |boarding_request|
+          .boarding_requests__user
+            = boarding_request.user.name
+          .boarding_requests__created_at
+            = boarding_request.user.created_at
