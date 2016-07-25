@@ -1,11 +1,17 @@
-= form_for Canoe.new do |f|
-  .form-group
-    = f.label :title
-    = f.text_field :title
-  .form-group
-    = f.label :body
-    = f.text_area :body
-  .form-group
-    = f.label :logo
-    = f.file_field :logo
-  = f.submit
+%section
+  .container
+    .page-header
+      %h2 카누 만들기
+
+    = form_for Canoe.new do |f|
+      .form-group
+        = f.label :title
+        = f.text_field :title, class: 'form-control'
+      .form-group
+        = f.label :body
+        = f.text_area :body, class: 'form-control'
+      .form-group
+        = f.label :logo
+        = f.file_field :logo, class: 'form-control'
+      .form-group
+        = f.submit class: 'btn btn-primary'
