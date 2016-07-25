@@ -1,15 +1,28 @@
-test
+%section
+  .container
+    - if user_signed_in?
+      = current_user.name
+    - else
+      = link_to user_omniauth_authorize_path(provider: :facebook), class: 'btn btn-join btn-join-facebook btn-block' do
+        %i.fa.fa-facebook.fa-fw
+        페이스북으로 가입/로그인
+      = link_to user_omniauth_authorize_path(provider: :twitter), class: 'btn btn-join btn-join-twitter btn-block' do
+        %i.fa.fa-twitter.fa-fw
+        트위터로 가입/로그인
 
-
-- if user_signed_in?
-  = current_user.name
-- else
-  = link_to user_omniauth_authorize_path(provider: :facebook), class: 'btn btn-join btn-join-facebook btn-block' do
-    %i.fa.fa-facebook.fa-fw
-    페이스북으로 가입/로그인
-  = link_to user_omniauth_authorize_path(provider: :twitter), class: 'btn btn-join btn-join-twitter btn-block' do
-    %i.fa.fa-twitter.fa-fw
-    트위터로 가입/로그인
-
-
-= link_to '카누만들기', new_canoe_path
+%section.pattern-trianglify{ style: 'background-size: cover;' }
+  .container
+    .jumbotron.jumbotron-transparent
+      %h2
+        %strong> 카누
+        로 해적단같은 조직을 만들어 봅시다
+      %p
+        %strong{ style: 'border-bottom: 2px solid #666'} #{Canoe.count}
+        개의 카누를,
+        %strong{ style: 'border-bottom: 2px solid #666'} #{User.count}
+        명이 나눠 타고 항해 중입니다
+      %p
+        = link_to '카누는 왜 만들었을까요?', 'https://github.com/parti-xyz/canoe-web/wiki', target: '_blank', class: 'btn btn-danger btn-lg'
+        = link_to new_canoe_path, class: 'btn btn-primary btn-lg' do
+          %i.fa.fa-cube
+          카누 바로 만들기

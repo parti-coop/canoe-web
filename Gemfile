@@ -16,6 +16,11 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.5.1'
 gem 'bootswatch-rails'
 gem 'haml-rails', '~> 0.9.0'
 
+# assets
+source 'https://rails-assets.org' do
+  gem 'rails-assets-trianglify'
+end
+
 # file upload
 gem 'carrierwave', '~> 0.10.0'
 gem "mini_magick"
