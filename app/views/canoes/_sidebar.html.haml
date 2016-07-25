@@ -1,8 +1,15 @@
 %ul.nav.nav-sidebar
-  %li.active
-    = link_to '홈', @canoe
   %li
-    %a{:href => "#"} 회원
+    = link_to @canoe do
+      = image_tag @canoe.logo_url, style: 'width: 100%; height: 150px;'
+
+    - if user_signed_in?
+      %div{ style: 'padding-left: 20px' }
+        = link_to '가입신청', boarding_requests_path(canoe_id: @canoe), method: :post, class: 'btn btn-primary btn-xs'
+
+%h4 메뉴
+
+%ul.nav.nav-sidebar
   %li
     %a{:href => "#"} 논의
   %li

@@ -11,9 +11,6 @@
 
       = image_tag @canoe.logo.url
 
-      - if user_signed_in?
-        = link_to '가입신청', boarding_requests_path(canoe_id: @canoe), method: :post
-
       .boarding_requests
         - @canoe.boarding_requests.each do |boarding_request|
           .boarding_requests__user
