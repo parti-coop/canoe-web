@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160723081525) do
+ActiveRecord::Schema.define(version: 20160725120908) do
 
   create_table "boarding_requests", force: :cascade do |t|
     t.integer  "user_id",     limit: 4, null: false
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 20160723081525) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
+
+  create_table "sailing_diaries", force: :cascade do |t|
+    t.text     "body",       limit: 65535
+    t.integer  "user_id",    limit: 4,     null: false
+    t.integer  "canoe_id",   limit: 4,     null: false
+    t.date     "sailed_on"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "sailing_diaries", ["canoe_id", "user_id", "sailed_on"], name: "index_sailing_diaries_on_canoe_id_and_user_id_and_sailed_on", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false

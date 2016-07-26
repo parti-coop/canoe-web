@@ -1,0 +1,10 @@
+= form_for [@canoe, @sailing_diary] do |f|
+  .form-group
+    = f.label :sailed_on
+    .input-group
+      = f.date_field :sailed_on, class: 'form-control'
+  .form-group
+    = f.label :body
+    = f.text_area :body, class: 'form-control'
+  .form-group
+    = f.submit class: 'btn btn-primary'

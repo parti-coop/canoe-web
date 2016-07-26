@@ -3,6 +3,8 @@ class Ability
 
   def initialize(user)
     can :read, :all
-    can :create, [Canoe, BoardingRequest]
+    can :create, [Canoe, SailingDiary, BoardingRequest]
+    can :update, [Canoe, SailingDiary, BoardingRequest]
+    can :destroy, [Canoe, SailingDiary, BoardingRequest]
   end
 end
