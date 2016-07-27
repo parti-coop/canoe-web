@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   resources :canoes do
+    resources :discussions
     resources :sailing_diaries
   end
   resources :boarding_requests
