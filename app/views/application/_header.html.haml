@@ -10,6 +10,8 @@
           카누
 
       .collapse.navbar-collapse
+        %ul.nav.navbar-nav
+          %li= link_to '모든 카누', canoes_path
         %ul.nav.navbar-nav.navbar-right
           - if user_signed_in?
             %li
