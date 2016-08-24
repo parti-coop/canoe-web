@@ -4,6 +4,8 @@
 
 페이스북, 트위터를 연결합니다. 각 키는 /data/canoe_web_2/shared/config/env.yml에 등록합니다. 트위터는 사용자 email을 얻어오기 위해 twitter에 따로 요청해야합니다.
 
+S3_로 시작하는 것은 아마존 s3 관련된 정보입니다.
+
 ```
 production:
   ...
@@ -11,7 +13,12 @@ production:
   FACEBOOK_APP_SECRET: xx
   TWITTER_APP_ID: xx
   TWITTER_APP_SECRET: xx
+  S3_ACCESS_KEY: xx
+  S3_SECRET_KEY: xx
+  S3_REGION: xx
+  S3_BUCKET: xx
 ```
+
 
 ## 로컬 개발 환경 구축 방법
 

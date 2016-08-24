@@ -3,7 +3,15 @@
 class UserImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
-  storage :file
+  def self.env_storage
+    if Rails.env.production?
+      :fog
+    else
+      :file
+    end
+  end
+
+  storage env_storage
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -17,7 +25,7 @@ class UserImageUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url
-    image_url('default-user.jpg')
+    Identicon.data_url_for model.try(:nickname) || 'default', 128, [240, 240, 240]
   end
 
   # Process files as they are uploaded:
@@ -53,6 +61,10 @@ class UserImageUploader < CarrierWave::Uploader::Base
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
     "#{secure_token(10)}.#{file.extension}" if original_filename.present?
+  end
+
+  def url
+    (UserImageUploader::env_storage == :fog or self.file.try(:exists?)) ? super : "https://canoe-file.s3.amazonaws.com#{super}"
   end
 
   protected
