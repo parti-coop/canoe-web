@@ -15,17 +15,19 @@
         %ul.nav.navbar-nav.navbar-right
           - if user_signed_in?
             %li
-              %a= current_user.name
+              %a
+                .img-user{style: "background-image: url(#{current_user.image.sm.url});"}
+                = current_user.nickname
             %li
-              = link_to destroy_user_session_path, method: :delete do
+              = link_to sign_out_path, method: :delete do
                 로그아웃
           - else
             %li
-              = link_to user_omniauth_authorize_path(provider: :facebook), class: 'btn btn-join btn-join-facebook btn-block' do
+              = link_to user_facebook_omniauth_authorize_path(provider: :facebook), class: 'btn btn-join btn-join-facebook btn-block' do
                 %i.fa.fa-facebook.fa-fw
                 페이스북으로 가입/로그인
             %li
-              = link_to user_omniauth_authorize_path(provider: :twitter), class: 'btn btn-join btn-join-twitter btn-block' do
+              = link_to user_twitter_omniauth_authorize_path(provider: :twitter), class: 'btn btn-join btn-join-twitter btn-block' do
                 %i.fa.fa-twitter.fa-fw
                 트위터로 가입/로그인
 

@@ -14,6 +14,6 @@
       .boarding_requests
         - @canoe.boarding_requests.each do |boarding_request|
           .boarding_requests__user
-            = boarding_request.user.name
+            = boarding_request.user.nickname
           .boarding_requests__created_at
             = boarding_request.user.created_at

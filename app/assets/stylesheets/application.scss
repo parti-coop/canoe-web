@@ -106,3 +106,12 @@
   display: inline-block;
   border-radius: 50%;
 }
+
+.img-user {
+  @extend .img-circle;
+  background-size: cover;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}

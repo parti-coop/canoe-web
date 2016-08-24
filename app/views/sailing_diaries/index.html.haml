@@ -14,7 +14,7 @@
         - @sailing_diaries.each do |diary|
           %li[diary]
             %h5
-              = diary.user.name
+              = diary.user.nickname
               %small
                 = diary.sailed_on
                 = link_to '수정', [:edit, @canoe, diary]
