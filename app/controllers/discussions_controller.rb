@@ -6,6 +6,10 @@ class DiscussionsController < ApplicationController
     @discussions = @canoe.discussions.order("id DESC")
   end
 
+  def show
+    @dicussion = @canoe.discussions.find(params[:id])
+  end
+
   def create
     @discussion.canoe = @canoe
     @discussion.user = current_user

@@ -10,13 +10,12 @@
           %small.pull-right
             = link_to '쓰기', new_canoe_discussion_path, class: 'btn btn-primary'
 
-      %ul
+      %ul.list-unstyled
         - @discussions.each do |discussion|
           %li[discussion]
-            %h5
+            %h4= link_to discussion.title, [@canoe, discussion]
+            %div
               = discussion.user.name
-              %small
-                = link_to '수정', [:edit, @canoe, discussion]
-                = link_to '삭제', [@canoe, discussion], method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
-
-            %p= discussion.title
+              = link_to '수정', [:edit, @canoe, discussion]
+              = link_to '삭제', [@canoe, discussion], method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
+              = l discussion.created_at

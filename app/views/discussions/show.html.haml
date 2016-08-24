@@ -1,0 +1,15 @@
+.container-fluid
+  .row
+    .col-sm-3.col-md-2.sidebar
+      = render 'canoes/sidebar'
+
+    .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+      .page-header
+        %h2
+          논의 - #{@discussion.title}
+          %small.pull-right
+            = link_to '수정', [:edit, @canoe, @discussion], class: 'btn btn-primary'
+            = link_to '삭제', [@canoe, @discussion], class: 'btn btn-primary'
+
+      %div
+        = simple_format @discussion.body
