@@ -1,16 +1,22 @@
 class DiscussionsController < ApplicationController
-  before_filter :load_canoe
   load_and_authorize_resource
 
   def index
+    @canoe = find_canoe
     @discussions = @canoe.discussions.order("id DESC")
   end
 
   def show
-    @dicussion = @canoe.discussions.find(params[:id])
+    @dicussion = Discussion.find(params[:id])
+    @canoe = @discussion.canoe
+  end
+
+  def new
+    @canoe = find_canoe
   end
 
   def create
+    @canoe = find_canoe
     @discussion.canoe = @canoe
     @discussion.user = current_user
     @discussion.save
@@ -36,7 +42,7 @@ class DiscussionsController < ApplicationController
 
   private
 
-  def load_canoe
+  def find_canoe
     @canoe = Canoe.find(params[:canoe_id])
   end
 

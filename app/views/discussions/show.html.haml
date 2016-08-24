@@ -8,8 +8,28 @@
         %h2
           논의 - #{@discussion.title}
           %small.pull-right
-            = link_to '수정', [:edit, @canoe, @discussion], class: 'btn btn-primary'
-            = link_to '삭제', [@canoe, @discussion], class: 'btn btn-primary'
+            = link_to '수정', [:edit, @discussion], class: 'btn btn-primary'
+            = link_to '삭제', @discussion, class: 'btn btn-primary'
 
       %div
         = simple_format @discussion.body
+
+      %hr
+
+      %div
+        %ul.list-unstyled
+          - @discussion.opinions.each do |opinion|
+            %li[opinion]
+              %p= simple_format opinion.body
+              %div
+                = link_to opinion.user.name, opinion.user
+                = l opinion.created_at
+                = link_to '삭제', opinion, method: :delete, class: 'text-danger'
+              %hr
+
+        = form_for Opinion.new do |f|
+          = f.hidden_field :discussion_id, value: @discussion.id
+          .form-group
+            = f.text_area :body, class: 'form-control'
+          .form-group
+            = f.submit class: 'btn btn-primary'
