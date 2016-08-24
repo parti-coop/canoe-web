@@ -33,8 +33,6 @@ class User < ActiveRecord::Base
       auth["email"] = params['email'] if params['email'].present?
       resource.assign_attributes(auth)
       resource.remote_image_url = auth['image']
-    else
-      resource.provider = 'email'
     end
     resource
   end

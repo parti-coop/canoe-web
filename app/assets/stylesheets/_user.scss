@@ -1,0 +1,28 @@
+.img-user {
+  @extend .img-circle;
+  background-size: cover;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+
+  h2 & {
+    height: 30px;
+    width: 30px;
+    vertical-align: top;
+  }
+}
+
+.sign-up-header {
+  margin: 40px 0 20px;
+  text-align: center;
+}
+
+.sign-up-form {
+  form {
+    margin: 0 auto;
+    max-width: 500px;
+  }
+}
+
+

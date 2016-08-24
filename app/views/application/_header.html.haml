@@ -15,8 +15,8 @@
         %ul.nav.navbar-nav.navbar-right
           - if user_signed_in?
             %li
-              %a
-                .img-user{style: "background-image: url(#{current_user.image.sm.url});"}
+              = link_to edit_user_registration_path do
+                = render 'users/image'
                 = current_user.nickname
             %li
               = link_to sign_out_path, method: :delete do

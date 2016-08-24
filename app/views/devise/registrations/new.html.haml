@@ -1,19 +1,16 @@
 %section#sign-up
   .container
-    %h4.sign-up__title 아이디
-    %h2.text-center.sign-up__txt
+    %h3.sign-up-header
       카누에서 당신의 이름이 될
       %br
       멋진 아이디를 만들어주세요.
-    .sign-up__form
+    .sign-up-form
       = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
         = devise_error_messages!
-        = f.hidden_field :provider
         = f.hidden_field :remember_me
-
         .form-group
           = f.label :nickname do
-            빠띠에서 사용할 아이디를 넣어 주세요.
+            카누에서 사용할 아이디를 넣어 주세요.
           = f.text_field :nickname, autofocus: true, class: 'form-control'
           .text-primary
             * 한글, 알파벳, 숫자, _ 만 가능합니다.
