@@ -22,8 +22,8 @@
             %li[opinion]
               %p= simple_format opinion.body
               %div
-                = link_to opinion.user.name, opinion.user
-                = l opinion.created_at
+                = link_to opinion.user.nickname, opinion.user
+                = opinion.created_at
                 = link_to '삭제', opinion, method: :delete, class: 'text-danger'
               %hr
 
