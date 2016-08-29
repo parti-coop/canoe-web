@@ -10,4 +10,8 @@ class Canoe < ApplicationRecord
   def member?(someone)
     memberships.exists?(user: someone)
   end
+
+  def boarding_requested?(someone)
+    boarding_requests.exists?(user: someone)
+  end
 end

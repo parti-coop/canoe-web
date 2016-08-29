@@ -3,12 +3,15 @@ class BoardingRequestsController < ApplicationController
   load_and_authorize_resource
 
   def create
-    # TODO 중복 가입 방지 / 기존 User가입 방지
-    @boarding_request.user = current_user
-    @boarding_request.canoe = Canoe.find params[:canoe_id]
-    @boarding_request.save
+    @canoe = Canoe.find params[:canoe_id]
 
-    redirect_to @boarding_request.canoe
+    unless @canoe.member? current_user
+      @boarding_request.user = current_user
+      @boarding_request.canoe = @canoe
+      @boarding_request.save
+    end
+
+    redirect_to @canoe
   end
 end
 
