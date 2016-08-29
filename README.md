@@ -6,6 +6,8 @@
 
 S3_로 시작하는 것은 아마존 s3 관련된 정보입니다.
 
+ERROR_SLACK_WEBHOOK_URL은 오류 발생 할 때 슬랙에 등록해 주는 webhook 주소입니다.
+
 ```
 production:
   ...
@@ -17,6 +19,7 @@ production:
   S3_SECRET_KEY: xx
   S3_REGION: xx
   S3_BUCKET: xx
+  ERROR_SLACK_WEBHOOK_URL: xx
 ```
 
 
