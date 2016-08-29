@@ -1,2 +1,11 @@
 ko:
-  hello: "Hello world"
+  date:
+    formats:
+      default: '%Y.%m.%d'
+  time:
+    formats:
+      default: "%Y.%m.%d %H:%M"
+  errors:
+    format: "%{message}"
+    messages:
+      invalid_auth_token: 로그인한지 너무 오래 되셨네요. 다시 시도해 주세요.
