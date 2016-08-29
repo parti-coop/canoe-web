@@ -1,4 +1,4 @@
-class Discussion < ActiveRecord::Base
+class Discussion < ApplicationRecord
   belongs_to :user
   belongs_to :canoe
   has_many :opinions

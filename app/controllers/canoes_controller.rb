@@ -1,5 +1,5 @@
 class CanoesController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   load_and_authorize_resource
 
   def index
@@ -7,8 +7,8 @@ class CanoesController < ApplicationController
   end
 
   def create
-    # TODO current_user를 가입시켜야 합니다.
     @canoe.user = current_user
+    @canoe.memberships.build(user: current_user)
     @canoe.save
 
     redirect_to @canoe

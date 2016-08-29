@@ -1,8 +1,11 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :registerable, :rememberable, :trackable, :omniauthable,
          :omniauth_providers => [:facebook, :twitter]
+
+  has_many :memberships, dependent: :destroy
+
   # validations
   VALID_NICKNAME_REGEX = /\A[ㄱ-ㅎ가-힣a-z0-9_]+\z/i
 

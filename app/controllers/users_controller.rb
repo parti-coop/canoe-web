@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, only: [:kill_me]
+  before_action :authenticate_user!, only: [:kill_me]
 
   def kill_me
     current_user.update_attributes(uid: SecureRandom.hex(10))

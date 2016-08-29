@@ -4,6 +4,9 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
     delete 'sign_out', to: 'devise/sessions#destroy'
+    if Rails.env.test?
+      post '/users/sign_in', to: 'devise/sessions#create', as: :user_session
+    end
   end
   root 'pages#home'
 

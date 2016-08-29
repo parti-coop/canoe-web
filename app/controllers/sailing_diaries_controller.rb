@@ -1,5 +1,5 @@
 class SailingDiariesController < ApplicationController
-  before_filter :load_canoe
+  before_action :load_canoe
   load_and_authorize_resource
 
   def index

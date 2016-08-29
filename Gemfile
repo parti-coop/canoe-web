@@ -73,11 +73,18 @@ gem 'redis-namespace', '~> 1.5', '>= 1.5.2'
 gem 'newrelic_rpm'
 gem 'ey_config'
 
-group :development, :test do
-  gem 'byebug'
-end
-
 group :development do
   gem 'web-console', '~> 2.0'
+end
+
+group :development, :test do
+  gem 'letter_opener_web'
+  gem 'byebug'
+  gem 'minitest-focus',     '~> 1.1', '>= 1.1.2'
+  gem 'guard', '~> 2.13.0'
+  gem 'guard-minitest',     '~> 2.4.4'
+  gem 'timecop', '~> 0.8.0'
   gem 'spring'
+  gem 'mocha', '~> 1.1'
+  gem 'rails-controller-testing'
 end

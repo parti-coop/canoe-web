@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,78 +10,83 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824111802) do
+ActiveRecord::Schema.define(version: 20160829041843) do
 
-  create_table "boarding_requests", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4, null: false
-    t.integer  "canoe_id",    limit: 4, null: false
+  create_table "boarding_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.integer  "user_id",     null: false
+    t.integer  "canoe_id",    null: false
     t.datetime "accepted_at"
-    t.integer  "acceptor_id", limit: 4
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.integer  "acceptor_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id", "canoe_id"], name: "index_boarding_requests_on_user_id_and_canoe_id", unique: true, using: :btree
   end
 
-  add_index "boarding_requests", ["user_id", "canoe_id"], name: "index_boarding_requests_on_user_id_and_canoe_id", unique: true, using: :btree
-
-  create_table "canoes", force: :cascade do |t|
-    t.string   "title",      limit: 255,   null: false
+  create_table "canoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.string   "title",                    null: false
     t.text     "body",       limit: 65535
-    t.integer  "user_id",    limit: 4,     null: false
-    t.string   "logo",       limit: 255
+    t.integer  "user_id",                  null: false
+    t.string   "logo"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
 
-  create_table "discussions", force: :cascade do |t|
-    t.integer  "user_id",        limit: 4,               null: false
-    t.integer  "canoe_id",       limit: 4,               null: false
-    t.string   "title",          limit: 255
-    t.string   "body",           limit: 255
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.integer  "opinions_count", limit: 4,   default: 0
+  create_table "discussions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.integer  "user_id",                    null: false
+    t.integer  "canoe_id",                   null: false
+    t.string   "title"
+    t.string   "body"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "opinions_count", default: 0
+    t.index ["canoe_id", "user_id"], name: "index_discussions_on_canoe_id_and_user_id", using: :btree
   end
 
-  add_index "discussions", ["canoe_id", "user_id"], name: "index_discussions_on_canoe_id_and_user_id", using: :btree
+  create_table "memberships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "canoe_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["canoe_id"], name: "index_memberships_on_canoe_id", using: :btree
+    t.index ["user_id", "canoe_id"], name: "index_memberships_on_user_id_and_canoe_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_memberships_on_user_id", using: :btree
+  end
 
-  create_table "opinions", force: :cascade do |t|
+  create_table "opinions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.text     "body",          limit: 65535
-    t.integer  "discussion_id", limit: 4,     null: false
-    t.integer  "user_id",       limit: 4,     null: false
+    t.integer  "discussion_id",               null: false
+    t.integer  "user_id",                     null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.index ["discussion_id"], name: "index_opinions_on_discussion_id", using: :btree
+    t.index ["user_id"], name: "index_opinions_on_user_id", using: :btree
   end
 
-  add_index "opinions", ["discussion_id"], name: "index_opinions_on_discussion_id", using: :btree
-  add_index "opinions", ["user_id"], name: "index_opinions_on_user_id", using: :btree
-
-  create_table "sailing_diaries", force: :cascade do |t|
+  create_table "sailing_diaries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.text     "body",       limit: 65535
-    t.integer  "user_id",    limit: 4,     null: false
-    t.integer  "canoe_id",   limit: 4,     null: false
+    t.integer  "user_id",                  null: false
+    t.integer  "canoe_id",                 null: false
     t.date     "sailed_on"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.index ["canoe_id", "user_id", "sailed_on"], name: "index_sailing_diaries_on_canoe_id_and_user_id_and_sailed_on", unique: true, using: :btree
   end
 
-  add_index "sailing_diaries", ["canoe_id", "user_id", "sailed_on"], name: "index_sailing_diaries_on_canoe_id_and_user_id_and_sailed_on", unique: true, using: :btree
-
-  create_table "users", force: :cascade do |t|
-    t.string   "email",               limit: 255, default: "", null: false
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.string   "email",               default: "", null: false
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",       limit: 4,   default: 0,  null: false
+    t.integer  "sign_in_count",       default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",  limit: 255
-    t.string   "last_sign_in_ip",     limit: 255
-    t.string   "provider",            limit: 255,              null: false
-    t.string   "uid",                 limit: 255,              null: false
-    t.string   "image",               limit: 255
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.string   "nickname",            limit: 255,              null: false
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "provider",                         null: false
+    t.string   "uid",                              null: false
+    t.string   "image"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "nickname",                         null: false
+    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true, using: :btree
   end
-
-  add_index "users", ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true, using: :btree
 
 end
