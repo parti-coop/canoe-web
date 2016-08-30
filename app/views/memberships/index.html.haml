@@ -1,0 +1,21 @@
+.container-fluid
+  .row
+    .col-sm-3.col-md-2.sidebar
+      = render 'canoes/sidebar'
+
+    .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+      .page-header
+        %h2
+          Members
+
+      %ul.list-unstyled
+        - @memberships.each do |membership|
+          %li[membership]
+            = membership.inspect
+
+      .page-header
+        %h3 Boarding Requests
+      %ul.list-unstyled
+        - @boarding_requests.each do |boarding_request|
+          %li[boarding_request]
+            = boarding_request.inspect

@@ -15,10 +15,12 @@ Rails.application.routes.draw do
     shallow do
       resources :discussions
       resources :sailing_diaries
+      resources :memberships
     end
   end
   resources :boarding_requests
   resources :opinions
+
   unless Rails.env.production?
     get 'kill_me', to: 'users#kill_me'
   end
