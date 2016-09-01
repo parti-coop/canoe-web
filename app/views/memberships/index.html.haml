@@ -11,11 +11,11 @@
       %ul.list-unstyled
         - @memberships.each do |membership|
           %li[membership]
-            = membership.inspect
+            = byline membership.user
 
       .page-header
         %h3 Boarding Requests
       %ul.list-unstyled
         - @boarding_requests.each do |boarding_request|
           %li[boarding_request]
-            = boarding_request.inspect
+            = render boarding_request

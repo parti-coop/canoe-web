@@ -9,3 +9,8 @@ ko:
     format: "%{message}"
     messages:
       invalid_auth_token: 로그인한지 너무 오래 되셨네요. 다시 시도해 주세요.
+  activerecord:
+    errors:
+      models:
+        boarding_request:
+          invalid: 잘못 처리되어 승인 할 수 없는 요청입니다.

@@ -18,7 +18,11 @@ Rails.application.routes.draw do
       resources :memberships
     end
   end
-  resources :boarding_requests
+  resources :boarding_requests do
+    member do
+      post 'accept'
+    end
+  end
   resources :opinions
 
   unless Rails.env.production?

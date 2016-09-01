@@ -1,0 +1,10 @@
+.boarding_request
+  %span.boarding_requests__user
+    = render 'users/thumbnail', user: boarding_request.user
+    = boarding_request.user.nickname
+  %span.boarding_requests__created_at
+    = date_f boarding_request.created_at
+  - if can? :accept, boarding_request
+    %span.boarding_requests__accept_btn
+      = link_to accept_boarding_request_path(boarding_request), method: :post, class: 'btn btn-default' do
+        승인

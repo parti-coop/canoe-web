@@ -14,4 +14,14 @@ class Canoe < ApplicationRecord
   def boarding_requested?(someone)
     boarding_requests.exists?(user: someone)
   end
+
+  def receivable_boarding_request?(someone)
+    !someone.blank? and
+    !member?(someone) and
+    !boarding_requested?(someone)
+  end
+
+  def join(someone)
+    memberships.build(user: someone)
+  end
 end

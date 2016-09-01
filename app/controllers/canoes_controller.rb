@@ -1,5 +1,5 @@
 class CanoesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:create]
   load_and_authorize_resource
 
   def index
@@ -8,7 +8,7 @@ class CanoesController < ApplicationController
 
   def create
     @canoe.user = current_user
-    @canoe.memberships.build(user: current_user)
+    @canoe.join(current_user)
     @canoe.save
 
     redirect_to @canoe

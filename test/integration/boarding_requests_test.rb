@@ -31,4 +31,14 @@ class BoardingRequestsTest < ActionDispatch::IntegrationTest
 
     refute assigns(:boarding_request).persisted?
   end
+
+  test '가입을 허가합니다' do
+    refute canoes(:canoe1).member? users(:three)
+
+    sign_in(users(:one))
+
+    post accept_boarding_request_path(boarding_requests(:boarding_request1))
+
+    assert canoes(:canoe1).reload.member? users(:three)
+  end
 end

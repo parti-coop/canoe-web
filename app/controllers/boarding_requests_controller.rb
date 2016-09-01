@@ -13,5 +13,19 @@ class BoardingRequestsController < ApplicationController
 
     redirect_to @canoe
   end
+
+  def accept
+    unless @boarding_request.acceptable?
+      redirect_to @boarding_request.canoe, alert: t('activerecord.errors.models.boarding_request.invalid') and return
+    end
+
+    ActiveRecord::Base.transaction do
+      @boarding_request.accept
+      if @boarding_request.canoe.save
+        @boarding_request.destroy
+      end
+    end
+    redirect_to @boarding_request.canoe
+  end
 end
 

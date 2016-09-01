@@ -16,7 +16,7 @@
           - if user_signed_in?
             %li
               = link_to edit_user_registration_path do
-                = render 'users/image'
+                = render 'users/thumbnail'
                 = current_user.nickname
             %li
               = link_to sign_out_path, method: :delete do
