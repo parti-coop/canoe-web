@@ -11,7 +11,7 @@ class Ability
       end
 
       can :destroy, BoardingRequest do |br|
-        user == model.user
+        user == br.user
       end
       can :accept, BoardingRequest do |br|
         br.canoe.member? user

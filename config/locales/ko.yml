@@ -14,3 +14,5 @@ ko:
       models:
         boarding_request:
           invalid: 잘못 처리되어 승인 할 수 없는 요청입니다.
+  application:
+    delete_confirm: 삭제하시겠습니까? 되돌릴 수 없습니다.

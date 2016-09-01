@@ -14,6 +14,11 @@ class BoardingRequestsController < ApplicationController
     redirect_to @canoe
   end
 
+  def destroy
+    @boarding_request.destroy
+    redirect_back fallback_location: @boarding_request.canoe
+  end
+
   def accept
     unless @boarding_request.acceptable?
       redirect_to @boarding_request.canoe, alert: t('activerecord.errors.models.boarding_request.invalid') and return

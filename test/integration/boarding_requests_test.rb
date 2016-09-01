@@ -41,4 +41,13 @@ class BoardingRequestsTest < ActionDispatch::IntegrationTest
 
     assert canoes(:canoe1).reload.member? users(:three)
   end
+
+  test '가입 신청을 취소합니다' do
+    assert canoes(:canoe1).boarding_requested? users(:three)
+
+    sign_in(users(:three))
+    delete boarding_request_path(boarding_requests(:boarding_request1))
+
+    refute canoes(:canoe1).boarding_requested? users(:three)
+  end
 end

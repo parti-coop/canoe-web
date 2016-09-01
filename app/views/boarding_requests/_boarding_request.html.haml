@@ -8,3 +8,7 @@
     %span.boarding_requests__accept_btn
       = link_to accept_boarding_request_path(boarding_request), method: :post, class: 'btn btn-default' do
         승인
+  - if can? :destroy, boarding_request
+    %span.boarding_requests__accept_btn
+      = link_to boarding_request, method: :delete, class: 'btn btn-default', data: {confirm: t('application.delete_confirm')} do
+        취소
