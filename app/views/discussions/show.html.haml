@@ -5,11 +5,16 @@
 
     .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
       .page-header
-        %h2
+        %h3
           논의 - #{@discussion.title}
-          %small.pull-right
-            = link_to '수정', [:edit, @discussion], class: 'btn btn-primary'
-            = link_to '삭제', @discussion, class: 'btn btn-primary'
+
+      .text-muted
+        = link_to @discussion.user.nickname, @discussion.user
+        = @discussion.created_at
+        = link_to '수정', [:edit, @discussion], class: 'text-danger'
+        = link_to '삭제', @discussion, class: 'text-danger'
+
+      %hr
 
       %div
         = simple_format @discussion.body
@@ -20,11 +25,11 @@
         %ul.list-unstyled
           - @discussion.opinions.each do |opinion|
             %li[opinion]
-              %p= simple_format opinion.body
-              %div
+              .text-muted
                 = link_to opinion.user.nickname, opinion.user
                 = opinion.created_at
                 = link_to '삭제', opinion, method: :delete, class: 'text-danger'
+              %div= simple_format opinion.body
               %hr
 
         = form_for Opinion.new do |f|

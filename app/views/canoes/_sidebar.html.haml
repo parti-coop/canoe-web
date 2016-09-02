@@ -12,7 +12,9 @@
 
 %ul.nav.nav-sidebar
   %li
-    = link_to 'Discussions', canoe_discussions_path(@canoe)
+    = link_to canoe_discussions_path(@canoe) do
+      Discussions
+      %span.count= @canoe.discussions.count
   %li
     %a{:href => "#"} Votes
   %li
