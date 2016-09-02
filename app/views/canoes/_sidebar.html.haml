@@ -17,9 +17,12 @@
       Discussions
       %span.count= @canoe.discussions.count
   %li
-    %a{:href => "#"} Votes
+    %a{:href => "#"}
+      Proposals
   %li
-    = link_to 'Sailing Diaries', canoe_sailing_diaries_path(@canoe)
+    = link_to canoe_sailing_diaries_path(@canoe) do
+      Sailing Diaries
+      %span.count= @canoe.sailing_diaries.count
   %li
     %a{:href => "#"} Wiki
   %li

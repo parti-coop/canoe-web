@@ -13,12 +13,12 @@
           %section
             %h3 Recent Discussions
             %div
-              = render @canoe.discussions.limit(10)
+              = render @canoe.discussions.recent.limit(10)
 
           %section
             %h3 Recent Sailing Diaries
             %div
-              = render @canoe.sailing_diaries.limit(10)
+              = render @canoe.sailing_diaries.recent.limit(10)
 
         .col-sm-6
           - if @canoe.member? current_user
