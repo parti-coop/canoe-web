@@ -3,7 +3,8 @@ class SailingDiariesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @sailing_diaries = @canoe.sailing_diaries.order("sailed_on DESC")
+    @sailing_diaries = @canoe.sailing_diaries.recent
+    @sailing_diary = SailingDiary.new
   end
 
   def new
