@@ -25,3 +25,6 @@
     = link_to canoe_memberships_path(@canoe) do
       Members
       %span.count= @canoe.memberships.count
+  %li
+    = link_to [:edit, @canoe] do
+      Setting
