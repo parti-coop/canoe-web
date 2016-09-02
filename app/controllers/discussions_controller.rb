@@ -1,6 +1,8 @@
 class DiscussionsController < ApplicationController
   load_and_authorize_resource
 
+  layout 'canoe'
+
   def index
     @canoe = find_canoe
     @discussions = @canoe.discussions.order("id DESC")

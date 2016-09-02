@@ -1,28 +1,21 @@
-.container-fluid
-  .row
-    .col-sm-3.col-md-2.sidebar
-      = render 'canoes/sidebar'
+.well
+  = simple_format @canoe.body
 
-    .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+.row
+  .col-sm-6
+    %section
+      %h3 Recent Discussions
+      %div
+        = render @canoe.discussions.recent.limit(10)
 
-      .well
-        = simple_format @canoe.body
+    %section
+      %h3 Recent Sailing Diaries
+      %div
+        = render @canoe.sailing_diaries.recent.limit(10)
 
-      .row
-        .col-sm-6
-          %section
-            %h3 Recent Discussions
-            %div
-              = render @canoe.discussions.recent.limit(10)
-
-          %section
-            %h3 Recent Sailing Diaries
-            %div
-              = render @canoe.sailing_diaries.recent.limit(10)
-
-        .col-sm-6
-          - if @canoe.member? current_user
-            .boarding_requests
-              %h3 Boarding Requests
-              - @canoe.boarding_requests.recent.each do |boarding_request|
-                = render boarding_request
+  .col-sm-6
+    - if @canoe.member? current_user
+      .boarding_requests
+        %h3 Boarding Requests
+        - @canoe.boarding_requests.recent.each do |boarding_request|
+          = render boarding_request

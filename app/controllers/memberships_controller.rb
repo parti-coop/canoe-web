@@ -2,6 +2,8 @@ class MembershipsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
 
+  layout 'canoe'
+
   def index
     @canoe = Canoe.find(params[:canoe_id])
     @memberships = @canoe.memberships

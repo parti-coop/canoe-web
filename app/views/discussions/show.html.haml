@@ -1,55 +1,49 @@
-.container-fluid
-  .row
-    .col-sm-3.col-md-2.sidebar
-      = render 'canoes/sidebar'
+.page-header
+  %h3
+    논의 - #{@discussion.title}
 
-    .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
-      .page-header
-        %h3
-          논의 - #{@discussion.title}
+.text-muted
+  = link_to @discussion.user.nickname, @discussion.user
+  = @discussion.created_at
+  = link_to '수정', [:edit, @discussion], class: 'text-danger'
+  = link_to '삭제', @discussion, class: 'text-danger'
 
-      .text-muted
-        = link_to @discussion.user.nickname, @discussion.user
-        = @discussion.created_at
-        = link_to '수정', [:edit, @discussion], class: 'text-danger'
-        = link_to '삭제', @discussion, class: 'text-danger'
+%hr
 
-      %hr
+%div
+  = simple_format @discussion.body
 
-      %div
-        = simple_format @discussion.body
+%hr
 
-      %hr
+%section
+  = render @discussion.proposal_requests
 
-      %section
-        = render @discussion.proposal_requests
+  .alert.alert-warning
+    - if @discussion.proposal_requests.empty?
+      %p.help-text 논의가 충분히 진행되면 제안을 받기 시작하세요.
 
-        .alert.alert-warning
-          - if @discussion.proposal_requests.empty?
-            %p.help-text 논의가 충분히 진행되면 제안을 받기 시작하세요.
+    = form_for [@discussion, ProposalRequest.new] do |f|
+      .form-group
+        = f.text_field :title, placeholder: '제안 받을 내용을 적으세요', class: 'form-control'
+      .form-group
+        = f.submit class: 'btn btn-primary'
 
-          = form_for [@discussion, ProposalRequest.new] do |f|
-            .form-group
-              = f.text_field :title, placeholder: '제안 받을 내용을 적으세요', class: 'form-control'
-            .form-group
-              = f.submit class: 'btn btn-primary'
+%hr
 
-      %hr
+%div
+  %ul.list-unstyled
+    - @discussion.opinions.each do |opinion|
+      %li[opinion]
+        .text-muted
+          = link_to opinion.user.nickname, opinion.user
+          = opinion.created_at
+          = link_to '삭제', opinion, method: :delete, class: 'text-danger'
+        %div= simple_format opinion.body
+        %hr
 
-      %div
-        %ul.list-unstyled
-          - @discussion.opinions.each do |opinion|
-            %li[opinion]
-              .text-muted
-                = link_to opinion.user.nickname, opinion.user
-                = opinion.created_at
-                = link_to '삭제', opinion, method: :delete, class: 'text-danger'
-              %div= simple_format opinion.body
-              %hr
-
-        = form_for Opinion.new do |f|
-          = f.hidden_field :discussion_id, value: @discussion.id
-          .form-group
-            = f.text_area :body, class: 'form-control'
-          .form-group
-            = f.submit class: 'btn btn-primary'
+  = form_for Opinion.new do |f|
+    = f.hidden_field :discussion_id, value: @discussion.id
+    .form-group
+      = f.text_area :body, class: 'form-control'
+    .form-group
+      = f.submit class: 'btn btn-primary'

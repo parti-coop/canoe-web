@@ -2,6 +2,8 @@ class SailingDiariesController < ApplicationController
   before_action :load_canoe
   load_and_authorize_resource
 
+  layout 'canoe'
+
   def index
     @sailing_diaries = @canoe.sailing_diaries.recent
     @sailing_diary = SailingDiary.new

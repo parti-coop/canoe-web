@@ -6,6 +6,10 @@ class CanoesController < ApplicationController
     @canoes = Canoe.order(:title)
   end
 
+  def show
+    render layout: 'canoe'
+  end
+
   def new
     @canoe = Canoe.new
   end
@@ -20,6 +24,7 @@ class CanoesController < ApplicationController
 
   def edit
     @canoe = Canoe.find(params[:id])
+    render layout: 'canoe'
   end
 
   def update

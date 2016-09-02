@@ -1,14 +1,8 @@
-.container-fluid
-  .row
-    .col-sm-3.col-md-2.sidebar
-      = render 'canoes/sidebar'
+.page-header
+  %h2
+    논의
+    %small.pull-right
+      = link_to '쓰기', new_canoe_discussion_path, class: 'btn btn-primary'
 
-    .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
-      .page-header
-        %h2
-          논의
-          %small.pull-right
-            = link_to '쓰기', new_canoe_discussion_path, class: 'btn btn-primary'
-
-      %section
-        = render @discussions
+%section
+  = render @discussions
