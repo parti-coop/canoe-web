@@ -1,7 +1,8 @@
 %ul.nav.nav-sidebar
   %li
     = link_to @canoe do
-      = image_tag @canoe.logo_url, style: 'width: 100%; height: 150px;'
+      = image_tag @canoe.logo_url, style: 'width: 100%;'
+      %h3= @canoe.title
 
     - if @canoe.receivable_boarding_request? current_user
       %div{ style: 'padding: 0 20px;' }

@@ -1,0 +1,7 @@
+%div[sailing_diary]
+  %h4= sailing_diary.body
+  %div
+    = sailing_diary.user.nickname
+    = sailing_diary.sailed_on
+    = link_to '수정', [:edit, sailing_diary], class: 'text-danger'
+    = link_to '삭제', sailing_diary, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'text-danger'

@@ -10,12 +10,5 @@
           %small.pull-right
             = link_to '쓰기', new_canoe_sailing_diary_path, class: 'btn btn-primary'
 
-      %ul.list-unstyled
-        - @sailing_diaries.each do |diary|
-          %li[diary]
-            %h4= diary.body
-            %div
-              = diary.user.nickname
-              = diary.sailed_on
-              = link_to '수정', [:edit, diary]
-              = link_to '삭제', diary, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
+      %div
+        = render @sailing_diaries

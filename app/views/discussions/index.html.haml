@@ -10,12 +10,5 @@
           %small.pull-right
             = link_to '쓰기', new_canoe_discussion_path, class: 'btn btn-primary'
 
-      %ul.list-unstyled
-        - @discussions.each do |discussion|
-          %li[discussion]
-            %h4= link_to discussion.title, discussion
-            %div
-              = discussion.user.nickname
-              = link_to '수정', [:edit, discussion]
-              = link_to '삭제', discussion, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }
-              = discussion.created_at
+      %section
+        = render @discussions
