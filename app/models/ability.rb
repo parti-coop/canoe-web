@@ -4,9 +4,9 @@ class Ability
   def initialize(user)
     can :read, :all
     if user
-      can :create, [Canoe, SailingDiary, BoardingRequest, Discussion, Opinion]
+      can :create, [Canoe, SailingDiary, BoardingRequest, Discussion, Opinion, ProposalRequest, Proposal]
 
-      can [:destroy, :update], [Canoe, SailingDiary, Discussion, Opinion] do |model|
+      can [:destroy, :update], [Canoe, SailingDiary, Discussion, Opinion, ProposalRequest, Proposal] do |model|
         user == model.user
       end
 

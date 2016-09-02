@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   resources :users
   resources :canoes do
     shallow do
-      resources :discussions
+      resources :discussions do
+        resources :proposal_requests
+      end
       resources :sailing_diaries
       resources :memberships
     end
@@ -24,6 +26,7 @@ Rails.application.routes.draw do
     end
   end
   resources :opinions
+  resources :proposals
 
   unless Rails.env.production?
     get 'kill_me', to: 'users#kill_me'

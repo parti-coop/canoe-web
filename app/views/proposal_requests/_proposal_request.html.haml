@@ -1,0 +1,26 @@
+.alert.alert-warning
+  %div[proposal_request]
+    %h4= proposal_request.title
+
+    %ul.media-list
+      - proposal_request.proposals.each do |proposal|
+        %li.media
+          .media-left
+            = link_to '동의', '', class: 'btn btn-default'
+            = link_to '반대', '', class: 'btn btn-default'
+          .media-body
+            %h5= proposal.title
+            .text-muted
+              = proposal.user.nickname
+              = link_to '삭제', proposal, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'text-danger'
+
+      %li.media
+        = form_for Proposal.new do |f|
+          = f.hidden_field :proposal_request_id, value: proposal_request.id
+          .media-body
+            .form-group
+              = f.text_field :title, placeholder: '새로운 제안을 남기세요', class: 'form-control'
+          .media-right
+            .form-group
+              = f.submit class: 'btn btn-primary'
+

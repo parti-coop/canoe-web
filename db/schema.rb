@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160829041843) do
+ActiveRecord::Schema.define(version: 20160902055928) do
 
   create_table "boarding_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.integer  "user_id",     null: false
@@ -60,6 +60,26 @@ ActiveRecord::Schema.define(version: 20160829041843) do
     t.datetime "updated_at",                  null: false
     t.index ["discussion_id"], name: "index_opinions_on_discussion_id", using: :btree
     t.index ["user_id"], name: "index_opinions_on_user_id", using: :btree
+  end
+
+  create_table "proposal_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.text     "title",         limit: 65535
+    t.integer  "user_id",                     null: false
+    t.integer  "discussion_id",               null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["discussion_id"], name: "index_proposal_requests_on_discussion_id", using: :btree
+    t.index ["user_id"], name: "index_proposal_requests_on_user_id", using: :btree
+  end
+
+  create_table "proposals", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.string   "title"
+    t.integer  "user_id",             null: false
+    t.integer  "proposal_request_id", null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["proposal_request_id"], name: "index_proposals_on_proposal_request_id", using: :btree
+    t.index ["user_id"], name: "index_proposals_on_user_id", using: :btree
   end
 
   create_table "sailing_diaries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
