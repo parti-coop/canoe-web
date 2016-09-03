@@ -26,7 +26,12 @@ Rails.application.routes.draw do
     end
   end
   resources :opinions
-  resources :proposals
+  resources :proposals do
+    member do
+      post 'agree', to: 'votes#agree'
+      post 'block', to: 'votes#block'
+    end
+  end
 
   unless Rails.env.production?
     get 'kill_me', to: 'users#kill_me'

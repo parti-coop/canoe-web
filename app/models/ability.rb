@@ -4,7 +4,10 @@ class Ability
   def initialize(user)
     can :read, :all
     if user
-      can :create, [Canoe, SailingDiary, BoardingRequest, Discussion, Opinion, ProposalRequest, Proposal]
+      can :create, [Canoe, BoardingRequest]
+      can :create, [SailingDiary, Discussion, Opinion, ProposalRequest, Proposal, Vote] do |model|
+        model.canoe.member? user
+      end
 
       can [:destroy, :update], [Canoe, SailingDiary, Discussion, Opinion, ProposalRequest, Proposal] do |model|
         user == model.user
@@ -15,6 +18,10 @@ class Ability
       end
       can :accept, BoardingRequest do |br|
         br.canoe.member? user
+      end
+
+      can [:agree, :block, :vote], Proposal do |proposal|
+        proposal.canoe.member?(user)
       end
     end
   end

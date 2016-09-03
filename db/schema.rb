@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902055928) do
+ActiveRecord::Schema.define(version: 20160903010306) do
 
   create_table "boarding_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.integer  "user_id",     null: false
@@ -74,10 +74,12 @@ ActiveRecord::Schema.define(version: 20160902055928) do
 
   create_table "proposals", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.string   "title"
-    t.integer  "user_id",             null: false
-    t.integer  "proposal_request_id", null: false
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.integer  "user_id",                         null: false
+    t.integer  "proposal_request_id",             null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "agree_votes_count",   default: 0
+    t.integer  "block_votes_count",   default: 0
     t.index ["proposal_request_id"], name: "index_proposals_on_proposal_request_id", using: :btree
     t.index ["user_id"], name: "index_proposals_on_user_id", using: :btree
   end
@@ -107,6 +109,15 @@ ActiveRecord::Schema.define(version: 20160902055928) do
     t.datetime "updated_at",                       null: false
     t.string   "nickname",                         null: false
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true, using: :btree
+  end
+
+  create_table "votes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.integer "proposal_id", null: false
+    t.integer "user_id",     null: false
+    t.string  "choice",      null: false
+    t.index ["proposal_id", "user_id"], name: "index_votes_on_proposal_id_and_user_id", unique: true, using: :btree
+    t.index ["proposal_id"], name: "index_votes_on_proposal_id", using: :btree
+    t.index ["user_id"], name: "index_votes_on_user_id", using: :btree
   end
 
 end

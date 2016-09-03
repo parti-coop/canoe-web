@@ -4,16 +4,31 @@
 
     %ul.media-list
       - proposal_request.proposals.each do |proposal|
-        %li.media
-          .media-left
-            = link_to '동의', '', class: 'btn btn-default'
-            = link_to '반대', '', class: 'btn btn-default'
-          .media-body
-            %h5= proposal.title
-            .text-muted
-              = proposal.user.nickname
-              = link_to '삭제', proposal, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'text-danger'
-
+        %li
+          .media
+            - if can? :vote, proposal
+              .media-left
+                = link_to agree_proposal_path(proposal), method: :post, class: 'btn btn-default' do
+                  = Vote.choice.agree.text
+                  = proposal.agree_votes_count
+                = link_to block_proposal_path(proposal), method: :post, class: 'btn btn-default' do
+                  = Vote.choice.block.text
+                  = proposal.block_votes_count
+            .media-body
+              %h5= proposal.title
+              .text-muted
+                = proposal.user.nickname
+                = link_to '삭제', proposal, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'text-danger'
+          %a{"data-toggle": "collapse", href: "##{dom_id(proposal)}__voted_users", role: "button"}
+            투표 현황 &gt;
+          .collapse{id: "#{dom_id(proposal)}__voted_users"}
+            %ul
+              %li
+                = Vote.choice.agree.text
+                = render partial: 'users/byline', collection: proposal.agreeing_users, as: :user
+              %li
+                = Vote.choice.block.text
+                = render partial: 'users/byline', collection: proposal.blocking_users, as: :user
       %li.media
         = form_for Proposal.new do |f|
           = f.hidden_field :proposal_request_id, value: proposal_request.id

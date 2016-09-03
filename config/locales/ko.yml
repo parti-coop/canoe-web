@@ -16,3 +16,8 @@ ko:
           invalid: 잘못 처리되어 승인 할 수 없는 요청입니다.
   application:
     delete_confirm: 삭제하시겠습니까? 되돌릴 수 없습니다.
+  enumerize:
+    vote:
+      choice:
+        agree: 동의
+        block: 반대

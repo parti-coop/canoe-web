@@ -1,11 +1,5 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  title: MyText
+proposal_request1:
+  title: proposal_request1
   user: one
-  discussion: one
+  discussion: discussion1
 
-two:
-  title: MyText
-  user: two
-  discussion: two
