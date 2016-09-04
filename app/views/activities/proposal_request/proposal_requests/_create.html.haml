@@ -1,0 +1,5 @@
+- proposal_request = activity.trackable
+.text-muted
+  = activity.created_at
+%div
+  #{byline proposal_request.user}님이 "#{proposal_request.title}" 제안요청을 합니다.

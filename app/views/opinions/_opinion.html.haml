@@ -1,0 +1,7 @@
+.panel.panel-warning
+  .panel-heading
+    .text-muted
+      = byline opinion.user
+      = opinion.created_at
+      = link_to '삭제', opinion, method: :delete, class: 'text-danger'
+    %div= simple_format opinion.body

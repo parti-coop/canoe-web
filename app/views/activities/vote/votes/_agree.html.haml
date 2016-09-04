@@ -1,0 +1,8 @@
+- vote = activity.trackable
+- proposal = vote.proposal
+- proposal_request = proposal.proposal_request
+.text-muted
+  = activity.created_at
+  제안 "#{proposal_request.title}"
+%div
+  #{byline vote.user}님이 "#{proposal.title}" 제안에 동의합니다.

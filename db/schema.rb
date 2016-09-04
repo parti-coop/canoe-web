@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160903010306) do
+ActiveRecord::Schema.define(version: 20160903231546) do
+
+  create_table "activities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.integer  "user_id",        null: false
+    t.string   "trackable_type", null: false
+    t.integer  "trackable_id",   null: false
+    t.integer  "discussion_id",  null: false
+    t.string   "action",         null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["discussion_id"], name: "index_activities_on_discussion_id", using: :btree
+    t.index ["trackable_type", "trackable_id"], name: "index_activities_on_trackable_type_and_trackable_id", using: :btree
+    t.index ["user_id"], name: "index_activities_on_user_id", using: :btree
+  end
 
   create_table "boarding_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.integer  "user_id",     null: false
@@ -112,9 +125,11 @@ ActiveRecord::Schema.define(version: 20160903010306) do
   end
 
   create_table "votes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
-    t.integer "proposal_id", null: false
-    t.integer "user_id",     null: false
-    t.string  "choice",      null: false
+    t.integer  "proposal_id", null: false
+    t.integer  "user_id",     null: false
+    t.string   "choice",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.index ["proposal_id", "user_id"], name: "index_votes_on_proposal_id_and_user_id", unique: true, using: :btree
     t.index ["proposal_id"], name: "index_votes_on_proposal_id", using: :btree
     t.index ["user_id"], name: "index_votes_on_user_id", using: :btree

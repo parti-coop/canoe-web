@@ -1,9 +1,13 @@
 class OpinionsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :discussion
+  load_and_authorize_resource through: :discussion, shallow: true
 
   def create
-    @opinion.user = current_user
-    @opinion.save
+    ActiveRecord::Base.transaction do
+      @opinion.user = current_user
+      @opinion.track(self)
+      @opinion.save
+    end
     redirect_to @opinion.discussion
   end
 

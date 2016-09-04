@@ -2,6 +2,6 @@
   %h2
     논의
     %small.pull-right
-      = link_to '쓰기', new_canoe_discussion_path, class: 'btn btn-primary'
+      = link_to '쓰기', new_canoe_discussion_path(canoe_id: @canoe), class: 'btn btn-primary'
 
 = render 'form'

@@ -1,7 +1,10 @@
 class Vote < ApplicationRecord
+  include Trackable
+
+  belongs_to :user
   belongs_to :proposal
   counter_culture :proposal, column_name: proc {|vote| "#{vote.choice}_votes_count" }
-  belongs_to :user
+  has_one :discussion, through: :proposal
   has_one :canoe, through: :proposal
 
   validates :choice, presence: true

@@ -14,12 +14,13 @@ class VotesController < ApplicationController
 
   def vote(choice)
     if @proposal.voted_by? current_user
-      vote = @proposal.vote_of(current_user)
-      vote.choice = choice
+      @vote = @proposal.vote_of(current_user)
+      @vote.choice = choice
     else
-      vote = @proposal.votes.build(choice: choice, user: current_user)
+      @vote = @proposal.votes.build(choice: choice, user: current_user)
     end
-    vote.save
+    @vote.track(self) if @vote.changed? or @vote.new_record?
+    @vote.save
     redirect_back fallback_location: @proposal.canoe
   end
 end

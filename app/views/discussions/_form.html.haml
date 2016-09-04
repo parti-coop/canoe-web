@@ -1,4 +1,4 @@
-= form_for [@canoe, @discussion] do |f|
+= form_for (@discussion.new_record? ? [@canoe, @discussion] : @discussion) do |f|
   .form-group
     = f.label :title
     = f.text_field :title, class: 'form-control'

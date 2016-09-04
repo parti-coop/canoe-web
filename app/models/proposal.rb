@@ -1,6 +1,9 @@
 class Proposal < ApplicationRecord
+  include Trackable
+
   belongs_to :user
   belongs_to :proposal_request
+  has_one :discussion, through: :proposal_request
   has_one :canoe, through: :proposal_request
   has_many :votes, dependent: :destroy
   has_many :agree_votes, -> { where choice: :agree }, class_name: 'Vote'

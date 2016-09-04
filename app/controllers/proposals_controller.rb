@@ -4,14 +4,15 @@ class ProposalsController < ApplicationController
   def create
     @proposal = Proposal.new(proposal_params)
     @proposal.user = current_user
+    @proposal.track(self)
     @proposal.save
-    redirect_to :back
+    redirect_back fallback_location: @discussion
   end
 
   def destroy
     @proposal = Proposal.find(params[:id])
     @proposal.destroy
-    redirect_to :back
+    redirect_back fallback_location: @discussion
   end
 
   private

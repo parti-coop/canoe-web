@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     shallow do
       resources :discussions do
         resources :proposal_requests
+        resources :opinions
       end
       resources :sailing_diaries
       resources :memberships
@@ -25,7 +26,6 @@ Rails.application.routes.draw do
       post 'accept'
     end
   end
-  resources :opinions
   resources :proposals do
     member do
       post 'agree', to: 'votes#agree'

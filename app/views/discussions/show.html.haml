@@ -18,23 +18,18 @@
 .row
   .col-xs-12.col-md-6
     %div
-      %h4= Opinion.model_name.human
-      %ul.list-unstyled
-        - @discussion.opinions.each do |opinion|
-          %li[opinion]
-            .text-muted
-              = link_to opinion.user.nickname, opinion.user
-              = opinion.created_at
-              = link_to '삭제', opinion, method: :delete, class: 'text-danger'
-            %div= simple_format opinion.body
-            %hr
-
-      = form_for Opinion.new do |f|
-        = f.hidden_field :discussion_id, value: @discussion.id
+      %h4= t('label.timeline')
+      = form_for [@discussion, Opinion.new] do |f|
         .form-group
           = f.text_area :body, class: 'form-control'
         .form-group
           = f.submit class: 'btn btn-primary'
+      %ul.list-unstyled
+        - @discussion.activities.recent.each do |activity|
+          %li[activity]
+            = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
+            %hr
+
   .col-xs-12.col-md-6
     %section
       %h4= ProposalRequest.model_name.human
