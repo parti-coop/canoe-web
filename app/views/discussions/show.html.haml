@@ -41,7 +41,7 @@
         .media
           = form_for [@discussion, ProposalRequest.new] do |f|
             .media-left
-              = byline current_user
+              = render 'users/thumbnail', user: current_user
             .media-body
               .form-group
                 = f.text_field :title, placeholder: '새롭게 제안 받을 내용을 적으세요', class: 'form-control input-lg'
