@@ -1,11 +1,12 @@
-.alert.alert-warning
-  %div[proposal_request]
-    %h4{ style: 'margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #faebcc' }
+.panel.panel-warning[proposal_request]
+  .panel-heading
+    %h4.panel-title
       = byline proposal_request.user
       \-
       = proposal_request.title
 
 
+  .panel-body
     %ul.media-list
       - proposal_request.proposals.each do |proposal|
         %li
