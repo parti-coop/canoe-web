@@ -14,6 +14,11 @@ Rails.application.routes.draw do
   resources :canoes do
     shallow do
       resources :discussions do
+        member do
+          get :edit_consensus
+          patch :consensus
+        end
+        resources :consensus_revisions
         resources :proposal_requests
         resources :opinions
       end

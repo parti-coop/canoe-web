@@ -13,6 +13,10 @@ class Ability
         user == model.user
       end
 
+      can [:consensus, :edit_consensus], Discussion do |model|
+        model.canoe.member? user
+      end
+
       can :destroy, BoardingRequest do |br|
         user == br.user
       end

@@ -52,4 +52,15 @@ class ActivitiesTest < ActionDispatch::IntegrationTest
       post block_proposal_path(proposals('proposal1'))
     end
   end
+
+  test '합의사항이 작성되면 생겨요' do
+    sign_in users(:one)
+    patch consensus_discussion_path((discussions(:discussion1)), params: {discussion: {consensus: 'new consensus'}})
+
+    activity = Activity.find_by(trackable: assigns(:consensus_revision))
+    assert activity.present?
+    assert_equal activity.discussion, discussions(:discussion1)
+    assert_equal activity.action, 'discussions/consensus'
+    assert_equal activity.user, users(:one)
+  end
 end

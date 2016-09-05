@@ -1,4 +1,5 @@
 class OpinionsController < ApplicationController
+  before_action :authenticate_user!
   load_and_authorize_resource :discussion
   load_and_authorize_resource through: :discussion, shallow: true
 

@@ -34,15 +34,17 @@
               = link_to block_proposal_path(proposal), method: :post, class: 'btn btn-default' do
                 %i.fa.fa-ban
                 = proposal.block_votes_count
-    %li.list-group-item
-      = form_for Proposal.new do |f|
-        = f.hidden_field :proposal_request_id, value: proposal_request.id
-        .media-left
-          = render 'users/thumbnail', user: current_user
-        .media-body
-          .form-group
-            = f.text_field :title, placeholder: '새로운 제안을 남기세요', class: 'form-control'
-        .media-right
-          .form-group
-            = f.submit '추가', class: 'btn btn-primary'
+    - new_proposal = Proposal.new(proposal_request: proposal_request)
+    - if can? :create, new_proposal
+      %li.list-group-item
+        = form_for new_proposal do |f|
+          = f.hidden_field :proposal_request_id, value: proposal_request.id
+          .media-left
+            = render 'users/thumbnail'
+          .media-body
+            .form-group
+              = f.text_field :title, placeholder: '새로운 제안을 남기세요', class: 'form-control'
+          .media-right
+            .form-group
+              = f.submit '추가', class: 'btn btn-primary'
 

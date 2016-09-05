@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905060758) do
+ActiveRecord::Schema.define(version: 20160905065755) do
 
   create_table "activities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.integer  "user_id",        null: false
@@ -45,15 +45,34 @@ ActiveRecord::Schema.define(version: 20160905060758) do
     t.integer  "boarding_requests_count",               default: 0
   end
 
+  create_table "consensus_revisions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.integer  "discussion_id",               null: false
+    t.integer  "user_id",                     null: false
+    t.text     "body",          limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["discussion_id"], name: "index_consensus_revisions_on_discussion_id", using: :btree
+    t.index ["user_id"], name: "index_consensus_revisions_on_user_id", using: :btree
+  end
+
+  create_table "consensuses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.integer  "discussion_id",               null: false
+    t.text     "body",          limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["discussion_id"], name: "index_consensuses_on_discussion_id", using: :btree
+  end
+
   create_table "discussions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
-    t.integer  "user_id",                    null: false
-    t.integer  "canoe_id",                   null: false
+    t.integer  "user_id",                                  null: false
+    t.integer  "canoe_id",                                 null: false
     t.string   "title"
     t.string   "body"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "opinions_count", default: 0
-    t.datetime "stroked_at",                 null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.integer  "opinions_count",               default: 0
+    t.datetime "stroked_at",                               null: false
+    t.text     "consensus",      limit: 65535
     t.index ["canoe_id", "user_id"], name: "index_discussions_on_canoe_id_and_user_id", using: :btree
   end
 

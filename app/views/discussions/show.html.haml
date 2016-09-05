@@ -15,19 +15,45 @@
 
 %hr
 
+- if @discussion.consensus.present?
+  %div
+    %h4
+      = Discussion.human_attribute_name(:consensus)
+      %small
+        - if can? :consensus, @discussion
+          = link_to '수정하기', edit_consensus_discussion_path, class: 'text-danger'
+        = link_to '이력보기', discussion_consensus_revisions_path(@discussion), class: 'text-danger'
+
+    = simple_format @discussion.consensus
+
+    %div
+      - if @discussion.consensus_revisions.any?
+        마지막 수정 : #{byline @discussion.consensus_revisions.current.user} #{date_f @discussion.consensus_revisions.current.created_at}
+
+- else
+
+  %div
+    %span.text-muted 합의된 사항이 있나요?
+    = link_to edit_consensus_discussion_path, class: 'btn btn-primary' do
+      #{Discussion.human_attribute_name(:consensus)} 적기
+%hr
+
 .row
   .col-xs-12.col-md-6
     %div
       %h4= t('label.timeline')
-      = form_for [@discussion, Opinion.new] do |f|
-        .form-group
-          = f.text_area :body, class: 'form-control'
-        .form-group
-          = f.submit class: 'btn btn-primary'
-      %ul.list-unstyled
-        - @discussion.activities.recent.each do |activity|
-          %li[activity]
-            = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
+
+      - new_opinion = Opinion.new(discussion: @discussion)
+      - if can? :create, new_opinion
+        = form_for [@discussion, new_opinion] do |f|
+          .form-group
+            = f.text_area :body, class: 'form-control'
+          .form-group
+            = f.submit class: 'btn btn-primary'
+        %ul.list-unstyled
+          - @discussion.activities.recent.each do |activity|
+            %li[activity]
+              = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
 
   .col-xs-12.col-md-6
     %section
@@ -39,12 +65,14 @@
           %p.help-text 논의가 충분히 진행되면 제안을 받기 시작하세요.
 
         .media
-          = form_for [@discussion, ProposalRequest.new] do |f|
-            .media-left
-              = render 'users/thumbnail'
-            .media-body
-              .form-group
-                = f.text_field :title, placeholder: '새롭게 제안 받을 내용을 적으세요', class: 'form-control input-lg'
-            .media-right
-              .form-group
-                = f.submit '작성', class: 'btn btn-primary'
+          - new_pr = ProposalRequest.new(discussion: @discussion)
+          - if can? :create, new_pr
+            = form_for [@discussion, new_pr] do |f|
+              .media-left
+                = render 'users/thumbnail'
+              .media-body
+                .form-group
+                  = f.text_field :title, placeholder: '새롭게 제안 받을 내용을 적으세요', class: 'form-control input-lg'
+              .media-right
+                .form-group
+                  = f.submit '작성', class: 'btn btn-primary'

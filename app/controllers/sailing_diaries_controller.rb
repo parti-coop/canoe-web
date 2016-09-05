@@ -1,4 +1,5 @@
 class SailingDiariesController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
   before_action :load_canoe
   load_and_authorize_resource
 

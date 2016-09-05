@@ -1,0 +1,12 @@
+.page-header
+  %h3
+    = link_to @discussion do
+      논의 - #{@discussion.title}
+    &gt;
+    = Discussion.human_attribute_name(:consensus)
+
+= form_for [:consensus, @discussion] do |f|
+  .form-group
+    = f.text_area :consensus, class: 'form-control', rows: 30
+  .form-group
+    = f.submit '저장'

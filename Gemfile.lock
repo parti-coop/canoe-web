@@ -91,6 +91,7 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    diffy (3.1.0)
     domain_name (0.5.20160615)
       unf (>= 0.0.5, < 1.0.0)
     enumerize (2.0.0)
@@ -569,6 +570,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   counter_culture (~> 0.2.2)
   devise (~> 4.2)
+  diffy (~> 3.1)
   enumerize (~> 2.0)
   envyable (~> 0.2.0)
   exception_notification (~> 4.1, >= 4.1.4)

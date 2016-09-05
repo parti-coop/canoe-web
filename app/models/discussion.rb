@@ -6,6 +6,11 @@ class Discussion < ApplicationRecord
   has_many :opinions, dependent: :destroy
   has_many :proposal_requests, dependent: :destroy
   has_many :activities, dependent: :destroy
+  has_many :consensus_revisions, dependent: :destroy do
+    def current
+      order(id: :desc).first
+    end
+  end
 
   scope :recent, -> { order(stroked_at: :desc) }
 

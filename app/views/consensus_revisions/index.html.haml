@@ -1,0 +1,13 @@
+.page-header
+  %h3
+    = link_to @discussion do
+      논의 - #{@discussion.title}
+    &gt;
+    합의이력
+
+%ul.list-unstyled
+  - @discussion.consensus_revisions.recent.each do |revision|
+    %li
+      = link_to revision do
+        = byline revision.user
+        = date_f revision.created_at

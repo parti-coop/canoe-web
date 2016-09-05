@@ -1,0 +1,13 @@
+.page-header
+  %h3
+    = link_to @discussion do
+      논의 - #{@discussion.title}
+    &gt;
+    = link_to discussion_consensus_revisions_path(@discussion) do
+      합의이력
+
+- previous_version = @consensus_revision.previous_version
+- if previous_version.present?
+  = simple_format Diffy::Diff.new(previous_version.body, @consensus_revision.body, :include_plus_and_minus_in_html => true).to_s(:html)
+- else
+  = @consensus_revision.body
