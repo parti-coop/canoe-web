@@ -12,6 +12,8 @@ gem 'kaminari', '~> 0.16.3'
 gem 'scoped_search', '~> 3.2', '>= 3.2.2'
 gem 'enumerize', '~> 2.0'
 gem 'counter_culture', '~> 0.2.2'
+gem 'by_star', '~> 2.2', '>= 2.2.1'
+gem 'unread', '~> 0.8.2'
 
 # ui
 gem 'sass-rails', '~> 5.0'

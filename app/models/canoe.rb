@@ -24,4 +24,8 @@ class Canoe < ApplicationRecord
   def join(someone)
     memberships.build(user: someone)
   end
+
+  def unread?(someone)
+    discussions.unread_by(someone).any?
+  end
 end

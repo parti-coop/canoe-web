@@ -17,6 +17,9 @@
                 = link_to canoe do
                   = render 'canoes/thumbnail', canoe: canoe
                   = canoe.title
+                  %sup
+                    - if canoe.unread? current_user
+                      %i.fa.fa-circle
         %ul.nav.navbar-nav.navbar-right
           - if user_signed_in?
             %li

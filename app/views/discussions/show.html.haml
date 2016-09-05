@@ -4,7 +4,7 @@
 
 .text-muted
   = byline @discussion.user
-  = @discussion.created_at
+  #{date_f @discussion.created_at}부터
   = link_to '수정', [:edit, @discussion], class: 'text-danger'
   = link_to '삭제', @discussion, class: 'text-danger'
 
@@ -41,7 +41,7 @@
         .media
           = form_for [@discussion, ProposalRequest.new] do |f|
             .media-left
-              = render 'users/thumbnail', user: current_user
+              = render 'users/thumbnail'
             .media-body
               .form-group
                 = f.text_field :title, placeholder: '새롭게 제안 받을 내용을 적으세요', class: 'form-control input-lg'

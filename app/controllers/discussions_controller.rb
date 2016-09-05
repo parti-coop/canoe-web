@@ -9,8 +9,8 @@ class DiscussionsController < ApplicationController
   end
 
   def show
-    @dicussion = Discussion.find(params[:id])
     @canoe = @discussion.canoe
+    @discussion.mark_as_read! for: current_user if user_signed_in?
   end
 
   def create

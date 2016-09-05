@@ -1,6 +1,6 @@
 class BoardingRequest < ApplicationRecord
   belongs_to :user
-  belongs_to :canoe
+  belongs_to :canoe, counter_cache: true
 
   validates :user, presence: true, uniqueness: {scope: :canoe}
 

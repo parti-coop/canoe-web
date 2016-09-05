@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :registerable, :rememberable, :trackable, :omniauthable,
          :omniauth_providers => [:facebook, :twitter]
+  acts_as_reader
 
   has_many :memberships, dependent: :destroy
   has_many :boarding_canoes, through: :memberships, source: :canoe

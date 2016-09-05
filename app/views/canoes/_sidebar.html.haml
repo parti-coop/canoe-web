@@ -31,6 +31,9 @@
     = link_to canoe_memberships_path(@canoe) do
       Members
       %span.count= @canoe.memberships.count
+      - if @canoe.boarding_requests.any?
+        %div.text-danger
+          (Boarding Request #{@canoe.boarding_requests_count})
   %li
     = link_to [:edit, @canoe] do
       Setting

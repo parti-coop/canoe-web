@@ -6,15 +6,16 @@
     %section
       %h3 Recent Discussions
       %div
-        = render @canoe.discussions.recent.limit(10)
+        = render @canoe.discussions.recent.limit(10), show_recent_timeline: true
 
+  .col-sm-6
     %section
       %h3 Recent Sailing Diaries
       %div
         = render @canoe.sailing_diaries.recent.limit(10)
 
-  .col-sm-6
-    - if @canoe.member? current_user
+  - if @canoe.member? current_user
+    .col-sm-12
       .boarding_requests
         %h3 Boarding Requests
         - @canoe.boarding_requests.recent.each do |boarding_request|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160903231546) do
+ActiveRecord::Schema.define(version: 20160905060758) do
 
   create_table "activities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.integer  "user_id",        null: false
@@ -36,12 +36,13 @@ ActiveRecord::Schema.define(version: 20160903231546) do
   end
 
   create_table "canoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
-    t.string   "title",                    null: false
-    t.text     "body",       limit: 65535
-    t.integer  "user_id",                  null: false
+    t.string   "title",                                             null: false
+    t.text     "body",                    limit: 65535
+    t.integer  "user_id",                                           null: false
     t.string   "logo"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.integer  "boarding_requests_count",               default: 0
   end
 
   create_table "discussions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 20160903231546) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "opinions_count", default: 0
+    t.datetime "stroked_at",                 null: false
     t.index ["canoe_id", "user_id"], name: "index_discussions_on_canoe_id_and_user_id", using: :btree
   end
 
@@ -95,6 +97,15 @@ ActiveRecord::Schema.define(version: 20160903231546) do
     t.integer  "block_votes_count",   default: 0
     t.index ["proposal_request_id"], name: "index_proposals_on_proposal_request_id", using: :btree
     t.index ["user_id"], name: "index_proposals_on_user_id", using: :btree
+  end
+
+  create_table "read_marks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.string   "readable_type", null: false
+    t.integer  "readable_id"
+    t.string   "reader_type",   null: false
+    t.integer  "reader_id"
+    t.datetime "timestamp"
+    t.index ["reader_id", "reader_type", "readable_type", "readable_id"], name: "read_marks_reader_readable_index", unique: true, using: :btree
   end
 
   create_table "sailing_diaries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
