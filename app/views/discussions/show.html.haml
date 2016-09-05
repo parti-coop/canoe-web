@@ -3,7 +3,7 @@
     논의 - #{@discussion.title}
 
 .text-muted
-  = link_to @discussion.user.nickname, @discussion.user
+  = byline @discussion.user
   = @discussion.created_at
   = link_to '수정', [:edit, @discussion], class: 'text-danger'
   = link_to '삭제', @discussion, class: 'text-danger'
@@ -28,7 +28,6 @@
         - @discussion.activities.recent.each do |activity|
           %li[activity]
             = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
-            %hr
 
   .col-xs-12.col-md-6
     %section
@@ -39,8 +38,13 @@
         - if @discussion.proposal_requests.empty?
           %p.help-text 논의가 충분히 진행되면 제안을 받기 시작하세요.
 
-        = form_for [@discussion, ProposalRequest.new] do |f|
-          .form-group
-            = f.text_field :title, placeholder: '제안 받을 내용을 적으세요', class: 'form-control'
-          .form-group
-            = f.submit class: 'btn btn-primary'
+        .media
+          = form_for [@discussion, ProposalRequest.new] do |f|
+            .media-left
+              = byline current_user
+            .media-body
+              .form-group
+                = f.text_field :title, placeholder: '새롭게 제안 받을 내용을 적으세요', class: 'form-control input-lg'
+            .media-right
+              .form-group
+                = f.submit '작성', class: 'btn btn-primary'

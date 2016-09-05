@@ -1,6 +1,10 @@
 .alert.alert-warning
   %div[proposal_request]
-    %h4= proposal_request.title
+    %h4{ style: 'margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #faebcc' }
+      = byline proposal_request.user
+      \-
+      = proposal_request.title
+
 
     %ul.media-list
       - proposal_request.proposals.each do |proposal|
@@ -32,10 +36,12 @@
       %li.media
         = form_for Proposal.new do |f|
           = f.hidden_field :proposal_request_id, value: proposal_request.id
+          .media-left
+            = byline current_user
           .media-body
             .form-group
               = f.text_field :title, placeholder: '새로운 제안을 남기세요', class: 'form-control'
           .media-right
             .form-group
-              = f.submit class: 'btn btn-primary'
+              = f.submit '추가', class: 'btn btn-primary'
 

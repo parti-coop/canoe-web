@@ -1,7 +1,9 @@
 - proposal = activity.trackable
 - proposal_request = proposal.proposal_request
-.text-muted
-  = activity.created_at
-  제안 "#{proposal_request.title}"
-%div
-  #{byline proposal.user}님이 "#{proposal.title}" 제안을 새로 올립니다.
+.panel.panel-default
+  .panel-body
+    = byline proposal.user
+    님이
+    %strong #{proposal.title}
+    를 제안하였습니다.
+    %u #{proposal_request.title}
