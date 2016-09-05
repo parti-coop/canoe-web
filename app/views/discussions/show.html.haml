@@ -24,7 +24,7 @@
           = link_to '수정하기', edit_consensus_discussion_path, class: 'text-danger'
         = link_to '이력보기', discussion_consensus_revisions_path(@discussion), class: 'text-danger'
 
-    = simple_format @discussion.consensus
+    = markdown @discussion.consensus
 
     %div
       - if @discussion.consensus_revisions.any?
