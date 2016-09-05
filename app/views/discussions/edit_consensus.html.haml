@@ -7,6 +7,6 @@
 
 = form_for [:consensus, @discussion] do |f|
   .form-group
-    = f.text_area :consensus, class: 'form-control', rows: 30
+    ~ f.text_area :consensus, class: 'form-control', rows: 30
   .form-group
     = f.submit '저장'
