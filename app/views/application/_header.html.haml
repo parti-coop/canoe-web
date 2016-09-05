@@ -10,8 +10,13 @@
           카누
 
       .collapse.navbar-collapse
-        %ul.nav.navbar-nav
-          %li= link_to '모든 카누', canoes_path
+        - if user_signed_in?
+          %ul.nav.navbar-nav
+            - current_user.boarding_canoes.each do |canoe|
+              %li
+                = link_to canoe do
+                  = render 'canoes/thumbnail', canoe: canoe
+                  = canoe.title
         %ul.nav.navbar-nav.navbar-right
           - if user_signed_in?
             %li

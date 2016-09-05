@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :omniauth_providers => [:facebook, :twitter]
 
   has_many :memberships, dependent: :destroy
+  has_many :boarding_canoes, through: :memberships, source: :canoe
 
   # validations
   VALID_NICKNAME_REGEX = /\A[ㄱ-ㅎ가-힣a-z0-9_]+\z/i
