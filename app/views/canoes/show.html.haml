@@ -10,7 +10,10 @@
 
   .col-sm-6
     %section
-      %h3 Recent Sailing Diaries
+      %h3
+        Recent Sailing Diaries
+        %small
+          = link_to '쓰기', canoe_sailing_diaries_path(@canoe), class: 'btn btn-primary'
       %div
         = render @canoe.sailing_diaries.recent.limit(10)
 

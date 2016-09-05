@@ -1,7 +1,7 @@
 class SailingDiariesController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :load_canoe
-  load_and_authorize_resource
+  load_and_authorize_resource :canoe
+  load_and_authorize_resource through: :canoe, shallow: true
 
   layout 'canoe'
 
@@ -23,11 +23,12 @@ class SailingDiariesController < ApplicationController
   end
 
   def edit
+    @canoe = @sailing_diary.canoe
   end
 
   def update
     if @sailing_diary.update_attributes(sailing_diary_params)
-      redirect_to canoe_sailing_diaries_path(@canoe)
+      redirect_to canoe_sailing_diaries_path(@sailing_diary.canoe)
     else
       render 'edit'
     end
@@ -35,14 +36,10 @@ class SailingDiariesController < ApplicationController
 
   def destroy
     @sailing_diary.destroy
-    redirect_to canoe_sailing_diaries_path(@canoe)
+    redirect_to canoe_sailing_diaries_path(@sailing_diary.canoe)
   end
 
   private
-
-  def load_canoe
-    @canoe = Canoe.find(params[:canoe_id])
-  end
 
   def sailing_diary_params
     params.require(:sailing_diary).permit(:body, :sailed_on)

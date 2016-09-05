@@ -1,4 +1,4 @@
-= form_for [@canoe, @sailing_diary] do |f|
+= form_for @sailing_diary.new_record? ? [@canoe, @sailing_diary] : @sailing_diary do |f|
   .form-group
     = f.label :sailed_on
     .input-group
