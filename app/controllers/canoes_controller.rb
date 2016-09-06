@@ -32,7 +32,7 @@ class CanoesController < ApplicationController
     if @canoe.update(canoe_params)
       redirect_to @canoe
     else
-      render 'update'
+      render 'edit'
     end
   end
 

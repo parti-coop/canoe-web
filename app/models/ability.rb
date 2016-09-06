@@ -5,11 +5,19 @@ class Ability
     can :read, :all
     if user
       can :create, [Canoe, BoardingRequest]
-      can :create, [SailingDiary, Discussion, Opinion, ProposalRequest, Proposal, Vote] do |model|
+      can :create, [Category, SailingDiary, Discussion, Opinion, ProposalRequest, Proposal, Vote] do |model|
         model.canoe.member? user
       end
 
-      can [:destroy, :update], [Canoe, SailingDiary, Discussion, Opinion, ProposalRequest, Proposal] do |model|
+      can :update, [Canoe] do |model|
+        model.member? user
+      end
+
+      can [:destroy, :update], Category do |model|
+        model.canoe.member? user
+      end
+
+      can [:destroy, :update], [SailingDiary, Discussion, Opinion, ProposalRequest, Proposal] do |model|
         user == model.user
       end
 

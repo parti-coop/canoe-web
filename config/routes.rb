@@ -12,7 +12,9 @@ Rails.application.routes.draw do
 
   resources :users
   resources :canoes do
+    get '/categories/:category_id/discussions', to: 'discussions#index', as: :category
     shallow do
+      resources :categories
       resources :discussions do
         member do
           get :edit_consensus

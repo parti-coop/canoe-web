@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905065755) do
+ActiveRecord::Schema.define(version: 20160906153907) do
 
   create_table "activities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.integer  "user_id",        null: false
@@ -45,6 +45,15 @@ ActiveRecord::Schema.define(version: 20160905065755) do
     t.integer  "boarding_requests_count",               default: 0
   end
 
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.integer "canoe_id",                         null: false
+    t.integer "user_id",                          null: false
+    t.string  "name",              default: "기본"
+    t.integer "discussions_count", default: 0
+    t.index ["canoe_id"], name: "index_categories_on_canoe_id", using: :btree
+    t.index ["user_id"], name: "index_categories_on_user_id", using: :btree
+  end
+
   create_table "consensus_revisions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.integer  "discussion_id",               null: false
     t.integer  "user_id",                     null: false
@@ -73,7 +82,9 @@ ActiveRecord::Schema.define(version: 20160905065755) do
     t.integer  "opinions_count",               default: 0
     t.datetime "stroked_at",                               null: false
     t.text     "consensus",      limit: 65535
+    t.integer  "category_id",                              null: false
     t.index ["canoe_id", "user_id"], name: "index_discussions_on_canoe_id_and_user_id", using: :btree
+    t.index ["category_id"], name: "index_discussions_on_category_id", using: :btree
   end
 
   create_table "memberships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|

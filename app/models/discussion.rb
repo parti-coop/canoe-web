@@ -3,6 +3,7 @@ class Discussion < ApplicationRecord
 
   belongs_to :user
   belongs_to :canoe
+  belongs_to :category, counter_cache: true
   has_many :opinions, dependent: :destroy
   has_many :proposal_requests, dependent: :destroy
   has_many :activities, dependent: :destroy
@@ -13,6 +14,7 @@ class Discussion < ApplicationRecord
   end
 
   scope :recent, -> { order(stroked_at: :desc) }
+  scope :in_category, ->(category) { where(category: category) if category.present? }
 
   before_create :stroke
 

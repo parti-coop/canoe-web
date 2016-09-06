@@ -1,7 +1,2 @@
-.page-header
-  %h2
-    논의
-    %small.pull-right
-      = link_to '쓰기', new_canoe_discussion_path(canoe: @canoe), class: 'btn btn-primary'
-
-= render 'form'
+= render 'discussions/header'
+= render 'discussions/form'

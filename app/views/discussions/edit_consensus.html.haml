@@ -1,7 +1,7 @@
 .page-header
   %h3
     = link_to @discussion do
-      논의 - #{@discussion.title}
+      \##{@discussion.category.name} - #{@discussion.title}
     &gt;
     = Discussion.human_attribute_name(:consensus)
 

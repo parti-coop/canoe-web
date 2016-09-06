@@ -6,4 +6,7 @@
     = f.label :body
     = f.text_area :body, class: 'form-control'
   .form-group
+    = f.label :category
+    = f.collection_select :category_id, @canoe.categories, :id, :name, {}, class: 'form-control'
+  .form-group
     = f.submit class: 'btn btn-primary'

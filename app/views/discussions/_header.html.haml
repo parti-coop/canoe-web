@@ -1,0 +1,13 @@
+- category ||= (@category || @discussion.try(:category))
+.page-header
+  %h2
+    - if category.present?
+      \##{category.name}
+      %small
+        = link_to edit_category_path(category) do
+          %i.fa.fa-edit
+    - else
+      모든 논의
+    %small.pull-right
+      = link_to '논의열기', new_canoe_discussion_path(@canoe, category_id: (category.id if category.present?)), class: 'btn btn-primary'
+

@@ -3,5 +3,6 @@ discussion1:
   body: discussion1 body
   user: one
   canoe: canoe1
+  category: category1
   opinions_count: 0
   stroked_at: <%= 5.day.ago.to_s(:db) %>

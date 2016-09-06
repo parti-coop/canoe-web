@@ -7,11 +7,17 @@ class DiscussionsController < ApplicationController
 
   def index
     @discussions = @canoe.discussions.order("id DESC")
+    @category = @canoe.categories.find params[:category_id] if params[:category_id].present?
+    @discussions = @discussions.in_category(@category)
   end
 
   def show
     @canoe = @discussion.canoe
     @discussion.mark_as_read! for: current_user if user_signed_in?
+  end
+
+  def new
+    @discussion.category = @canoe.categories.find_by id: params[:category_id]
   end
 
   def create
@@ -58,6 +64,6 @@ class DiscussionsController < ApplicationController
   private
 
   def discussion_params
-    params.require(:discussion).permit(:title, :body)
+    params.require(:discussion).permit(:title, :body, :category_id)
   end
 end

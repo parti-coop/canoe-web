@@ -4,6 +4,15 @@ class Canoe < ApplicationRecord
   has_many :sailing_diaries
   has_many :boarding_requests
   has_many :memberships, dependent: :destroy
+  has_many :categories, dependent: :destroy do
+    def base
+      find_by name: Category::DEFAULT_NAME
+    end
+
+    def persisted
+      select{ |category| category.persisted? }
+    end
+  end
 
   mount_uploader :logo, ImageUploader
 
@@ -26,6 +35,6 @@ class Canoe < ApplicationRecord
   end
 
   def unread?(someone)
-    discussions.unread_by(someone).any?
+    someone.present? and discussions.unread_by(someone).any?
   end
 end
