@@ -7,7 +7,7 @@
 
   %ul.list-group
     - proposal_request.proposals.each do |proposal|
-      %li.list-group-item{ style: 'border: 1px solid #faebcc' }
+      %li.list-group-item{ style: 'border-color: #faebcc' }
         .media
           .media-body
             %h5= proposal.title
@@ -37,7 +37,7 @@
 
     - new_proposal = Proposal.new(proposal_request: proposal_request)
     - if can? :create, new_proposal
-      %li.list-group-item
+      %li.list-group-item{ style: 'border-color: #faebcc' }
         = form_for new_proposal do |f|
           = f.hidden_field :proposal_request_id, value: proposal_request.id
           .media-left
