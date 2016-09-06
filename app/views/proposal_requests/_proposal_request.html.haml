@@ -7,7 +7,7 @@
 
   %ul.list-group
     - proposal_request.proposals.each do |proposal|
-      %li.list-group-item
+      %li.list-group-item{ style: 'border: 1px solid #faebcc' }
         .media
           .media-body
             %h5= proposal.title
@@ -27,13 +27,14 @@
                     = render partial: 'users/byline', collection: proposal.blocking_users, as: :user
 
           - if can? :vote, proposal
-            .media-right
+            .media-right{ style: 'white-space: nowrap; vertical-align: middle;'}
               = link_to agree_proposal_path(proposal), method: :post, class: 'btn btn-default' do
                 %i.fa.fa-thumbs-o-up
                 = proposal.agree_votes_count
               = link_to block_proposal_path(proposal), method: :post, class: 'btn btn-default' do
                 %i.fa.fa-ban
                 = proposal.block_votes_count
+
     - new_proposal = Proposal.new(proposal_request: proposal_request)
     - if can? :create, new_proposal
       %li.list-group-item
