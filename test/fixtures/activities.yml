@@ -1,0 +1,5 @@
+activity1:
+  user: one
+  trackable: opinion1 (Opinion)
+  discussion: discussion1
+  action: opinions/create

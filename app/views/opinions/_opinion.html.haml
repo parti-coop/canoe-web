@@ -6,3 +6,16 @@
       = link_to '삭제', opinion, method: :delete, class: 'text-danger'
   .panel-body
     %div= simple_format opinion.body
+  .panel-footer
+    - new_comment =  Comment.new(opinion: opinion)
+    - if can? :create, new_comment
+      .comment-form
+        = form_for [opinion, new_comment] do |f|
+          .media
+            .media-left= render 'users/thumbnail'
+            .media-body
+              .form-group
+                = f.text_area :body, class: 'form-control', placeholder: '댓글...'
+            .media-right
+              = f.submit '작성', class: 'btn btn-primary'
+    = render opinion.comments.recent

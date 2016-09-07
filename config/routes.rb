@@ -22,7 +22,9 @@ Rails.application.routes.draw do
         end
         resources :consensus_revisions
         resources :proposal_requests
-        resources :opinions
+        resources :opinions do
+          resources :comments
+        end
       end
       resources :sailing_diaries
       resources :memberships

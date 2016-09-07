@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906231341) do
+ActiveRecord::Schema.define(version: 20160907090729) do
 
   create_table "activities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.integer  "user_id",        null: false
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(version: 20160906231341) do
     t.integer "discussions_count", default: 0
     t.index ["canoe_id"], name: "index_categories_on_canoe_id", using: :btree
     t.index ["user_id"], name: "index_categories_on_user_id", using: :btree
+  end
+
+  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.integer  "user_id",                  null: false
+    t.integer  "opinion_id",               null: false
+    t.text     "body",       limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["opinion_id"], name: "index_comments_on_opinion_id", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
 
   create_table "consensus_revisions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|

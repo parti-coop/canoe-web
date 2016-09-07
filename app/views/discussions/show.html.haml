@@ -41,10 +41,10 @@
             = f.text_area :body, class: 'form-control'
           .form-group
             = f.submit class: 'btn btn-primary'
-        %ul.list-unstyled
-          - @discussion.activities.recent.each do |activity|
-            %li[activity]
-              = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
+      %ul.list-unstyled
+        - @discussion.activities.recent.each do |activity|
+          %li[activity]
+            = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
 
   .col-xs-12.col-md-6
     %section

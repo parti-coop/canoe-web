@@ -1,0 +1,7 @@
+.comment
+  .media
+    .media-left= render 'users/thumbnail', user: comment.user
+    .media-body
+      = simple_format comment.body
+      .comment-meta.text-muted
+        = date_f comment.created_at

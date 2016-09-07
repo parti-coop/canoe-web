@@ -1,0 +1,8 @@
+.comment + .comment,
+.comment-form + .comment {
+  border-top: 1px solid $gray-light;
+}
+
+.comment {
+  padding: 14px 0;
+}

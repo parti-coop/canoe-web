@@ -4,8 +4,11 @@ class Opinion < ApplicationRecord
   belongs_to :user
   belongs_to :discussion, counter_cache: true
   has_one :canoe, through: :discussion
-
-  default_scope { order("created_at ASC") }
+  has_many :comments
 
   validates :body, presence: true
+
+  def activity
+    activities.recent.first
+  end
 end
