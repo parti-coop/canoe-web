@@ -10,7 +10,7 @@
             %i.fa.fa-edit
     - else
       모든 논의
-    - if @discussion.present?
+    - if @discussion.try(:persisted?)
       \-
       = link_to @discussion.title, @discussion
       %small
