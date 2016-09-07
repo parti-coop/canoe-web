@@ -1,9 +1,4 @@
-.page-header
-  %h3
-    = link_to @discussion do
-      \##{@discussion.category.name} - #{@discussion.title}
-    &gt;
-    = Discussion.human_attribute_name(:consensus)
+= render 'discussions/header', page_title: Discussion.human_attribute_name(:consensus)
 
 = form_for [:consensus, @discussion] do |f|
   .form-group

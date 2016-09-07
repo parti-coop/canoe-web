@@ -20,7 +20,9 @@ class VotesController < ApplicationController
       @vote = @proposal.votes.build(choice: choice, user: current_user)
     end
     @vote.track(self) if @vote.changed? or @vote.new_record?
-    @vote.save
+    if @vote.save
+      push_to_slack(@vote)
+    end
     redirect_back fallback_location: @proposal.canoe
   end
 end

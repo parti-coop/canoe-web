@@ -8,7 +8,9 @@ class ProposalRequestsController < ApplicationController
     @proposal_request = @discussion.proposal_requests.build(proposal_request_params)
     @proposal_request.user = current_user
     @proposal_request.track(self)
-    @proposal_request.save
+    if @proposal_request.save
+      push_to_slack(@proposal_request)
+    end
     redirect_back fallback_location: @discussion
   end
 

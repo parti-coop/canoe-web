@@ -8,14 +8,18 @@ class BoardingRequestsController < ApplicationController
     unless @canoe.member? current_user
       @boarding_request.user = current_user
       @boarding_request.canoe = @canoe
-      @boarding_request.save
+      if @boarding_request.save
+        push_to_slack(@boarding_request)
+      end
     end
 
     redirect_to @canoe
   end
 
   def destroy
-    @boarding_request.destroy
+    if @boarding_request.destroy
+      push_to_slack(@boarding_request)
+    end
     redirect_back fallback_location: @boarding_request.canoe
   end
 
@@ -26,8 +30,8 @@ class BoardingRequestsController < ApplicationController
 
     ActiveRecord::Base.transaction do
       @boarding_request.accept
-      if @boarding_request.canoe.save
-        @boarding_request.destroy
+      if @boarding_request.canoe.save and @boarding_request.destroy
+        push_to_slack(@boarding_request)
       end
     end
     redirect_to @boarding_request.canoe

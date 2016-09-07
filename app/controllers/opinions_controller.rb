@@ -4,16 +4,19 @@ class OpinionsController < ApplicationController
   load_and_authorize_resource through: :discussion, shallow: true
 
   def create
-    ActiveRecord::Base.transaction do
-      @opinion.user = current_user
-      @opinion.track(self)
-      @opinion.save
+    @opinion.user = current_user
+    @opinion.track(self)
+
+    if @opinion.save
+      push_to_slack(@opinion)
     end
     redirect_to @opinion.discussion
   end
 
   def destroy
-    @opinion.destroy
+    if @opinion.destroy
+      push_to_slack(@opinion)
+    end
     redirect_to @opinion.discussion
   end
 

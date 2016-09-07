@@ -30,6 +30,7 @@ class CanoesController < ApplicationController
   def update
     @canoe = Canoe.find(params[:id])
     if @canoe.update(canoe_params)
+      push_to_slack(@canoe)
       redirect_to @canoe
     else
       render 'edit'
@@ -39,6 +40,6 @@ class CanoesController < ApplicationController
   private
 
   def canoe_params
-    params.require(:canoe).permit(:title, :body, :logo)
+    params.require(:canoe).permit(:title, :body, :logo, :slack_webhook_url)
   end
 end

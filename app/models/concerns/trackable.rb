@@ -15,6 +15,7 @@ module Trackable
   end
 
   def stroke_discussion
-    self.discussion.stroke(self.discussion.activities.newest.created_at)
+    strocked_at = self.discussion.activities.newest.try(:created_at)
+    self.discussion.stroke(strocked_at || self.discussion.created_at)
   end
 end

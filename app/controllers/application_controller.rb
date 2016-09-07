@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
   include CanoePathHelper
+  include SlackPushing
 
   protect_from_forgery with: :exception
+  cattr_accessor(:skip_slack) { !Rails.env.production? }
 
   if Rails.env.production? or Rails.env.staging?
     rescue_from ActiveRecord::RecordNotFound, ActionController::UnknownFormat do |exception|

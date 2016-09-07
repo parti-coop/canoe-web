@@ -1,35 +1,26 @@
-.page-header
-  %h3
-    \##{@discussion.category.name} - #{@discussion.title}
+= render 'discussions/header'
 
-.text-muted
-  = byline @discussion.user
-  #{date_f @discussion.created_at}부터
-  = link_to '수정', [:edit, @discussion], class: 'text-danger'
-  = link_to '삭제', @discussion, class: 'text-danger'
+.panel.panel-default
+  .panel-heading
+    = byline @discussion.user
+    #{date_f @discussion.created_at}부터
+  .panel-body= simple_format @discussion.body
 
-%hr
-
-%div
-  = simple_format @discussion.body
-
-%hr
 
 - if @discussion.consensus.present?
-  %div
-    %h4
-      = Discussion.human_attribute_name(:consensus)
+  .panel.panel-default
+    .panel-heading
+      %strong= Discussion.human_attribute_name(:consensus)
       %small
         - if can? :consensus, @discussion
           = link_to '수정하기', edit_consensus_discussion_path, class: 'text-danger'
-        = link_to '이력보기', discussion_consensus_revisions_path(@discussion), class: 'text-danger'
+    .panel-body
+      .concensus-body= markdown @discussion.consensus
 
-    = markdown @discussion.consensus
-
-    %div
+    .panel-footer
       - if @discussion.consensus_revisions.any?
         마지막 수정 : #{byline @discussion.consensus_revisions.current.user} #{date_f @discussion.consensus_revisions.current.created_at}
-
+        = link_to '이력보기', discussion_consensus_revisions_path(@discussion), class: 'text-danger'
 - else
 
   %div

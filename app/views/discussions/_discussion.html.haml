@@ -11,9 +11,10 @@
       #{date_f discussion.created_at}부터
       = link_to '수정', [:edit, discussion], class: 'text-danger'
       = link_to '삭제', discussion, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'text-danger'
-  - if local_assigns[:show_recent_timeline]
+  - recent_discussions = discussion.activities.recent.limit(2)
+  - if recent_discussions.any? and local_assigns[:show_recent_timeline]
     .panel-body
       %ul.list-unstyled
-        - discussion.activities.recent.limit(2).each do |activity|
+        - recent_discussions.each do |activity|
           %li[activity]
             = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity

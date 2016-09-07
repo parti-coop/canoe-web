@@ -6,13 +6,17 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.new(proposal_params)
     @proposal.user = current_user
     @proposal.track(self)
-    @proposal.save
+    if @proposal.save
+      push_to_slack(@proposal)
+    end
     redirect_back fallback_location: @discussion
   end
 
   def destroy
     @proposal = Proposal.find(params[:id])
-    @proposal.destroy
+    if @proposal.destroy
+      push_to_slack(@proposal)
+    end
     redirect_back fallback_location: @discussion
   end
 

@@ -23,7 +23,9 @@ class DiscussionsController < ApplicationController
   def create
     @discussion.canoe = @canoe
     @discussion.user = current_user
-    @discussion.save
+    if @discussion.save
+      push_to_slack(@discussion)
+    end
 
     redirect_to @discussion || @canoe
   end
@@ -34,6 +36,7 @@ class DiscussionsController < ApplicationController
 
   def update
     if @discussion.update_attributes(discussion_params)
+      push_to_slack(@discussion)
       redirect_to @discussion
     else
       render 'edit'
@@ -45,6 +48,7 @@ class DiscussionsController < ApplicationController
     @consensus_revision = @discussion.consensus_revisions.build(user: current_user, body: @discussion.consensus)
     @consensus_revision.track(self)
     if @discussion.consensus_changed? and @discussion.save
+      push_to_slack(@discussion)
       redirect_to @discussion
     else
       @canoe = @discussion.canoe
@@ -57,7 +61,9 @@ class DiscussionsController < ApplicationController
   end
 
   def destroy
-    @discussion.destroy
+    if @discussion.destroy
+      push_to_slack(@discussion)
+    end
     redirect_to @canoe
   end
 
