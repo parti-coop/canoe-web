@@ -1,9 +1,4 @@
-.page-header
-  %h3
-    = link_to @discussion do
-      \##{@discussion.category.title} - #{@discussion.title}
-    &gt;
-    합의이력
+= render 'discussions/header', page_title: '합의이력'
 
 %ul.list-unstyled
   - @discussion.consensus_revisions.recent.each do |revision|

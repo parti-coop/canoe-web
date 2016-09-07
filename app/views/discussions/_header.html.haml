@@ -22,5 +22,7 @@
     - if local_assigns[:page_title]
       \-
       = local_assigns[:page_title]
-    %small.pull-right
-      = link_to '새 논의열기', new_canoe_discussion_path(@canoe, category_id: (category.id if category.present?)), class: 'btn btn-primary'
+
+    - if local_assigns[:page_title].blank?
+      %small.pull-right
+        = link_to '새 논의열기', new_canoe_discussion_path(@canoe, category_id: (category.id if category.present?)), class: 'btn btn-primary'

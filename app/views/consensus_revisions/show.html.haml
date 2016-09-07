@@ -1,10 +1,4 @@
-.page-header
-  %h3
-    = link_to @discussion do
-      \##{@discussion.category.name} - #{@discussion.title}
-    &gt;
-    = link_to discussion_consensus_revisions_path(@discussion) do
-      합의이력
+= render 'discussions/header', page_title: link_to('합의이력', discussion_consensus_revisions_path(@discussion))
 
 - previous_version = @consensus_revision.previous_version
 - if previous_version.present?
