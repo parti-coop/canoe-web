@@ -1,52 +1,49 @@
 = render 'discussions/header'
 
-.panel.panel-default
-  .panel-heading
-    = byline @discussion.user
-    #{date_f @discussion.created_at}부터
-  .panel-body= simple_format @discussion.body
-
-
-- if @discussion.consensus.present?
-  .panel.panel-default
-    .panel-heading
-      %strong= Discussion.human_attribute_name(:consensus)
-      %small
-        - if can? :consensus, @discussion
-          = link_to '수정하기', edit_consensus_discussion_path, class: 'text-danger'
-    .panel-body
-      .concensus-body= markdown @discussion.consensus
-
-    .panel-footer
-      - if @discussion.consensus_revisions.any?
-        마지막 수정 : #{byline @discussion.consensus_revisions.current.user} #{date_f @discussion.consensus_revisions.current.created_at}
-        = link_to '이력보기', discussion_consensus_revisions_path(@discussion), class: 'text-danger'
-- else
-
-  %div
-    %span.text-muted 합의된 사항이 있나요?
-    = link_to edit_consensus_discussion_path, class: 'btn btn-primary' do
-      #{Discussion.human_attribute_name(:consensus)} 적기
-%hr
 
 .row
-  .col-xs-12.col-md-6
-    %div
-      %h4= t('label.timeline')
+  .col-xs-12.col-md-7
+    %section
+      %h4
+        여는글
+        %small.text-muted
+          = byline @discussion.user
+          #{date_f @discussion.created_at}부터
+      .discussion-body= markdown @discussion.body
 
-      - new_opinion = Opinion.new(discussion: @discussion)
-      - if can? :create, new_opinion
-        = form_for [@discussion, new_opinion] do |f|
-          .form-group
-            = f.text_area :body, class: 'form-control'
-          .form-group
-            = f.submit class: 'btn btn-primary'
-      %ul.list-unstyled
-        - @discussion.activities.recent.each do |activity|
-          %li[activity]
-            = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
+    %hr
 
-  .col-xs-12.col-md-6
+    %section
+      %h4
+        = Discussion.human_attribute_name(:consensus)
+        %small
+          - if @discussion.consensus.present? and can?(:consensus, @discussion)
+            = link_to '수정하기', edit_consensus_discussion_path, class: 'text-danger'
+      - if @discussion.consensus.present?
+        .concensus-body= markdown @discussion.consensus
+
+        - if @discussion.consensus_revisions.any?
+          %small.text-muted
+            마지막 수정 : #{byline @discussion.consensus_revisions.current.user} #{date_f @discussion.consensus_revisions.current.created_at}
+            = link_to '이력보기', discussion_consensus_revisions_path(@discussion), class: 'text-danger'
+      - else
+        %p
+          %span.text-muted 합의된 사항이 있나요?
+          = link_to edit_consensus_discussion_path, class: 'btn btn-primary' do
+            #{Discussion.human_attribute_name(:consensus)} 적기
+
+    %hr
+
+    %section
+      %h4 관련자료
+
+      %p
+        %span.text-muted 관련자료가 있나요?
+        = link_to '#', class: 'btn btn-primary' do
+          업로드
+
+    %hr
+
     %section
       %h4= ProposalRequest.model_name.human
       = render @discussion.proposal_requests
@@ -67,3 +64,19 @@
               .media-right
                 .form-group
                   = f.submit '작성', class: 'btn btn-primary'
+
+  .col-xs-12.col-md-5
+    %div
+      %h4= t('label.timeline')
+
+      - new_opinion = Opinion.new(discussion: @discussion)
+      - if can? :create, new_opinion
+        = form_for [@discussion, new_opinion] do |f|
+          .form-group
+            = f.text_area :body, class: 'form-control'
+          .form-group
+            = f.submit class: 'btn btn-primary'
+      %ul.list-unstyled
+        - @discussion.activities.recent.each do |activity|
+          %li[activity]
+            = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity

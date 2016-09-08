@@ -6,7 +6,10 @@
   display: inline-block;
 }
 
+.discussion-body,
 .concensus-body {
+  padding: 14px;
+  background-color: $gray-lighter;
   h6 {
     font-size: 105%;
   }
