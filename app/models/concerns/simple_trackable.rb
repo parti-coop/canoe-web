@@ -5,7 +5,6 @@ module SimpleTrackable
 
   included do
     has_one :activity, as: :trackable, dependent: :destroy
-    after_create :stroke_discussion
   end
 
   def track
@@ -14,6 +13,7 @@ module SimpleTrackable
     else
       activity.update_attributes(updated_at: current_time_from_proper_timezone)
     end
+    stroke_discussion
   end
 
   def stroke_discussion
