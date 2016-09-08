@@ -7,7 +7,6 @@ module SlackPushing
 
     @webhook_url = fetch_webhook_url(subject)
     return if @webhook_url.blank?
-
     notifier = Slack::Notifier.new(@webhook_url, username: 'parti-canoe')
 
     message = make_message(subject)
@@ -56,17 +55,14 @@ module SlackPushing
       body = body_with_discussion(discussion, proposal_request.title)
     when "proposals#create"
       proposal = subject
-      discussion = proposal.discussion
       title = "@#{current_user.nickname}님이 제안을 만들었습니다."
       body = body_with_proposal_request(proposal.proposal_request, proposal.title)
     when "proposals#update"
       proposal = subject
-      discussion = proposal.discussion
       title = "@#{current_user.nickname}님이 제안을 고쳤습니다."
       body = body_with_proposal_request(proposal.proposal_request, proposal.title)
     when "proposals#destroy"
       proposal = subject
-      discussion = proposal.discussion
       title = "@#{current_user.nickname}님이 제안을 지웠습니다."
       body = body_with_proposal_request(proposal.proposal_request, proposal.title)
     when "opinions#create"
@@ -84,16 +80,29 @@ module SlackPushing
       discussion = opinion.discussion
       title = "@#{current_user.nickname}님이 의견을 지웠습니다."
       body = body_with_discussion(discussion, opinion.body)
+    when "comments#create"
+      comment = subject
+      opinion = comment.opinion
+      title = "@#{current_user.nickname}님이 댓글을 답니니다."
+      body = body_with_opinion(opinion, comment.body)
+    when "comments#update"
+      comment = subject
+      opinion = comment.opinion
+      title = "@#{current_user.nickname}님이 댓글을 고칩니다."
+      body = body_with_opinion(opinion, comment.body)
+    when "comments#destroy"
+      comment = subject
+      opinion = comment.opinion
+      title = "@#{current_user.nickname}님이 댓글을 지웠습니다."
+      body = body_with_opinion(opinion, comment.body)
     when "votes#agree"
       vote = subject
       proposal = vote.proposal
-      discussion = proposal.discussion
       title = "@#{current_user.nickname}님이 '#{proposal.title}' 제안을 동의합니다."
       body = body_with_proposal_request(proposal.proposal_request)
     when "votes#block"
       vote = subject
       proposal = vote.proposal
-      discussion = proposal.discussion
       title = "@#{current_user.nickname}님이 #{proposal.title} 제안을 반대합니다."
       body = body_with_proposal_request(proposal.proposal_request)
     when "boarding_requests#create"
@@ -127,5 +136,12 @@ module SlackPushing
     result += "#{message}\n\n" if message.present?
     result +=  "논의: [#{proposal_request.discussion.title}](#{view_context.discussion_url proposal_request.discussion})\n"
     result +=  "제안요청: #{proposal_request.title}"
+  end
+
+  def body_with_opinion(opinion, message = nil)
+    result = ""
+    result += "#{message}\n\n" if message.present?
+    result +=  "논의: [#{opinion.discussion.title}](#{view_context.discussion_url opinion.discussion})\n"
+    result +=  "의견: #{view_context.truncate opinion.body, length: 100}"
   end
 end

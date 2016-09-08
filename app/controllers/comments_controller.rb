@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
 
     ok = false
     ActiveRecord::Base.transaction do
-      result = @comment.save and @comment.opinion.track
+      ok = @comment.save and @comment.opinion.track
     end
     push_to_slack(@comment) if ok
 
@@ -16,7 +16,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
+    if @comment.destroy
+      push_to_slack(@comment)
+    end
     redirect_back fallback_location: @comment.discussion
   end
 
