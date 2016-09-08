@@ -9,7 +9,7 @@ class ActivitiesTest < ActionDispatch::IntegrationTest
     activity = Activity.find_by(trackable: assigns(:opinion))
     assert activity.present?
     assert_equal activity.discussion, discussions(:discussion1)
-    assert_equal activity.action, 'opinions/create'
+    assert_equal activity.action, 'opinion'
     assert_equal activity.user, users(:one)
   end
 

@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-module Trackable
+module HistoricalTrackable
   extend ActiveSupport::Concern
 
   included do
@@ -18,4 +18,5 @@ module Trackable
     strocked_at = self.discussion.activities.newest.try(:created_at)
     self.discussion.stroke(strocked_at || self.discussion.created_at)
   end
+
 end

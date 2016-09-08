@@ -1,5 +1,5 @@
 class Opinion < ApplicationRecord
-  include Trackable
+  include SimpleTrackable
 
   belongs_to :user
   belongs_to :discussion, counter_cache: true
@@ -7,8 +7,4 @@ class Opinion < ApplicationRecord
   has_many :comments
 
   validates :body, presence: true
-
-  def activity
-    activities.recent.first
-  end
 end

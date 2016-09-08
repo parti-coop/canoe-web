@@ -5,7 +5,7 @@ class OpinionsController < ApplicationController
 
   def create
     @opinion.user = current_user
-    @opinion.track(self)
+    @opinion.track
 
     if @opinion.save
       push_to_slack(@opinion)

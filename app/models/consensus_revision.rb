@@ -1,5 +1,5 @@
 class ConsensusRevision < ApplicationRecord
-  include Trackable
+  include HistoricalTrackable
 
   belongs_to :discussion
   has_one :canoe, through: :discussion

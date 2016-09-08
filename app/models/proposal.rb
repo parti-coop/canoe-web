@@ -1,5 +1,5 @@
 class Proposal < ApplicationRecord
-  include Trackable
+  include HistoricalTrackable
 
   belongs_to :user
   belongs_to :proposal_request

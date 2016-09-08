@@ -5,9 +5,13 @@ class CommentsController < ApplicationController
 
   def create
     @comment.user = current_user
-    if @comment.save
-      push_to_slack(@comment)
+
+    ok = false
+    ActiveRecord::Base.transaction do
+      result = @comment.save and @comment.opinion.track
     end
+    push_to_slack(@comment) if ok
+
     redirect_back fallback_location: @comment.discussion
   end
 
