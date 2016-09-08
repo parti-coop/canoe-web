@@ -1,7 +1,5 @@
 - consensus_revision = activity.trackable
-.panel.panel-default
-  .panel-body
-    = byline consensus_revision.user
-    님이 #{Discussion.human_attribute_name(:consensus)}을 수정하였습니다.
-    = date_f activity.created_at
-    = link_to '자세히 >', consensus_revision
+= byline consensus_revision.user
+님이 #{Discussion.human_attribute_name(:consensus)}을 수정하였습니다.
+= date_f activity.created_at
+= link_to '자세히 >', consensus_revision

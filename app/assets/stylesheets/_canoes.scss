@@ -30,3 +30,11 @@
     font-size: 130%;
   }
 }
+
+.activity:not(.activity--opinion--opinion) + .activity.activity--opinion--opinion {
+    margin-top: 20px;
+}
+
+.activity:not(.activity--opinion--opinion) + .activity:not(.activity--opinion--opinion) {
+    margin-top: 10px;
+}

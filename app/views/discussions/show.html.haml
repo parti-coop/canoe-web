@@ -76,7 +76,6 @@
             = f.text_area :body, class: 'form-control'
           .form-group
             = f.submit class: 'btn btn-primary'
-      %ul.list-unstyled
-        - @discussion.activities.recent.each do |activity|
-          %li[activity]
-            = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
+      - @discussion.activities.recent.each do |activity|
+        .activity{class: "activity--#{activity.trackable_type.underscore.parameterize.dasherize}--#{activity.action.parameterize.dasherize}"}
+          = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
