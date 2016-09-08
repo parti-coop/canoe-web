@@ -12,6 +12,8 @@ ko:
   activerecord:
     models:
       discussion: 논의
+      opinion: 의견
+      sailing_diary: 항해일지
     attributes:
       discussion:
         consensus: 합의사항

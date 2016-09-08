@@ -82,19 +82,16 @@ module SlackPushing
       body = body_with_discussion(discussion, opinion.body)
     when "comments#create"
       comment = subject
-      opinion = comment.opinion
       title = "@#{current_user.nickname}님이 댓글을 답니니다."
-      body = body_with_opinion(opinion, comment.body)
+      body = body_for_comment(comment)
     when "comments#update"
       comment = subject
-      opinion = comment.opinion
       title = "@#{current_user.nickname}님이 댓글을 고칩니다."
-      body = body_with_opinion(opinion, comment.body)
+      body = body_for_comment(comment)
     when "comments#destroy"
       comment = subject
-      opinion = comment.opinion
       title = "@#{current_user.nickname}님이 댓글을 지웠습니다."
-      body = body_with_opinion(opinion, comment.body)
+      body = body_for_comment(comment)
     when "votes#agree"
       vote = subject
       proposal = vote.proposal
@@ -138,10 +135,11 @@ module SlackPushing
     result +=  "제안요청: #{proposal_request.title}"
   end
 
-  def body_with_opinion(opinion, message = nil)
+  def body_for_comment(comment)
     result = ""
-    result += "#{message}\n\n" if message.present?
-    result +=  "논의: [#{opinion.discussion.title}](#{view_context.discussion_url opinion.discussion})\n"
-    result +=  "의견: #{view_context.truncate opinion.body, length: 100}"
+    result += "#{comment.body}\n\n"
+    commentable = comment.commentable
+    result +=  "논의: [#{commentable.discussion.title}](#{view_context.discussion_url commentable.discussion})\n" if comment.commentable.respond_to? :discussion
+    result +=  "#{commentable.class.model_name.human}: #{view_context.truncate comment.commentable.body, length: 100}"
   end
 end
