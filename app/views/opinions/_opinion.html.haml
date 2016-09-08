@@ -9,7 +9,7 @@
     %div= simple_format opinion.body
   .panel-footer
     = render opinion.comments
-    - new_comment =  Comment.new(opinion: opinion)
+    - new_comment =  Comment.new(commentable: opinion)
     - if can? :create, new_comment
       .comment-form
         = form_for [opinion, new_comment] do |f|

@@ -9,6 +9,6 @@ class CommentsTest < ActionDispatch::IntegrationTest
     assert assigns(:comment).persisted?
     assert 'body', assigns(:comment).body
     assert users(:one), assigns(:comment).user
-    assert opinions(:opinion1), assigns(:comment).opinion
+    assert opinions(:opinion1), assigns(:comment).commentable
   end
 end

@@ -1,8 +1,10 @@
 class Comment < ApplicationRecord
   belongs_to :user
-  belongs_to :opinion
-  has_one :discussion, through: :opinion
-  has_one :canoe, through: :opinion
+  belongs_to :commentable, polymorphic: true
 
   scope :recent, -> { order(created_at: :desc) }
+
+  def canoe
+    commentable.canoe
+  end
 end
