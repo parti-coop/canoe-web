@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource :opinion
-  load_and_authorize_resource :opinion
-  load_and_authorize_resource through: :opinion, shallow: true
+  load_and_authorize_resource :sailing_diary
+  load_and_authorize_resource through: [:opinion, :sailing_diary], shallow: true
 
   def create
     @comment.user = current_user
@@ -13,14 +13,14 @@ class CommentsController < ApplicationController
     end
     push_to_slack(@comment) if ok
 
-    redirect_back fallback_location: @comment.commentable.mode_for_show
+    redirect_back fallback_location: @comment.commentable.model_for_show
   end
 
   def destroy
     if @comment.destroy
       push_to_slack(@comment)
     end
-    redirect_back fallback_location: @comment.commentable.mode_for_show
+    redirect_back fallback_location: @comment.commentable.model_for_show
   end
 
   private

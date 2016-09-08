@@ -26,7 +26,9 @@ Rails.application.routes.draw do
           resources :comments
         end
       end
-      resources :sailing_diaries
+      resources :sailing_diaries do
+        resources :comments
+      end
       resources :memberships
     end
   end

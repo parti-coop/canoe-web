@@ -1,0 +1,5 @@
+sailing_diary1:
+  body: body1
+  user: one
+  canoe: canoe1
+  sailed_on: <%= 5.day.ago.to_s(:db) %>

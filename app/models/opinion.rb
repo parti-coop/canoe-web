@@ -8,7 +8,7 @@ class Opinion < ApplicationRecord
 
   validates :body, presence: true
 
-  def mode_for_show
+  def model_for_show
     discussion
   end
 end
