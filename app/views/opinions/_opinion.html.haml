@@ -7,10 +7,12 @@
         = link_to '삭제', opinion, method: :delete, class: 'text-danger'
   .panel-body
     %div= simple_format opinion.body
-  .panel-footer
-    = render opinion.comments
-    - new_comment =  Comment.new(commentable: opinion)
-    - if can? :create, new_comment
+  - if opinion.comments.any?
+    .panel-footer
+      = render opinion.comments
+  - new_comment =  Comment.new(commentable: opinion)
+  - if can? :create, new_comment
+    .panel-footer
       .comment-form
         = form_for [opinion, new_comment] do |f|
           .media

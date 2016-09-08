@@ -7,9 +7,9 @@ class Proposal < ApplicationRecord
   has_one :canoe, through: :proposal_request
   has_many :votes, dependent: :destroy
   has_many :agree_votes, -> { where choice: :agree }, class_name: 'Vote'
-  has_many :agreeing_users, through: :agree_votes, class_name: 'User', :source => :proposal
+  has_many :agreeing_users, through: :agree_votes, class_name: 'User', :source => :user
   has_many :block_votes, -> { where choice: :block }, class_name: 'Vote'
-  has_many :blocking_users, through: :block_votes, class_name: 'User', :source => :proposal
+  has_many :blocking_users, through: :block_votes, class_name: 'User', :source => :user
 
   def agreed_by? someone
     votes.exists? user: someone, choice: :agree

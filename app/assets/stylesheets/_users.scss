@@ -1,6 +1,7 @@
 .user-image {
   @extend .img-circle;
   background-size: cover;
+  background-position: center;
   vertical-align: middle;
   width: 20px;
   height: 20px;

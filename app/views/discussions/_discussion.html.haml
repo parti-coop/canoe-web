@@ -7,7 +7,7 @@
           %sup
             %i.fa.fa-circle
     %div
-      @#{discussion.user.nickname}
+      = byline discussion.user
       #{date_f discussion.created_at}부터
       = link_to '수정', [:edit, discussion], class: 'text-danger'
       = link_to '삭제', discussion, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'text-danger'
