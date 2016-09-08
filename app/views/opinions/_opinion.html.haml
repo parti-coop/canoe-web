@@ -3,7 +3,8 @@
     .text-muted
       = byline opinion.user
       = date_f opinion.created_at
-      = link_to '삭제', opinion, method: :delete, class: 'text-danger'
+      - if can? :destroy, opinion
+        = link_to '삭제', opinion, method: :delete, class: 'text-danger'
   .panel-body
     %div= simple_format opinion.body
   .panel-footer

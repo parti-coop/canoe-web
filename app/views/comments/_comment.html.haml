@@ -2,6 +2,11 @@
   .media
     .media-left= render 'users/thumbnail', user: comment.user
     .media-body
-      = simple_format comment.body
+      .comment-content
+        %span.user.text-muted
+          = comment.user.nickname
+        = simple_format comment.body, {}, wrapper_tag: 'span'
       .comment-meta.text-muted
         = date_f comment.created_at
+        - if can? :destroy, comment
+          = link_to '삭제', comment, method: :delete, class: 'text-danger'

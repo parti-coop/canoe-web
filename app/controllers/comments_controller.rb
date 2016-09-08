@@ -15,6 +15,11 @@ class CommentsController < ApplicationController
     redirect_back fallback_location: @comment.discussion
   end
 
+  def destroy
+    @comment.destroy
+    redirect_back fallback_location: @comment.discussion
+  end
+
   private
 
   def comment_params
