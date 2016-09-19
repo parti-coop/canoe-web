@@ -2,14 +2,14 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :read, :all
+    can :read, Canoe
     if user
       can :create, [Canoe, BoardingRequest]
-      can :create, [Category, SailingDiary, Discussion, Opinion, Comment, ProposalRequest, Proposal, Vote] do |model|
+      can [:read, :create], [Category, SailingDiary, Discussion, Opinion, Comment, ProposalRequest, Proposal, Vote, ConsensusRevision] do |model|
         model.canoe.member? user
       end
 
-      can :update, [Canoe] do |model|
+      can [:read, :update, :member], Canoe do |model|
         model.member? user
       end
 
@@ -19,6 +19,10 @@ class Ability
 
       can [:destroy, :update], [SailingDiary, Discussion, Opinion, Comment, ProposalRequest, Proposal] do |model|
         user == model.user
+      end
+
+      can [:cancel, :read], Membership do |membership|
+        user == membership.user
       end
 
       can [:consensus, :edit_consensus], Discussion do |model|

@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource :canoe
+  load_and_authorize_resource :canoe, parent: true, parent_action: :member
   load_and_authorize_resource through: :canoe, shallow: true
 
   layout 'canoe'

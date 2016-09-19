@@ -6,6 +6,8 @@
   - @memberships.each do |membership|
     %li[membership]
       = byline membership.user
+      - if can? :cancel, membership
+        = link_to '탈퇴', cancel_canoe_memberships_path(canoe_id: @canoe), method: :delete, class: 'btn btn-default btn-xs'
 
 .page-header
   %h3 Boarding Requests

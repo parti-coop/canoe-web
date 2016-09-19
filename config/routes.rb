@@ -29,7 +29,9 @@ Rails.application.routes.draw do
       resources :sailing_diaries do
         resources :comments
       end
-      resources :memberships
+      resources :memberships do
+        delete :cancel, on: :collection
+      end
     end
   end
   resources :boarding_requests do

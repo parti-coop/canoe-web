@@ -11,38 +11,39 @@
       %div{ style: 'padding: 0 20px;' }
         가입 신청 중
 
-%ul.nav.nav-sidebar
-  %li
-    = link_to canoe_discussions_path(@canoe) do
-      Discussions
-  %li
-    %ul
-      - @canoe.categories.persisted.each do |category|
+- if @canoe.member? current_user
+  %ul.nav.nav-sidebar
+    %li
+      = link_to canoe_discussions_path(@canoe) do
+        Discussions
+    %li
+      %ul
+        - @canoe.categories.persisted.each do |category|
+          %li
+            = link_to path_with_category(category) do
+              \# #{category.name}
+              - if category.discussions_count != 0
+                %span.count= category.discussions_count
+              %sup
+                - if category.unread? current_user
+                  %i.fa.fa-circle
         %li
-          = link_to path_with_category(category) do
-            \# #{category.name}
-            - if category.discussions_count != 0
-              %span.count= category.discussions_count
-            %sup
-              - if category.unread? current_user
-                %i.fa.fa-circle
-      %li
-        = link_to new_canoe_category_path(@canoe) do
-          %i.fa.fa-plus
-          새 카테고리
-  %li
-    = link_to canoe_sailing_diaries_path(@canoe) do
-      Sailing Diaries
-      %span.count= @canoe.sailing_diaries.count
-  %li
-    %a{:href => "#"} Wiki
-  %li
-    = link_to canoe_memberships_path(@canoe) do
-      Members
-      %span.count= @canoe.memberships.count
-      - if @canoe.boarding_requests.any?
-        %div.text-danger
-          (Boarding Request #{@canoe.boarding_requests_count})
-  %li
-    = link_to [:edit, @canoe] do
-      Setting
+          = link_to new_canoe_category_path(@canoe) do
+            %i.fa.fa-plus
+            새 카테고리
+    %li
+      = link_to canoe_sailing_diaries_path(@canoe) do
+        Sailing Diaries
+        %span.count= @canoe.sailing_diaries.count
+    %li
+      %a{:href => "#"} Wiki
+    %li
+      = link_to canoe_memberships_path(@canoe) do
+        Members
+        %span.count= @canoe.memberships.count
+        - if @canoe.boarding_requests.any?
+          %div.text-danger
+            (Boarding Request #{@canoe.boarding_requests_count})
+    %li
+      = link_to [:edit, @canoe] do
+        Setting

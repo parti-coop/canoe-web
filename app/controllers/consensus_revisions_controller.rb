@@ -1,5 +1,5 @@
 class ConsensusRevisionsController < ApplicationController
-  load_and_authorize_resource :discussion
+  load_and_authorize_resource :discussion, parent: true, parent_action: :read
   load_and_authorize_resource through: :discussion, shallow: true
   before_action :discussion_canoe
   before_action :fetch_canoe
