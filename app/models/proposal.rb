@@ -26,4 +26,16 @@ class Proposal < ApplicationRecord
   def vote_of someone
     votes.find_by(user: someone)
   end
+
+  def choice_of someone
+    vote_of(someone).try(:choice)
+  end
+
+  def best?
+    proposal_request.best? self
+  end
+
+  def danger?
+    proposal_request.danger? self
+  end
 end

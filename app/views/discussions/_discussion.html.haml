@@ -1,4 +1,4 @@
-.panel.panel-primary[discussion]
+.panel[discussion]{class: ( discussion.inbox? ? 'panel-primary' : 'panel-default')}
   .panel-heading
     %h4
       = link_to discussion do

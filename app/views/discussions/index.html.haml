@@ -1,3 +1,12 @@
 = render 'discussions/header'
-%section
-  = render @discussions
+
+- if @discussions.inbox.any?
+  %section
+    %h3 inbox
+    = render @discussions.inbox
+  %hr
+
+- if @discussions.archived.any?
+  %section
+    %h3 archived
+    = render @discussions.archived

@@ -14,10 +14,19 @@
       \-
       = link_to @discussion.title, @discussion
       %small
-        = link_to [:edit, @discussion] do
-          %i.fa.fa-edit
-        = link_to @discussion, method: :delete, data: {confirm: t('application.delete_confirm')} do
-          %i.fa.fa-trash
+        - if can? :update, @discussion
+          = link_to [:edit, @discussion] do
+            %i.fa.fa-edit
+        - if can? :archive, @discussion
+          - if @discussion.archived?
+            = link_to [:inbox, @discussion], method: :patch do
+              %i.fa.fa-inbox
+          - else
+            = link_to [:archive, @discussion], method: :patch do
+              %i.fa.fa-archive
+        - if can? :destroy, @discussion
+          = link_to @discussion, method: :delete, data: {confirm: t('application.delete_confirm')} do
+            %i.fa.fa-trash
 
     - if local_assigns[:page_title]
       \-

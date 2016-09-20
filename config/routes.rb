@@ -19,6 +19,8 @@ Rails.application.routes.draw do
         member do
           get :edit_consensus
           patch :consensus
+          patch :archive
+          patch :inbox
         end
         resources :consensus_revisions
         resources :proposal_requests

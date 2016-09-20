@@ -9,4 +9,15 @@ class DiscussionsTest < ActionDispatch::IntegrationTest
     assert assigns(:discussion).persisted?
     assert categories(:category1), assigns(:discussion).category
   end
+
+  test '논의를 얼립니다' do
+    sign_in(users(:one))
+    refute discussions(:discussion1).archived?
+
+    patch archive_discussion_path(discussions(:discussion1))
+    assert assigns(:discussion).archived?
+
+    patch inbox_discussion_path(discussions(:discussion1))
+    refute assigns(:discussion).archived?
+  end
 end

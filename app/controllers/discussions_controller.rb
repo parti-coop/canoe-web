@@ -9,6 +9,9 @@ class DiscussionsController < ApplicationController
     @discussions = @canoe.discussions.order("id DESC")
     @category = @canoe.categories.find params[:category_id] if params[:category_id].present?
     @discussions = @discussions.in_category(@category)
+
+    @discussions_archived = @discussions.archived
+    @discussions_inbox = @discussions.inbox
   end
 
   def show
@@ -65,6 +68,16 @@ class DiscussionsController < ApplicationController
       push_to_slack(@discussion)
     end
     redirect_to @canoe
+  end
+
+  def archive
+    @discussion.touch(:archived_at)
+    redirect_to @discussion
+  end
+
+  def inbox
+    @discussion.update_attributes(archived_at: nil)
+    redirect_to @discussion
   end
 
   private

@@ -2,7 +2,7 @@ class Canoe < ApplicationRecord
   belongs_to :user
   has_many :discussions
   has_many :sailing_diaries
-  has_many :boarding_requests
+  has_many :boarding_requests, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :categories, dependent: :destroy do
     def base

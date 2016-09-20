@@ -4,7 +4,7 @@ class Opinion < ApplicationRecord
   belongs_to :user
   belongs_to :discussion, counter_cache: true
   has_one :canoe, through: :discussion
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
 
   validates :body, presence: true
 

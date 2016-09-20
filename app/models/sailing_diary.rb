@@ -1,7 +1,7 @@
 class SailingDiary < ApplicationRecord
   belongs_to :user
   belongs_to :canoe
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
 
   scope :recent, -> { order(created_at: :desc) }
 

@@ -17,7 +17,7 @@ class Ability
         model.canoe.member? user
       end
 
-      can [:destroy, :update], [SailingDiary, Discussion, Opinion, Comment, ProposalRequest, Proposal] do |model|
+      can [:destroy, :update, :inbox, :archive], [SailingDiary, Discussion, Opinion, Comment, ProposalRequest, Proposal] do |model|
         user == model.user
       end
 

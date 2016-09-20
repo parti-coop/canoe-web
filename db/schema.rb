@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908015727) do
+ActiveRecord::Schema.define(version: 20160919234955) do
 
   create_table "activities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.integer  "user_id",        null: false
@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 20160908015727) do
     t.datetime "stroked_at",                               null: false
     t.text     "consensus",      limit: 65535
     t.integer  "category_id",                              null: false
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_discussions_on_archived_at", using: :btree
     t.index ["canoe_id", "user_id"], name: "index_discussions_on_canoe_id_and_user_id", using: :btree
     t.index ["category_id"], name: "index_discussions_on_category_id", using: :btree
   end

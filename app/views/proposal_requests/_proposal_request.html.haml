@@ -28,10 +28,11 @@
 
           - if can? :vote, proposal
             .media-right{ style: 'white-space: nowrap; vertical-align: middle;'}
-              = link_to agree_proposal_path(proposal), method: :post, class: 'btn btn-default' do
+
+              = link_to agree_proposal_path(proposal), method: :post, class: "btn btn-default #{'btn-success' if proposal.choice_of(current_user).try(:agree?)} #{'btn-lg' if proposal.best?}" do
                 %i.fa.fa-thumbs-o-up
                 = proposal.agree_votes_count
-              = link_to block_proposal_path(proposal), method: :post, class: 'btn btn-default' do
+              = link_to block_proposal_path(proposal), method: :post, class: "btn btn-default #{'btn-danger' if proposal.choice_of(current_user).try(:block?)} #{'btn-lg' if proposal.danger?}" do
                 %i.fa.fa-ban
                 = proposal.block_votes_count
 
