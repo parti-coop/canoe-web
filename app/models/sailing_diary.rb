@@ -3,7 +3,7 @@ class SailingDiary < ApplicationRecord
   belongs_to :canoe
   has_many :comments, as: :commentable, dependent: :destroy
 
-  scope :recent, -> { order(created_at: :desc) }
+  scope :recent, -> { order(sailed_on: :desc) }
 
   def model_for_show
     canoe

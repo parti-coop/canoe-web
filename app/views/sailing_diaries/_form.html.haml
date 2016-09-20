@@ -2,7 +2,7 @@
   .form-group
     = f.label :sailed_on
     .input-group
-      = f.date_field :sailed_on, class: 'form-control'
+      = f.date_field :sailed_on, value: @sailing_diary.sailed_on || Date.current, class: 'form-control'
   .form-group
     = f.label :body
     = f.text_area :body, class: 'form-control'

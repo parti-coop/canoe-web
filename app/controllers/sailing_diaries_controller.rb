@@ -11,7 +11,6 @@ class SailingDiariesController < ApplicationController
   end
 
   def new
-    @sailing_diary.sailed_on = Date.current
   end
 
   def create
