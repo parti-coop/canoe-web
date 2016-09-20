@@ -1,0 +1,30 @@
+.media
+  .media-body
+    %h5= proposal.title
+    %small.text-muted
+      = byline proposal.user
+      - if can? :edit, proposal
+        = link_to '수정', [:edit, proposal], class: 'text-danger'
+      - if can? :destroy, proposal
+        = link_to '삭제', proposal, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'text-danger'
+      %a{"data-toggle": "collapse", href: "##{dom_id(proposal)}__voted_users", role: "button", class: 'text-muted'}
+        %i.fa.fa-users
+        = proposal.votes.count
+      .collapse{id: "#{dom_id(proposal)}__voted_users"}
+        %ul.list-unstyled
+          %li
+            = Vote.choice.agree.text
+            = render partial: 'users/byline', collection: proposal.agreeing_users, as: :user
+          %li
+            = Vote.choice.block.text
+            = render partial: 'users/byline', collection: proposal.blocking_users, as: :user
+
+  - if can? :vote, proposal
+    .media-right{ style: 'white-space: nowrap; vertical-align: middle;'}
+
+      = link_to agree_proposal_path(proposal), method: :post, class: "btn btn-default #{'btn-success' if proposal.choice_of(current_user).try(:agree?)} #{'btn-lg' if proposal.best?}" do
+        %i.fa.fa-thumbs-o-up
+        = proposal.agree_votes_count
+      = link_to block_proposal_path(proposal), method: :post, class: "btn btn-default #{'btn-danger' if proposal.choice_of(current_user).try(:block?)} #{'btn-lg' if proposal.danger?}" do
+        %i.fa.fa-ban
+        = proposal.block_votes_count

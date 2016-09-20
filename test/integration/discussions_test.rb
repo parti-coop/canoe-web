@@ -17,6 +17,8 @@ class DiscussionsTest < ActionDispatch::IntegrationTest
     patch archive_discussion_path(discussions(:discussion1))
     assert assigns(:discussion).archived?
 
+    assigns(:discussion).reload
+
     patch inbox_discussion_path(discussions(:discussion1))
     refute assigns(:discussion).archived?
   end

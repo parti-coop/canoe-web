@@ -23,7 +23,12 @@ Rails.application.routes.draw do
           patch :inbox
         end
         resources :consensus_revisions
-        resources :proposal_requests
+        resources :proposal_requests do
+          member do
+            patch :archive
+            patch :inbox
+          end
+        end
         resources :opinions do
           resources :comments
         end

@@ -2,7 +2,6 @@ module SlackPushing
   extend ActiveSupport::Concern
 
   def push_to_slack(subject)
-    return if ApplicationController::skip_slack
     return unless user_signed_in?
 
     @webhook_url = fetch_webhook_url(subject)
@@ -10,7 +9,7 @@ module SlackPushing
     notifier = Slack::Notifier.new(@webhook_url, username: 'parti-canoe')
 
     message = make_message(subject)
-    if message.present?
+    if message.present? and !ApplicationController::skip_slack
       notifier.ping("[[#{@canoe.title} 카누](#{view_context.canoe_url @canoe})] #{message[:title]}", attachments: [{ text: message[:body], color: "#36a64f" }])
     end
   end
@@ -52,6 +51,16 @@ module SlackPushing
       proposal_request = subject
       discussion = proposal_request.discussion
       title = "@#{current_user.nickname}님이 제안을 요청합니다."
+      body = body_with_discussion(discussion, proposal_request.title)
+    when "proposal_requests#update"
+      proposal_request = subject
+      discussion = proposal_request.discussion
+      title = "@#{current_user.nickname}님이 제안 요청을 고쳤습니다."
+      body = body_with_discussion(discussion, proposal_request.title)
+    when "proposal_requests#destroy"
+      proposal_request = subject
+      discussion = proposal_request.discussion
+      title = "@#{current_user.nickname}님이 제안 요청을 지웠습니다."
       body = body_with_discussion(discussion, proposal_request.title)
     when "proposals#create"
       proposal = subject

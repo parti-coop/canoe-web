@@ -1,48 +1,28 @@
-.panel.panel-warning[proposal_request]
+.panel[proposal_request]{class: (proposal_request.inboxed? ? 'panel-warning' : 'panel-default')}
   .panel-heading
     %h4.panel-title
-      = byline proposal_request.user
-      \-
       = proposal_request.title
-
+    %small
+      = byline proposal_request.user
+      - if can? :edit, proposal_request
+        = link_to '수정', [:edit, proposal_request], class: 'text-danger'
+      - if can? :archive, proposal_request
+        - if proposal_request.archived?
+          = link_to '아카이브취소', [:inbox, proposal_request], method: :patch, class: 'text-danger'
+        - else
+          = link_to '아카이브', [:archive, proposal_request], method: :patch, class: 'text-danger'
+      - if can? :destroy, proposal_request
+        = link_to '삭제', proposal_request, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'text-danger'
   %ul.list-group
     - proposal_request.proposals.each do |proposal|
       %li.list-group-item{ style: 'border-color: #faebcc' }
-        .media
-          .media-body
-            %h5= proposal.title
-            .text-muted
-              = proposal.user.nickname
-              = link_to '삭제', proposal, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'text-danger'
-              %a{"data-toggle": "collapse", href: "##{dom_id(proposal)}__voted_users", role: "button", class: 'text-muted'}
-                %i.fa.fa-users
-                = proposal.votes.count
-              .collapse{id: "#{dom_id(proposal)}__voted_users"}
-                %ul.list-unstyled
-                  %li
-                    = Vote.choice.agree.text
-                    = render partial: 'users/byline', collection: proposal.agreeing_users, as: :user
-                  %li
-                    = Vote.choice.block.text
-                    = render partial: 'users/byline', collection: proposal.blocking_users, as: :user
-
-          - if can? :vote, proposal
-            .media-right{ style: 'white-space: nowrap; vertical-align: middle;'}
-
-              = link_to agree_proposal_path(proposal), method: :post, class: "btn btn-default #{'btn-success' if proposal.choice_of(current_user).try(:agree?)} #{'btn-lg' if proposal.best?}" do
-                %i.fa.fa-thumbs-o-up
-                = proposal.agree_votes_count
-              = link_to block_proposal_path(proposal), method: :post, class: "btn btn-default #{'btn-danger' if proposal.choice_of(current_user).try(:block?)} #{'btn-lg' if proposal.danger?}" do
-                %i.fa.fa-ban
-                = proposal.block_votes_count
+        = render proposal
 
     - new_proposal = Proposal.new(proposal_request: proposal_request)
     - if can? :create, new_proposal
       %li.list-group-item{ style: 'border-color: #faebcc' }
         = form_for new_proposal do |f|
           = f.hidden_field :proposal_request_id, value: proposal_request.id
-          .media-left
-            = render 'users/thumbnail'
           .media-body
             .form-group
               = f.text_field :title, placeholder: '새로운 제안을 남기세요', class: 'form-control'

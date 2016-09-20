@@ -11,7 +11,7 @@ class DiscussionsController < ApplicationController
     @discussions = @discussions.in_category(@category)
 
     @discussions_archived = @discussions.archived
-    @discussions_inbox = @discussions.inbox
+    @discussions_inboxed = @discussions.inboxed
   end
 
   def show
@@ -71,12 +71,16 @@ class DiscussionsController < ApplicationController
   end
 
   def archive
-    @discussion.touch(:archived_at)
+    @discussion.archive
+    @discussion.save
+
     redirect_to @discussion
   end
 
   def inbox
-    @discussion.update_attributes(archived_at: nil)
+    @discussion.inbox
+    @discussion.save
+
     redirect_to @discussion
   end
 

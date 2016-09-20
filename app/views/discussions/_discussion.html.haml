@@ -1,4 +1,4 @@
-.panel[discussion]{class: ( discussion.inbox? ? 'panel-primary' : 'panel-default')}
+.panel[discussion]{class: ( discussion.inboxed? ? 'panel-primary' : 'panel-default')}
   .panel-heading
     %h4
       = link_to discussion do
@@ -9,8 +9,6 @@
     %div
       = byline discussion.user
       #{date_f discussion.created_at}부터
-      = link_to '수정', [:edit, discussion], class: 'text-danger'
-      = link_to '삭제', discussion, method: :delete, data: { confirm: '정말 삭제하시겠습니까?' }, class: 'text-danger'
   - recent_discussions = discussion.activities.recent.limit(2)
   - if recent_discussions.any? and local_assigns[:show_recent_timeline]
     .panel-body

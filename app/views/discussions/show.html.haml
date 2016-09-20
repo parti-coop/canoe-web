@@ -46,24 +46,27 @@
 
     %section
       %h4= ProposalRequest.model_name.human
-      = render @discussion.proposal_requests
+      = render @discussion.proposal_requests.inboxed
+      - if @discussion.proposal_requests.archived.any?
+        %h5
+          아카이브된 #{ProposalRequest.model_name.human}이 #{@discussion.proposal_requests.archived.count}개 있습니다.
+          %a{"data-toggle": "collapse", href: "##{dom_id(@discussion)}__archived", role: "button", class: 'text-muted'}
+            보기
+        .collapse{id: "#{dom_id(@discussion)}__archived"}
+          = render @discussion.proposal_requests.archived
 
       .alert.alert-warning
         - if @discussion.proposal_requests.empty?
           %p.help-text 논의가 충분히 진행되면 제안을 받기 시작하세요.
 
-        .media
-          - new_pr = ProposalRequest.new(discussion: @discussion)
-          - if can? :create, new_pr
-            = form_for [@discussion, new_pr] do |f|
-              .media-left
-                = render 'users/thumbnail'
-              .media-body
-                .form-group
-                  = f.text_field :title, placeholder: '새롭게 제안 받을 내용을 적으세요', class: 'form-control input-lg'
-              .media-right
-                .form-group
-                  = f.submit '작성', class: 'btn btn-primary'
+        - new_pr = ProposalRequest.new(discussion: @discussion)
+        - if can? :create, new_pr
+          = form_for [@discussion, new_pr] do |f|
+            .form-group
+              = f.text_field :title, placeholder: '새롭게 제안 받을 내용을 적으세요', class: 'form-control input-lg'
+            .form-group
+              = f.submit '작성', class: 'btn btn-primary'
+
 
   .col-xs-12.col-md-5
     %div

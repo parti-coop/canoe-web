@@ -14,6 +14,7 @@ ko:
       discussion: 논의
       opinion: 의견
       sailing_diary: 항해일지
+      proposal_request: 제안요청
     attributes:
       discussion:
         consensus: 합의사항

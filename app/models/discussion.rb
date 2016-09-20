@@ -16,7 +16,7 @@ class Discussion < ApplicationRecord
   scope :recent, -> { order(stroked_at: :desc) }
   scope :in_category, ->(category) { where(category: category) if category.present? }
   scope :archived, -> { where.not(archived_at: nil) }
-  scope :inbox, -> { where(archived_at: nil) }
+  scope :inboxed, -> { where(archived_at: nil) }
 
   before_create :stroke
 
@@ -28,11 +28,19 @@ class Discussion < ApplicationRecord
     end
   end
 
+  def archive
+    self.archived_at = current_time_from_proper_timezone
+  end
+
+  def inbox
+    self.archived_at = nil
+  end
+
   def archived?
     archived_at.present?
   end
 
-  def inbox?
+  def inboxed?
     !archived?
   end
 end
