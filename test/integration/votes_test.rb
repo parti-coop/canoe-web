@@ -48,4 +48,16 @@ class VotesTest < ActionDispatch::IntegrationTest
     assert proposals('proposal1').blocked_by?(users(:one))
     assert proposals('proposal1').voted_by?(users(:one))
   end
+
+  test 'PR에 찬성했다가 취소합니다' do
+    sign_in(users(:one))
+
+    post agree_proposal_path(proposals('proposal1'))
+    assert_difference 'Vote.count', -1 do
+      delete vote_proposal_path(proposals('proposal1'))
+    end
+
+    refute proposals('proposal1').agreed_by?(users(:one))
+    refute proposals('proposal1').voted_by?(users(:one))
+  end
 end

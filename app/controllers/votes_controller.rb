@@ -10,6 +10,15 @@ class VotesController < ApplicationController
     vote(:block)
   end
 
+  def destroy
+    @vote = @proposal.vote_of(current_user)
+    if @vote.present? and @vote.destroy
+      @vote.track(self)
+      push_to_slack(@vote)
+    end
+    redirect_back fallback_location: @proposal.canoe
+  end
+
   private
 
   def vote(choice)

@@ -6,7 +6,8 @@
 //= require unobtrusive_flash_bootstrap
 //= require rails-timeago
 //= require locales/jquery.timeago.ko
-//
+//= require jquery.webui-popover
+
 // unobtrusive_flash
 UnobtrusiveFlash.flashOptions['timeout'] = 30000;
 
@@ -16,4 +17,6 @@ $(document).on('ready', function() {
     height: 600,
   });
   $('.pattern-trianglify').css("background-image", "url('" + pattern.png() + "')");
+  $('[data-action="canoe-popover"]').webuiPopover();
 });
+

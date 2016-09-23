@@ -22,9 +22,26 @@
   - if can? :vote, proposal
     .media-right{ style: 'white-space: nowrap; vertical-align: middle;'}
 
-      = link_to agree_proposal_path(proposal), method: :post, class: "btn btn-default #{'btn-success' if proposal.choice_of(current_user).try(:agree?)} #{'btn-lg' if proposal.best?}" do
+      - cancel_agree_data = {url: "#cancel-agree-#{dom_id proposal.vote_of(current_user)}", action: 'canoe-popover', placement: 'bottom'} if proposal.agreed_by? current_user
+      - cancel_agree_data ||= {}
+      = link_to agree_proposal_path(proposal), method: :post, class: "btn btn-default #{'btn-success' if proposal.choice_of(current_user).try(:agree?)} #{'btn-lg' if proposal.best?}", data: cancel_agree_data do
         %i.fa.fa-thumbs-o-up
         = proposal.agree_votes_count
-      = link_to block_proposal_path(proposal), method: :post, class: "btn btn-default #{'btn-danger' if proposal.choice_of(current_user).try(:block?)} #{'btn-lg' if proposal.danger?}" do
+
+      - if proposal.agreed_by? current_user
+        .hidden
+          .cancel-vote{id: "cancel-agree-#{dom_id(proposal.vote_of(current_user))}", style: 'white-space: nowrap'}
+            = link_to vote_proposal_path(proposal), method: :delete do
+              취소
+
+      - cancel_block_data = {url: "#cancel-block-#{dom_id proposal.vote_of(current_user)}", action: 'canoe-popover', placement: 'bottom'} if proposal.blocked_by? current_user
+      - cancel_block_data ||= {}
+      = link_to block_proposal_path(proposal), method: :post, class: "btn btn-default #{'btn-danger' if proposal.choice_of(current_user).try(:block?)} #{'btn-lg' if proposal.danger?}", data: cancel_block_data do
         %i.fa.fa-ban
         = proposal.block_votes_count
+
+      - if proposal.blocked_by? current_user
+        .hidden
+          .cancel-vote{id: "cancel-block-#{dom_id(proposal.vote_of(current_user))}", style: 'white-space: nowrap'}
+            = link_to vote_proposal_path(proposal), method: :delete do
+              취소
