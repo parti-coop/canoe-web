@@ -1,0 +1,12 @@
+= form_for (@discussion.new_record? ? [@canoe, @discussion] : @discussion) do |f|
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control'
+  .form-group
+    = f.label :body
+    = f.text_area :body, class: 'form-control'
+  .form-group
+    = f.label :category
+    = f.collection_select :category_id, @canoe.categories, :id, :name, {}, class: 'form-control'
+  .form-group
+    = f.submit class: 'btn btn-primary'

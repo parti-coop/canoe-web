@@ -3,10 +3,15 @@
     .text-muted
       = byline opinion.user
       = date_f opinion.created_at
+      - if can? :update, opinion
+        = link_to '수정', [:edit, opinion], class: 'text-danger'
       - if can? :destroy, opinion
         = link_to '삭제', opinion, method: :delete, class: 'text-danger'
   .panel-body
-    %div= simple_format opinion.body
+    %p
+      - if opinion.updated?
+        %span.text-muted (수정)
+      = simple_format opinion.body, {}, wrapper_tag: "span"
   - if opinion.comments.any?
     .panel-footer
       = render opinion.comments

@@ -11,4 +11,8 @@ class Opinion < ApplicationRecord
   def model_for_show
     discussion
   end
+
+  def updated?
+    self.created_at != self.updated_at
+  end
 end
