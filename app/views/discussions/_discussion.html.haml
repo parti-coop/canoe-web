@@ -1,4 +1,4 @@
-.panel[discussion]{class: ( discussion.inboxed? ? 'panel-primary' : 'panel-default')}
+.panel[discussion]{class: ( discussion.unread?(current_user)? 'panel-primary' : 'panel-default')}
   .panel-heading
     %h4
       = link_to discussion do
