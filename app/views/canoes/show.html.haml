@@ -1,5 +1,7 @@
-.well
-  = simple_format @canoe.body
+%section
+  .section-header
+    %h3 Overview
+  %p.lead= @canoe.body
 
 - if @canoe.member? current_user
   .row
