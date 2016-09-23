@@ -2,7 +2,7 @@
   .panel-heading
     .text-muted
       = byline sailing_diary.user
-      = date_f sailing_diary.sailed_on
+      = sailing_diary.sailed_on
       = link_to '수정', [:edit, sailing_diary], class: 'text-danger' if can? :edit, sailing_diary
       = link_to '삭제', sailing_diary, method: :delete, class: 'text-danger', data: {confirm: t('application.delete_confirm')} if can? :destroy, sailing_diary
   .panel-body
