@@ -10,7 +10,7 @@ class VotesController < ApplicationController
     vote(:block)
   end
 
-  def destroy
+  def unvote
     @vote = @proposal.vote_of(current_user)
     if @vote.present? and @vote.destroy
       @vote.track(self)

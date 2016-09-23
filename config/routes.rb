@@ -50,7 +50,7 @@ Rails.application.routes.draw do
     member do
       post 'agree', to: 'votes#agree'
       post 'block', to: 'votes#block'
-      delete 'vote', to: 'votes#destroy'
+      delete 'vote', to: 'votes#unvote'
     end
   end
 

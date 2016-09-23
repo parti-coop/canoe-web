@@ -36,7 +36,7 @@ class Ability
         br.canoe.member? user
       end
 
-      can [:agree, :block, :vote], Proposal do |proposal|
+      can [:agree, :block, :vote, :unvote], Proposal do |proposal|
         proposal.canoe.member?(user)
       end
     end
