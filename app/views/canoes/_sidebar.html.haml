@@ -36,7 +36,9 @@
         Sailing Diaries
         %span.count= @canoe.sailing_diaries.count
     %li
-      %a{:href => "#"} Wiki
+      = link_to canoe_wikis_path(@canoe) do
+        Wiki
+        %span.count= @canoe.wikis.count
     %li
       = link_to canoe_memberships_path(@canoe) do
         Members

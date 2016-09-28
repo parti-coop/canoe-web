@@ -1,0 +1,15 @@
+%section
+  .page-header
+    %h2
+      Wiki
+
+  %section
+    .section-title
+      %h3
+        = @wiki.title
+        %small
+          = link_to 'edit', [:edit, @wiki]
+          = link_to 'destroy', @wiki, method: :delete, data: { confirm: 'are you sure?' }
+
+    %div
+      = simple_format @wiki.body

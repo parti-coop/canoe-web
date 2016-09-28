@@ -1,0 +1,17 @@
+%section
+  .page-header
+    %h2
+      Wiki
+      %small.pull-right
+        = link_to 'add page', new_canoe_wiki_path(@canoe), class: 'btn btn-primary'
+
+  %section
+    .section-header
+      %h3 Recent Changes
+
+    %ul.list-unstyled
+      - @wikis.each do |wiki|
+        %li
+          %h4
+            = link_to wiki.title, wiki
+            %small= l wiki.updated_at

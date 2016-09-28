@@ -5,7 +5,7 @@ class Ability
     can :read, Canoe
     if user
       can :create, [Canoe, BoardingRequest]
-      can [:read, :create], [Category, SailingDiary, Discussion, Opinion, Comment, ProposalRequest, Proposal, Vote, ConsensusRevision] do |model|
+      can [:read, :create], [Category, SailingDiary, Wiki, Discussion, Opinion, Comment, ProposalRequest, Proposal, Vote, ConsensusRevision] do |model|
         model.canoe.member? user
       end
 
@@ -13,7 +13,7 @@ class Ability
         model.member? user
       end
 
-      can [:destroy, :update], Category do |model|
+      can [:destroy, :update], [Category, Wiki] do |model|
         model.canoe.member? user
       end
 

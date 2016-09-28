@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       resources :sailing_diaries do
         resources :comments
       end
+      resources :wikis
       resources :memberships do
         delete :cancel, on: :collection
       end
