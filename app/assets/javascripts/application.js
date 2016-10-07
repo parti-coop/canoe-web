@@ -9,6 +9,8 @@
 //= require jquery.webui-popover
 //= require jquery.overlay
 //= require jquery.textcomplete
+//= require autoresize
+
 
 // unobtrusive_flash
 UnobtrusiveFlash.flashOptions['timeout'] = 30000;
@@ -30,7 +32,6 @@ $(document).on('ready', function() {
         klasses: "emotion emotion--" + sign_values[i]
       })
     }
-    console.log(sign_texts);
 
     $(elm).textcomplete([{
         match: /\B:([ㄱ-ㅎ가-힣a-z0-9_]*)$/,
@@ -56,6 +57,7 @@ $(document).on('ready', function() {
         // Cursor is ready.
         $target.textcomplete('trigger', ':');
     }, 100);
-  })
+  });
+  autosize($('.action-autoresize'));
 });
 
