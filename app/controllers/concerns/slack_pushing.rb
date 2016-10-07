@@ -31,7 +31,7 @@ module SlackPushing
     when "canoes#update"
       canoe = subject
       title = "@#{current_user.nickname}님이 카누 설정을 고쳤습니다."
-    when "sailing_diary#create"
+    when "sailing_diaries#create"
       sailing_diary = subject
       title = "@#{current_user.nickname}님이 항해일지를 만들었습니다."
       body = body_with_sailing_diary(sailing_diary)
@@ -138,7 +138,8 @@ module SlackPushing
   def body_with_sailing_diary(sailing_diary, message = nil)
     result = ""
     result += "#{message}\n\n" if message.present?
-    result +=  sailing_diary.persisted? ? "항해일지: [#{sailing_diary.title}](#{view_context.sailing_diary_url sailing_diary})" : "항해일지: #{sailing_diary.title}"
+    result +=  "#{view_context.truncate sailing_diary.body, length: 100}\n"
+    result +=  "[더보기](#{view_context.sailing_diary_url sailing_diary})"
   end
 
   def body_with_discussion(discussion, message = nil)

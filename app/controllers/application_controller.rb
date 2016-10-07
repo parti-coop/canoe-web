@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
   after_action :prepare_unobtrusive_flash
-  cattr_accessor(:skip_slack) { !Rails.env.production? }
+  cattr_accessor(:skip_slack) { !Rails.env.production? and ENV["FORCE_SLACK_PUSH"].blank? }
 
   if Rails.env.production? or Rails.env.staging?
     rescue_from ActiveRecord::RecordNotFound, ActionController::UnknownFormat do |exception|
