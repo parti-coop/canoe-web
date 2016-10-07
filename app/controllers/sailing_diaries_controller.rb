@@ -16,8 +16,9 @@ class SailingDiariesController < ApplicationController
   def create
     @sailing_diary.canoe = @canoe
     @sailing_diary.user = current_user
-    @sailing_diary.save
-
+    if @sailing_diary.save
+      push_to_slack(@sailing_diary)
+    end
     redirect_to canoe_sailing_diaries_path(@canoe)
   end
 
