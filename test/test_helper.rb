@@ -8,6 +8,7 @@ OmniAuth.config.test_mode = true
 
 class ActiveSupport::TestCase
   fixtures :all
+  SeedFu.seed
 
   # Returns true if a test user is logged in.
   def signed_in?

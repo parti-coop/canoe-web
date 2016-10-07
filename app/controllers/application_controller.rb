@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include SlackPushing
 
   protect_from_forgery with: :exception
+  after_action :prepare_unobtrusive_flash
   cattr_accessor(:skip_slack) { !Rails.env.production? }
 
   if Rails.env.production? or Rails.env.staging?
@@ -22,5 +23,9 @@ class ApplicationController < ActionController::Base
   def render_404
     self.response_body = nil
     render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+  end
+
+  def errors_to_flash(model)
+    flash[:notice] = model.errors.full_messages.join('<br>').html_safe
   end
 end

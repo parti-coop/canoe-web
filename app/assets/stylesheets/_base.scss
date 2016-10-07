@@ -13,6 +13,11 @@ body {
   min-width: 970px;
 }
 
-.panel.panel-primary a {
-  color: #fff;
+.panel.panel-primary{
+  a {
+    color: #fff;
+  }
+  .panel-body a {
+    color: $brand-primary;
+  }
 }

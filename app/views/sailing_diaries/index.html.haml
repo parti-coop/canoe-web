@@ -8,4 +8,11 @@
       오늘의 항해일지
     .panel-body
       = render 'form'
+
+
+%div
+  %ul.list-inline
+    - Emotion.sign.values.each do |sign|
+      %li
+        = link_to sign.text, canoe_sailing_diaries_path(@canoe, emotion: sign)
   = render @sailing_diaries

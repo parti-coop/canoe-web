@@ -87,3 +87,10 @@ export TWITTER_APP_SECRET="xx"
 #### 스키마
 
 db:create와 db:migrate로 생성합니다.
+
+### 초기 데이터 추가
+
+[mbleigh/seed-fu](https://github.com/mbleigh/seed-fu) 을 이용하여 설정된 초기 데이터를 로딩합니다.
+
+```
+$ bin/rails db:seed_fu

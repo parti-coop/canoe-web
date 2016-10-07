@@ -1,8 +1,12 @@
 class Canoe < ApplicationRecord
   belongs_to :user
   has_many :discussions
-  has_many :sailing_diaries
   has_many :wikis
+  has_many :sailing_diaries do
+    def today(someone)
+      find_by(sailed_on: Date.today, user: someone)
+    end
+  end
   has_many :boarding_requests, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :categories, dependent: :destroy do

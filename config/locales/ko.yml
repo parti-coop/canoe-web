@@ -31,3 +31,21 @@ ko:
       choice:
         agree: 동의
         block: 반대
+    emotion:
+      sign:
+        joy: 즐거움
+        suprise: 깜짝
+        digust: 싫음
+        fear: 두려움
+        angry: 화남
+        sad: 슬픔
+        hope: 기대
+        disappoint: 실망
+        tender: 긴장
+        disapproval: 난감
+        remorse: 자책
+        sorry: 유감
+        learn: 배움
+        insight: 아하!
+        determine: 결심
+        try: 실험

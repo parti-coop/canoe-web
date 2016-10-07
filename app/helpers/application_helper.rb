@@ -16,4 +16,11 @@ module ApplicationHelper
 
     raw(markdown.render(body))
   end
+
+  def emotion_format(text, html_options = {}, options = {})
+    parsed_text = simple_format(h(text), html_options, options).to_str
+    raw(Emotion.process(text) do |matched, emotion|
+      content_tag(:span, matched, class: "emotion emotion-#{emotion.sign}")
+    end)
+  end
 end

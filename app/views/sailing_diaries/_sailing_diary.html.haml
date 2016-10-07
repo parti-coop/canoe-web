@@ -1,4 +1,4 @@
-.panel.panel-default
+.panel.panel-default.sailing_diary[sailing_diary]
   .panel-heading
     .text-muted
       = byline sailing_diary.user
@@ -6,7 +6,7 @@
       = link_to '수정', [:edit, sailing_diary], class: 'text-danger' if can? :edit, sailing_diary
       = link_to '삭제', sailing_diary, method: :delete, class: 'text-danger', data: {confirm: t('application.delete_confirm')} if can? :destroy, sailing_diary
   .panel-body
-    %div= simple_format sailing_diary.body
+    %div= emotion_format sailing_diary.body
   .panel-footer
     = render sailing_diary.comments
     - new_comment =  Comment.new(commentable: sailing_diary)

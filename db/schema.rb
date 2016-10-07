@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928084546) do
+ActiveRecord::Schema.define(version: 20161006135942) do
 
   create_table "activities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.integer  "user_id",        null: false
@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(version: 20160928084546) do
     t.index ["user_id"], name: "index_consensus_revisions_on_user_id", using: :btree
   end
 
+  create_table "consensuses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.integer  "discussion_id",               null: false
+    t.text     "body",          limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["discussion_id"], name: "index_consensuses_on_discussion_id", using: :btree
+  end
+
   create_table "discussions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.integer  "user_id",                                  null: false
     t.integer  "canoe_id",                                 null: false
@@ -91,6 +99,33 @@ ActiveRecord::Schema.define(version: 20160928084546) do
     t.index ["archived_at"], name: "index_discussions_on_archived_at", using: :btree
     t.index ["canoe_id", "user_id"], name: "index_discussions_on_canoe_id_and_user_id", using: :btree
     t.index ["category_id"], name: "index_discussions_on_category_id", using: :btree
+  end
+
+  create_table "emotion_tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.integer  "emotion_id",       null: false
+    t.integer  "sailing_diary_id", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["emotion_id", "sailing_diary_id"], name: "index_emotion_tags_on_emotion_id_and_sailing_diary_id", unique: true, using: :btree
+    t.index ["emotion_id"], name: "index_emotion_tags_on_emotion_id", using: :btree
+    t.index ["sailing_diary_id"], name: "index_emotion_tags_on_sailing_diary_id", using: :btree
+  end
+
+  create_table "emotions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.string   "sign"
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "emotions_sailing_diaries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.integer  "emotion_id",       null: false
+    t.integer  "sailing_diary_id", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["emotion_id", "sailing_diary_id"], name: "emotions_sailing_diaries_unique", unique: true, using: :btree
+    t.index ["emotion_id"], name: "index_emotions_sailing_diaries_on_emotion_id", using: :btree
+    t.index ["sailing_diary_id"], name: "index_emotions_sailing_diaries_on_sailing_diary_id", using: :btree
   end
 
   create_table "memberships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
