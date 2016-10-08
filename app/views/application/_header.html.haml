@@ -2,14 +2,14 @@
   %nav.navbar.navbar-inverse.navbar-fixed-top
     .container-fluid
       .navbar-header
-        %button.navbar-toggle.collapsed{"data-target": "#collapsable", "data-toggle": "collapse", type: "button"}
+        %button.navbar-toggle.collapsed{"data-target": "#navbar", "data-toggle": "collapse", type: "button"}
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
         %a.navbar-brand{ href: root_path }
           카누
 
-      .collapse.navbar-collapse
+      #navbar.collapse.navbar-collapse
         - if user_signed_in?
           %ul.nav.navbar-nav
             - current_user.boarding_canoes.each do |canoe|
