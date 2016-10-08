@@ -2,54 +2,55 @@
   .container
     .jumbotron.jumbotron-transparent
       .text-center
+        %h1
+          %strong> 더 즐거운 팀
+          을 만들고 싶으세요?
         %h2
           %strong> 카누
-          로 해적단같은 팀을 만들어 봅시다
-        %p
-          %strong{ style: 'border-bottom: 2px solid #666'} #{User.count}
-          명의 모험가가
-          %strong{ style: 'border-bottom: 2px solid #666'} #{Canoe.count}
-          개의 카누를 타고 항해 중입니다
-        %p
-          = link_to '카누는 왜 만들었을까요?', 'https://github.com/parti-xyz/canoe-web/wiki', target: '_blank', class: 'btn btn-danger btn-lg'
-          = link_to canoes_path, class: 'btn btn-warning btn-lg' do
-            %i.fa.fa-search
-            카누 찾기
+          를 팀과 실험해 보세요
 %section
   .container
     .jumbotron.jumbotron-transparent
       %h2.text-center
         %strong> 카누
         를 쓰면 어떤 장점이 있나요?
-      .row
+      .row{ style: 'margin-top: 48px;'}
         .col-sm-4
           %p.text-center
-            카누로
-            %strong{ style: 'border-bottom: 2px solid #666'} 수평적인 의사결정 시스템
-            을 팀에 도입할 수 있습니다.
+            %strong{ style: 'border-bottom: 2px solid #666'} 의사결정 시스템
+            을 통해 팀이 더 수평하게 상호작용합니다.
 
         .col-sm-4
           %p.text-center
-            카누로 팀원들의
-            %strong{ style: 'border-bottom: 2px solid #666'} 감정과 경험
-            을 기록하고 공유할 수 있습니다.
+            팀원들의
+            %strong{ style: 'border-bottom: 2px solid #666'} 경험과 감정
+            을 공유하고 기록합니다.
 
         .col-sm-4
           %p.text-center
-            카누로 내린 의사결정, 함께 나눈 기록을 팀의
+            팀의 의사결정과, 팀원의 경험을 팀의
             %strong{ style: 'border-bottom: 2px solid #666'} 역사
-            와
+            이자
             %strong{ style: 'border-bottom: 2px solid #666'} 정체성
-            으로 활용할 수 있습니다.
+            으로 만들어 갑니다.
 
 %section{ style: 'background-color: #f3f3f7' }
   .container
     .jumbotron.jumbotron-transparent
       %h2.text-center
-        지금 바로
-        %strong 카누
-        를 만들어 보세요
-        %p{ style: 'margin-top: 32px;' }
-          = link_to new_canoe_path, class: 'btn btn-primary btn-lg' do
-            %i.fa.fa-cube
-            카누 만들기
+        지금 바로 실험해 보세요.
+      %p.text-center
+        베타 기간 동안은 누구나 무료로 카누를 이용할 수 있으며,
+        %br
+        현재
+        %strong{ style: 'border-bottom: 2px solid #666'} #{User.count}
+        명의 모험가가
+        %strong{ style: 'border-bottom: 2px solid #666'} #{Canoe.count}
+        개의 카누를 타고 항해 중입니다
+      %p.text-center
+        = link_to new_canoe_path, class: 'btn btn-danger btn-lg' do
+          %i.fa.fa-cube
+          카누 만들기
+        = link_to canoes_path, class: 'btn btn-primary btn-lg' do
+          %i.fa.fa-search
+          카누 찾기
