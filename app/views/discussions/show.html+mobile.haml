@@ -1,0 +1,115 @@
+- category = @discussion.try(:category)
+%h4
+  - if category.present?
+    = link_to path_with_category(category) do
+      \##{category.name}
+    - if @discussion.blank?
+      %small
+        = link_to edit_category_path(category) do
+          %i.fa.fa-edit
+  \-
+  = @discussion.title
+%section{ style: 'margin-bottom: 16px;' }
+  %div
+    %small.text-muted
+      = byline @discussion.user
+      #{date_f @discussion.created_at}부터
+    %small.pull-right
+      - if can? :update, @discussion
+        = link_to [:edit, @discussion] do
+          %i.fa.fa-edit
+      - if can? :archive, @discussion
+        - if @discussion.archived?
+          = link_to [:inbox, @discussion], method: :patch do
+            %i.fa.fa-inbox
+        - else
+          = link_to [:archive, @discussion], method: :patch do
+            %i.fa.fa-archive
+      - if can? :destroy, @discussion
+        = link_to @discussion, method: :delete, data: {confirm: t('application.delete_confirm')} do
+          %i.fa.fa-trash
+
+  .discussion-body= markdown @discussion.body
+
+%div
+  #canoe-mobile-tabs
+    %ul.nav.nav-tabs{:role => "tablist"}
+      %li.active{:role => "presentation"}
+        %a{"aria-controls" => "messages", "data-toggle" => "tab", :href => "#timeline_tab", :role => "tab"}
+          = t('label.timeline')
+      %li{:role => "presentation"}
+        %a{"aria-controls" => "messages", "data-toggle" => "tab", :href => "#proposals_tab", :role => "tab"}
+          = ProposalRequest.model_name.human
+          %small= @discussion.proposal_requests.count
+      %li{:role => "presentation"}
+        %a{"aria-controls" => "profile", "data-toggle" => "tab", :href => "#consensus_tab", :role => "tab"}
+          = Discussion.human_attribute_name(:consensus)
+      %li{:role => "presentation"}
+        %a{"aria-controls" => "settings", "data-toggle" => "tab", :href => "#attachments_tab", :role => "tab"}
+          관련자료
+
+  .tab-content
+    #timeline_tab.tab-pane.active{:role => "tabpanel"}
+      %div
+        - new_opinion = Opinion.new(discussion: @discussion)
+        - if can? :create, new_opinion
+          = form_for [@discussion, new_opinion] do |f|
+            .form-group
+              = f.text_area :body, class: 'form-control'
+            .form-group
+              = f.submit '작성', class: 'btn btn-primary'
+        - @discussion.activities.recent.each do |activity|
+          .activity{class: "activity--#{activity.trackable_type.underscore.parameterize.dasherize}--#{activity.action.parameterize.dasherize}"}
+            = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
+
+    #consensus_tab.tab-pane{:role => "tabpanel"}
+      %section
+        %h5
+          %small
+            - if @discussion.consensus.present? and can?(:consensus, @discussion)
+              = link_to '수정하기', edit_consensus_discussion_path, class: 'text-danger'
+        - if @discussion.consensus.present?
+          .concensus-body= markdown @discussion.consensus
+
+          - if @discussion.consensus_revisions.any?
+            %small.text-muted
+              마지막 수정 : #{byline @discussion.consensus_revisions.current.user} #{date_f @discussion.consensus_revisions.current.created_at}
+              = link_to '이력보기', discussion_consensus_revisions_path(@discussion), class: 'text-danger'
+        - else
+          %p.text-muted 합의된 사항이 있나요?
+          %p
+            = link_to edit_consensus_discussion_path, class: 'btn btn-primary' do
+              #{Discussion.human_attribute_name(:consensus)} 적기
+
+    #attachments_tab.tab-pane{:role => "tabpanel"}
+      %section
+        %h5 관련자료
+
+        %p
+          %span.text-muted 관련자료가 있나요?
+          = link_to '#', class: 'btn btn-primary' do
+            업로드
+
+    #proposals_tab.tab-pane{:role => "tabpanel"}
+      %section
+        = render @discussion.proposal_requests.inboxed
+
+        - if @discussion.proposal_requests.archived.any?
+          %h5
+            아카이브된 #{ProposalRequest.model_name.human}이 #{@discussion.proposal_requests.archived.count}개 있습니다.
+            %a{"data-toggle": "collapse", href: "##{dom_id(@discussion)}__archived", role: "button", class: 'text-muted'}
+              보기
+          .collapse{id: "#{dom_id(@discussion)}__archived"}
+            = render @discussion.proposal_requests.archived
+
+        .alert.alert-warning
+          - if @discussion.proposal_requests.empty?
+            %p.help-text 논의가 충분히 진행되면 제안을 받기 시작하세요.
+
+          - new_pr = ProposalRequest.new(discussion: @discussion)
+          - if can? :create, new_pr
+            = form_for [@discussion, new_pr] do |f|
+              .form-group
+                = f.text_field :title, placeholder: '새롭게 제안 받을 내용을 적으세요', class: 'form-control input-lg'
+              .form-group
+                = f.submit '작성', class: 'btn btn-primary'
