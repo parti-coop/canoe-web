@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
   after_action :prepare_unobtrusive_flash
   cattr_accessor(:skip_slack) { !Rails.env.production? and ENV["FORCE_SLACK_PUSH"].blank? }
 
+  before_action do
+    if browser.device.mobile?
+      request.variant = :mobile
+    end
+  end
+
   if Rails.env.production? or Rails.env.staging?
     rescue_from ActiveRecord::RecordNotFound, ActionController::UnknownFormat do |exception|
       render_404

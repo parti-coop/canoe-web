@@ -7,6 +7,9 @@ class CanoesController < ApplicationController
   end
 
   def show
+    @sailing_diaries = @canoe.sailing_diaries.recent
+    @sailing_diaries = @sailing_diaries.with_emotion(params[:emotion]) if params[:emotion].present?
+    @sailing_diary = @canoe.sailing_diaries.today(current_user) || SailingDiary.new
     render layout: 'canoe'
   end
 
