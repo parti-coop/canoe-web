@@ -1,3 +1,27 @@
+#canoe-mobile-tabs {
+  margin-bottom: 16px;
+  .nav-tabs {
+    border: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: -webkit-box;
+    display: -moz-box;
+  }
+  .nav > li {
+    float: none;
+    margin: 0;
+    a {
+      padding: 8px 12px;
+      border: 1px solid $brand-primary;
+      margin-right: -1px;
+    }
+    &.active > a {
+      background-color: $brand-primary;
+      color: #fff;
+    }
+  }
+}
+
 .canoe-image {
   background-size: cover;
   background-position: center;

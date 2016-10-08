@@ -15,6 +15,8 @@ ko:
       opinion: 의견
       sailing_diary: 항해일지
       proposal_request: 제안요청
+      wiki: 위키
+      boarding_request: 승선요청
     attributes:
       discussion:
         consensus: 합의사항

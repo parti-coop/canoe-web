@@ -6,21 +6,26 @@
 - if @canoe.member? current_user
 
   %div
-    %ul.nav.nav-tabs{:role => "tablist"}
-      %li.active{:role => "presentation"}
-        %a{"aria-controls" => "home", "data-toggle" => "tab", :href => "#discussions", :role => "tab"} Discussions
-      %li{:role => "presentation"}
-        %a{"aria-controls" => "profile", "data-toggle" => "tab", :href => "#sailing_diaries", :role => "tab"} Sailing Diaries
-      %li{:role => "presentation"}
-        %a{"aria-controls" => "settings", "data-toggle" => "tab", :href => "#wikis", :role => "tab"} Wikis
-      %li{:role => "presentation"}
-        %a{"aria-controls" => "messages", "data-toggle" => "tab", :href => "#boarding_requests", :role => "tab"} Boarding Requests
+    #canoe-mobile-tabs
+      %ul.nav.nav-tabs{:role => "tablist"}
+        %li.active{:role => "presentation"}
+          %a{"aria-controls" => "home", "data-toggle" => "tab", :href => "#discussions", :role => "tab"}
+            = Discussion.model_name.human
+        %li{:role => "presentation"}
+          %a{"aria-controls" => "profile", "data-toggle" => "tab", :href => "#sailing_diaries", :role => "tab"}
+            = SailingDiary.model_name.human
+        %li{:role => "presentation"}
+          %a{"aria-controls" => "settings", "data-toggle" => "tab", :href => "#wikis", :role => "tab"}
+            = Wiki.model_name.human
+        %li{:role => "presentation"}
+          %a{"aria-controls" => "messages", "data-toggle" => "tab", :href => "#boarding_requests", :role => "tab"}
+            = BoardingRequest.model_name.human
 
     .tab-content
       #discussions.tab-pane.active{:role => "tabpanel"}
         %section
-          %h3
-            = link_to 'Discussions', canoe_discussions_path(@canoe)
+          %h4
+            = link_to Discussion.model_name.human, canoe_discussions_path(@canoe)
             %small.pull-right
               = link_to '+ 열기', new_canoe_discussion_path(@canoe)
           %div
@@ -48,6 +53,6 @@
         %section
       #boarding_requests.tab-pane{:role => "tabpanel"}
         %section
-          %h3 Boarding Requests
+          %h4= BoardingRequest.model_name.human
           - @canoe.boarding_requests.recent.each do |boarding_request|
             = render boarding_request
