@@ -27,6 +27,16 @@ gem 'haml-rails', '~> 0.9.0'
 gem 'diffy', '~> 3.1'
 gem 'redcarpet', '~> 3.3', '>= 3.3.4'
 
+# api
+gem 'grape', '~> 0.17.0'
+gem 'grape_on_rails_routes', '~> 0.3.1'
+gem 'grape-route-helpers', '~> 2.0'
+gem 'grape_logging', '~> 1.3'
+gem 'grape-entity', '~> 0.5.1'
+gem 'grape-swagger', '~> 0.24.0'
+gem 'grape-swagger-rails', '~> 0.3.0'
+gem 'grape-swagger-entity'
+
 # assets
 source 'https://rails-assets.org' do
   gem 'rails-assets-trianglify'
