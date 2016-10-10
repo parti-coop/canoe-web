@@ -1,23 +1,28 @@
-.panel.panel-default.sailing_diary[sailing_diary]
-  .panel-heading
-    .text-muted
-      = byline sailing_diary.user
-      = sailing_diary.sailed_on
-      = link_to '수정', [:edit, sailing_diary], class: 'text-danger' if can? :edit, sailing_diary
-      = link_to '삭제', sailing_diary, method: :delete, class: 'text-danger', data: {confirm: t('application.delete_confirm')} if can? :destroy, sailing_diary
+.panel.panel-default
   .panel-body
-    %div= emotion_format sailing_diary.body
+    .media[sailing_diary]
+      .media-left
+        = render 'users/thumbnail', user: sailing_diary.user
+      .media-body
+        %div= emotion_format sailing_diary.body
+        %small.text-muted
+          = sailing_diary.sailed_on
+          = link_to '수정', [:edit, sailing_diary], class: 'text-danger' if can? :edit, sailing_diary
+          = link_to '삭제', sailing_diary, method: :delete, class: 'text-danger', data: {confirm: t('application.delete_confirm')} if can? :destroy, sailing_diary
+
   .panel-footer
     = render sailing_diary.comments
-    - new_comment =  Comment.new(commentable: sailing_diary)
-    - if can? :create, new_comment
-      .comment-form
-        = form_for [sailing_diary, new_comment] do |f|
-          .media
-            .media-left= render 'users/thumbnail'
-            .media-body
-              .form-group
-                = f.text_field :body, class: 'form-control', placeholder: '댓글...'
-            .media-right
-              = f.submit '작성', class: 'btn btn-primary'
+
+    .sailing-diary-comments
+      - new_comment =  Comment.new(commentable: sailing_diary)
+      - if can? :create, new_comment
+        .comment-form
+          = form_for [sailing_diary, new_comment] do |f|
+            .media
+              .media-left= render 'users/thumbnail'
+              .media-body
+                .form-group
+                  = f.text_field :body, class: 'form-control', placeholder: '댓글...'
+              .media-right
+                = f.submit '작성', class: 'btn btn-primary btn-sm'
 
