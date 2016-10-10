@@ -1,14 +1,17 @@
 .panel[discussion]{class: ( discussion.unread?(current_user)? 'panel-primary' : 'panel-default')}
-  .panel-heading
-    %h4
-      = link_to discussion do
-        = discussion.title
-        - if user_signed_in? and discussion.unread? current_user
-          %sup
-            %i.fa.fa-circle
-    %div
-      = byline discussion.user
-      #{date_f discussion.created_at}부터
+  .panel-body
+    .media-left
+      = render 'users/thumbnail', user: discussion.user
+    .media-body
+      %h4.media-heading
+        = link_to discussion do
+          = discussion.title
+          - if user_signed_in? and discussion.unread? current_user
+            %sup
+              %i.fa.fa-circle
+      %small.text-muted
+        #{date_f discussion.created_at}부터
+
   - recent_discussions = discussion.activities.recent.limit(2)
   - if recent_discussions.any? and local_assigns[:show_recent_timeline]
     .panel-body

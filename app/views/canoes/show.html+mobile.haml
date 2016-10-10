@@ -36,9 +36,8 @@
     .tab-content
       #discussions.tab-pane.active{:role => "tabpanel"}
         %section
-          %h4
-            = link_to Discussion.model_name.human, canoe_discussions_path(@canoe)
-            %small.pull-right
+          %h4.text-right
+            %small
               = link_to '+ 열기', new_canoe_discussion_path(@canoe)
           %div
             = render @canoe.discussions.recent.limit(10)
