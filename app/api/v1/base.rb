@@ -60,17 +60,26 @@ module V1
       end
     end
 
-    desc '해당 사용자가 가입한 카누를 조회합니다'
-    get :canoes do
-      present :canoes, Canoe.all, with: V1::Entities::CanoeEntity
-    end
-
+    desc '카누'
     resource :canoes do
-      desc '카누 상세 정보를 조회합니다'
-      route_param :id do
+      desc '해당 사용자가 가입한 카누를 조회합니다'
+      get do
+        present :canoes, Canoe.all, with: V1::Entities::CanoeEntity
+      end
+
+      route_param :id, desc: "카누 id" do
+        before do
+          @canoe = Canoe.find(params[:id])
+        end
+
+        desc '카누 상세 정보를 조회합니다'
         get do
-          canoe = Canoe.find(params[:id])
-          present :canoe, canoe, with: V1::Entities::CanoeDetailEntity
+          present :canoe, @canoe, with: V1::Entities::CanoeDetailEntity
+        end
+
+        desc '카누의 항해일지를 모두 가져 옵니다'
+        get :sailing_diaries do
+          present :sailing_diaries, @canoe.sailing_diaries, with: V1::Entities::SailingDiaryEntity
         end
       end
     end
