@@ -54,22 +54,25 @@ module V1
     include APIDefaults
 
     before do
-      unless "/api/v1/docs" == env['PATH_INFO']
-        current_user = User.find_by nickname: CGI.unescape(headers['Authorization'] || '')
+      if "/api/v1/docs" != env['PATH_INFO'] and current_user.blank?
         error! 'Unauthorized', 401, 'X-Error-Detail': 'Invalid token.' if current_user.blank?
       end
     end
 
-    desc '카누'
-    resource :canoes do
+
+    resource :canoes, desc: '카누' do
       desc '해당 사용자가 가입한 카누를 조회합니다'
       get do
         present :canoes, Canoe.all, with: V1::Entities::CanoeEntity
       end
 
-      route_param :id, desc: "카누 id" do
+      params do
+        requires :id, type: Integer, desc: '카누 id'
+      end
+      namespace ':id' do
         before do
           @canoe = Canoe.find(params[:id])
+          authorize! :member, @canoe
         end
 
         desc '카누 상세 정보를 조회합니다'

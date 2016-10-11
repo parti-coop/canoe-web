@@ -26,6 +26,10 @@ module APIDefaults
       error!(e.message, 400)
     end
 
+    rescue_from ::CanCan::AccessDenied do |e|
+      error!(e.message, 403)
+    end
+
     unless Rails.env.development?
       rescue_from :all do |e|
         logger.info "500"

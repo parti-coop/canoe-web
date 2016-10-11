@@ -36,6 +36,7 @@ gem 'grape-entity', '~> 0.5.1'
 gem 'grape-swagger', '~> 0.24.0'
 gem 'grape-swagger-rails', '~> 0.3.0'
 gem 'grape-swagger-entity'
+gem 'grape-cancan', '~> 0.0.2'
 
 # assets
 source 'https://rails-assets.org' do
