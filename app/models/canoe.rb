@@ -4,7 +4,7 @@ class Canoe < ApplicationRecord
   has_many :wikis
   has_many :sailing_diaries do
     def today(someone)
-      find_by(sailed_on: Date.today, user: someone)
+      find_by(sailed_on: Date.current, user: someone)
     end
   end
   has_many :boarding_requests, dependent: :destroy
