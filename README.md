@@ -86,7 +86,7 @@ export TWITTER_APP_SECRET="xx"
 
 #### 스키마
 
-db:create와 db:migrate로 생성합니다.
+db:setup 로 생성합니다.
 
 ### 초기 데이터 추가
 

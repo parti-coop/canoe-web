@@ -11,7 +11,8 @@ class SailingDiariesController < ApplicationController
     @sailing_diary = @canoe.sailing_diaries.today(current_user) || SailingDiary.new
   end
 
-  def new
+  def show
+    @canoe = @sailing_diary.canoe
   end
 
   def create
