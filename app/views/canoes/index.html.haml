@@ -3,21 +3,20 @@
     .page-header
       %h2 모든 카누
     .row.masonry-container
-      - 10.times do
-        - @canoes.each do |canoe|
-          .col-sm-6.col-md-4
-            .panel.panel-default
-              .panel-body
-                .media
-                  .media-left{ style: 'width:100px' }
-                    = link_to canoe do
-                      %img{:alt => "100x100", "data-holder-rendered" => "true", "data-src" => "holder.js/100x100", :src => canoe.logo_url, :style => "width: 100px;"}
-                  .media-body
-                    %h4.media-heading
-                      = link_to canoe.title, canoe
-                      %small
-                        %i.fa.fa-user
-                        = canoe.memberships.count
+      - @canoes.each do |canoe|
+        .col-sm-6.col-md-4
+          .panel.panel-default
+            .panel-body
+              .media
+                .media-left{ style: 'width:100px' }
+                  = link_to canoe do
+                    %img{:alt => "100x100", "data-holder-rendered" => "true", "data-src" => "holder.js/100x100", :src => canoe.logo_url, :style => "width: 100px;"}
+                .media-body
+                  %h4.media-heading
+                    = link_to canoe.title, canoe
+                    %small
+                      %i.fa.fa-user
+                      = canoe.memberships.count
 
-                    %p
-                      = canoe.body
+                  %p
+                    = canoe.body
