@@ -1,11 +1,13 @@
 = form_for @sailing_diary.new_record? ? [@canoe, @sailing_diary] : @sailing_diary do |f|
   .form-group
-    = f.label :sailed_on
+    = link_to '+ 느낌', '#', class: 'action-emotion-label', data: { 'emotion-label-target': 'form textarea.action-emotion-textarea' }
+
+  .form-group
     .input-group
       = f.date_field :sailed_on, value: @sailing_diary.sailed_on || Date.current, class: 'form-control'
+
   .form-group
-    = f.label :body
-    ~ f.text_area :body, class: 'form-control action-emotion-textarea action-autoresize', data: { 'emotion-textarea-sign-values': Emotion.sign.values.map(&:to_s).join(' '), 'emotion-textarea-sign-texts': Emotion.sign.values.map(&:text).join(' ') }
+    ~ f.text_area :body, placeholder: '오늘 나는...', class: 'form-control action-emotion-textarea action-autoresize', data: { 'emotion-textarea-sign-values': Emotion.sign.values.map(&:to_s).join(' '), 'emotion-textarea-sign-texts': Emotion.sign.values.map(&:text).join(' ') }
+
   .form-group
-    = f.submit class: 'btn btn-primary'
-    = link_to '+ 감성라벨링', '#', class: 'action-emotion-label', data: { 'emotion-label-target': 'form textarea.action-emotion-textarea' }
+    = f.submit '저장', class: 'btn btn-primary'

@@ -76,14 +76,6 @@ ActiveRecord::Schema.define(version: 20161006135942) do
     t.index ["user_id"], name: "index_consensus_revisions_on_user_id", using: :btree
   end
 
-  create_table "consensuses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
-    t.integer  "discussion_id",               null: false
-    t.text     "body",          limit: 65535
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.index ["discussion_id"], name: "index_consensuses_on_discussion_id", using: :btree
-  end
-
   create_table "discussions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.integer  "user_id",                                  null: false
     t.integer  "canoe_id",                                 null: false
