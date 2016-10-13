@@ -1,22 +1,22 @@
 %section
   .section-header
-    %h3 Overview
+    %h4 개요
   %p.lead= @canoe.body
 
 - if @canoe.member? current_user
   .row
     .col-sm-6
       %section
-        %h3
-          = link_to 'Recent Discussions', canoe_discussions_path(@canoe)
+        %h4
+          = link_to '최근 논의', canoe_discussions_path(@canoe)
           %small.pull-right
             = link_to '+ 논의열기', new_canoe_discussion_path(@canoe)
         %div
           = render @canoe.discussions.recent.limit(10), show_recent_timeline: true
     .col-sm-6
       %section
-        %h3
-          = link_to 'Recent Sailing Diaries', canoe_sailing_diaries_path(@canoe)
+        %h4
+          = link_to '최근 항해일지', canoe_sailing_diaries_path(@canoe)
           %small.pull-right
             = link_to '+ 항해일지 쓰기', canoe_sailing_diaries_path(@canoe)
         %div
