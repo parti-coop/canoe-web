@@ -21,6 +21,10 @@ class Canoe < ApplicationRecord
 
   mount_uploader :logo, ImageUploader
 
+  after_create do |document|
+    document.categories.create(name: Category::DEFAULT_NAME, user: document.user)
+  end
+
   def member?(someone)
     memberships.exists?(user: someone)
   end
