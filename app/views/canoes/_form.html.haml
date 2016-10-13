@@ -10,6 +10,6 @@
     = f.file_field :logo, class: 'form-control'
   .form-group
     = f.label :slack_webhook_url
-    = f.text_field :slack_webhook_url, class: 'form-control'
+    = f.text_field :slack_webhook_url, placeholder: 'https://hooks.slack.com/...', class: 'form-control'
   .form-group
     = f.submit class: 'btn btn-primary'
