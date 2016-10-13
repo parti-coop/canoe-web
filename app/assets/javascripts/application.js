@@ -10,7 +10,7 @@
 //= require jquery.overlay
 //= require jquery.textcomplete
 //= require autoresize
-
+//= require masonry.pkgd
 
 // unobtrusive_flash
 UnobtrusiveFlash.flashOptions['timeout'] = 30000;
@@ -47,6 +47,7 @@ $(document).on('ready', function() {
         index: 1
     }], { maxCount: 100 }).overlay(styles);
   });
+
   $('.action-emotion-label').on('click', function(e) {
     e.preventDefault();
     var $target = $($(this).data('emotion-label-target'));
@@ -58,6 +59,12 @@ $(document).on('ready', function() {
         $target.textcomplete('trigger', ':');
     }, 100);
   });
+
   autosize($('.action-autoresize'));
+
+
+  //masonry
+  var options = {}
+  $('.masonry-container').masonry();
 });
 
