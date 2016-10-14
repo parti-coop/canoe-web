@@ -1,0 +1,6 @@
+- if @canoe.receivable_boarding_request? current_user
+  %div{ style: 'padding: 0 20px;' }
+    = link_to '가입 신청', boarding_requests_path(canoe_id: @canoe), method: :post, class: 'btn btn-primary btn-block'
+- if @canoe.boarding_requested? current_user
+  %div{ style: 'padding: 0 20px;' }
+    가입 신청 중
