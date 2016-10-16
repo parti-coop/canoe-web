@@ -3,7 +3,7 @@
     = link_to @canoe do
       = image_tag @canoe.logo_url, style: 'width: 100%;'
       %h3= @canoe.title
-    = render 'boarding_request'
+    = render 'boarding_requests/button', canoe: @canoe
 
 - if @canoe.member? current_user
   %ul.nav.nav-sidebar
