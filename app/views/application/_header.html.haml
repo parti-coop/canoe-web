@@ -10,8 +10,8 @@
           카누
 
       #navbar.collapse.navbar-collapse
-        - if user_signed_in?
-          %ul.nav.navbar-nav
+        %ul.nav.navbar-nav
+          - if user_signed_in?
             - current_user.boarding_canoes.each do |canoe|
               %li
                 = link_to canoe do
@@ -20,6 +20,9 @@
                   %sup
                     - if canoe.unread? current_user
                       %i.fa.fa-circle
+          %li
+            = link_to '카누 찾기', canoes_path
+
         %ul.nav.navbar-nav.navbar-right
           - if user_signed_in?
             %li

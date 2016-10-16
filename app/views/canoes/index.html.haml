@@ -1,11 +1,11 @@
 %section
   .container-fluid
     .page-header
-      %h2 모든 카누
+      %h3 카누 찾기
     .row.masonry-container
       - @canoes.each do |canoe|
         .col-sm-6.col-md-4
-          .panel.panel-default
+          .panel{ style: 'background-color: #f3f3f7' }
             .panel-body
               .media
                 .media-left{ style: 'width:100px' }
