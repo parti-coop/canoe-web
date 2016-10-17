@@ -18,7 +18,7 @@
             %small= cnt
 
 %section
-  .row
+  .row.masonry-container
     - @sailing_diaries.each do |sailing_diary|
-      .col-sm-6
+      .col-sm-4
         = render sailing_diary
