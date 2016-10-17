@@ -2,11 +2,6 @@
   %h2
     항해일지
 
-%div
-  .panel.panel-primary
-    .panel-body
-      = render 'form'
-
 %section
   %ul.list-inline
     - Emotion.sign.values.each do |sign|
@@ -19,6 +14,11 @@
 
 %section
   .row.masonry-container
+    .col-sm-4
+      .panel.panel-default
+        .panel-body
+          = render 'form'
+
     - @sailing_diaries.each do |sailing_diary|
       .col-sm-4
         = render sailing_diary
