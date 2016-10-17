@@ -4,7 +4,7 @@
       .media-left
         = render 'users/thumbnail', user: sailing_diary.user
       .media-body
-        %div= emotion_format sailing_diary.body
+        %div= smart_format sailing_diary.body
         %small.text-muted
           = link_to sailing_diary.sailed_on, sailing_diary
           = link_to '수정', [:edit, sailing_diary], class: 'text-danger' if can? :edit, sailing_diary

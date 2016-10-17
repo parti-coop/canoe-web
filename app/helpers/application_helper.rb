@@ -17,6 +17,14 @@ module ApplicationHelper
     raw(markdown.render(body))
   end
 
+  def smart_format(text, html_options = {}, options = {})
+    parsed_text = simple_format(h(text), html_options, options).to_str
+    raw(auto_link(parsed_text,
+      html: {class: 'auto_link', target: '_blank'},
+      link: :urls,
+      sanitize: false))
+  end
+
   def emotion_format(text, html_options = {}, options = {})
     parsed_text = simple_format(h(text), html_options, options).to_str
     raw(Emotion.process(parsed_text) do |matched, emotion|

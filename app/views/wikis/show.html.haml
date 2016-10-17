@@ -12,4 +12,4 @@
           = link_to 'destroy', @wiki, method: :delete, data: { confirm: 'are you sure?' }
 
     %div
-      = simple_format @wiki.body
+      = smart_format @wiki.body

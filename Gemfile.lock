@@ -481,6 +481,8 @@ GEM
     rails-timeago (2.15.0)
       actionpack (>= 3.1)
       activesupport (>= 3.1)
+    rails_autolink (1.1.6)
+      rails (> 3.1)
     railties (5.0.0.1)
       actionpack (= 5.0.0.1)
       activesupport (= 5.0.0.1)
@@ -662,6 +664,7 @@ DEPENDENCIES
   rails-assets-trianglify!
   rails-controller-testing
   rails-timeago (~> 2.15)
+  rails_autolink (~> 1.1, >= 1.1.6)
   recaptcha
   redcarpet (~> 3.3, >= 3.3.4)
   redis (~> 3.2, >= 3.2.2)

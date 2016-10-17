@@ -4,7 +4,7 @@
     .comment-content
       %span.user.text-muted
         = comment.user.nickname
-      = simple_format comment.body, {}, wrapper_tag: 'span'
+      = smart_format comment.body, {}, wrapper_tag: 'span'
     .comment-meta.text-muted
       %small
         = date_f comment.created_at

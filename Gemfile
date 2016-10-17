@@ -26,6 +26,7 @@ gem 'bootswatch-rails'
 gem 'haml-rails', '~> 0.9.0'
 gem 'diffy', '~> 3.1'
 gem 'redcarpet', '~> 3.3', '>= 3.3.4'
+gem 'rails_autolink', '~> 1.1', '>= 1.1.6'
 
 # api
 gem 'grape', '~> 0.17.0'

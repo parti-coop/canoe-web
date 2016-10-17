@@ -11,7 +11,7 @@
     %p
       - if opinion.updated?
         %span.text-muted (수정)
-      = simple_format opinion.body, {}, wrapper_tag: "span"
+      = smart_format opinion.body, {}, wrapper_tag: "span"
   - if opinion.comments.any?
     .panel-footer
       = render opinion.comments
