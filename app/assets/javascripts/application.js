@@ -6,6 +6,7 @@
 //= require unobtrusive_flash_bootstrap
 //= require rails-timeago
 //= require locales/jquery.timeago.ko
+//= require imagesloaded.pkgd
 //= require jquery.webui-popover
 //= require jquery.overlay
 //= require jquery.textcomplete
@@ -61,10 +62,11 @@ $(document).on('ready', function() {
   });
 
   autosize($('.action-autoresize'));
-
-
-  //masonry
-  var options = {}
-  $('.masonry-container').masonry();
 });
 
+$(document).imagesLoaded( { }, function() {
+    //masonry
+    var options = {}
+    $('.masonry-container').masonry();
+  }
+);
