@@ -19,16 +19,13 @@ module ApplicationHelper
 
   def smart_format(text, html_options = {}, options = {})
     parsed_text = simple_format(h(text), html_options, options).to_str
-    raw(auto_link(parsed_text,
+    parsed_text = Emotion.process(parsed_text) do |matched, emotion|
+      content_tag(:span, emotion.sign_text, class: "emotion emotion-#{emotion.sign}")
+    end
+    parsed_text = auto_link(parsed_text,
       html: {class: 'auto_link', target: '_blank'},
       link: :urls,
-      sanitize: false))
-  end
-
-  def emotion_format(text, html_options = {}, options = {})
-    parsed_text = simple_format(h(text), html_options, options).to_str
-    raw(Emotion.process(parsed_text) do |matched, emotion|
-      content_tag(:span, matched, class: "emotion emotion-#{emotion.sign}")
-    end)
+      sanitize: false)
+    raw(parsed_text)
   end
 end
