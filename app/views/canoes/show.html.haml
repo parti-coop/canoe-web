@@ -21,10 +21,3 @@
             = link_to '+ 항해일지 쓰기', canoe_sailing_diaries_path(@canoe)
         %div
           = render @canoe.sailing_diaries.recent.limit(10)
-
-    - if @canoe.member? current_user
-      .col-sm-12
-        .boarding_requests
-          %h3 Boarding Requests
-          - @canoe.boarding_requests.recent.each do |boarding_request|
-            = render boarding_request
