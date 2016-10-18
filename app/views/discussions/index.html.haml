@@ -2,11 +2,17 @@
 
 - if @discussions.inboxed.any?
   %section
-    %h3 inbox
-    = render @discussions.inboxed
+    %h3 논의중
+    .row.masonry-container
+      - @discussions.inboxed.each do |discussion|
+        .col-sm-4
+          = render discussion, show_recent_timeline: true
   %hr
 
 - if @discussions.archived.any?
   %section
-    %h3 archived
-    = render @discussions.archived
+    %h3 종료
+    .row.masonry-container
+      - @discussions.archived.each do |discussion|
+        .col-sm-4
+          = render discussion
