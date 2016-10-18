@@ -1,15 +1,13 @@
 %section
   .page-header
-    %h2
-      Wiki
+    %h2 위키
 
-  %section
-    .section-title
-      %h3
-        = @wiki.title
-        %small
-          = link_to 'edit', [:edit, @wiki]
-          = link_to 'destroy', @wiki, method: :delete, data: { confirm: 'are you sure?' }
-
-    %div
-      = smart_format @wiki.body
+  %section#wiki-show
+    .panel.panel-default
+      .panel-body
+        %h3.wiki-title
+          = @wiki.title
+          %small
+            = link_to '수정', [:edit, @wiki]
+            = link_to '삭제', @wiki, method: :delete, data: { confirm: 'are you sure?' }
+        = markdown @wiki.body

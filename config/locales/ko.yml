@@ -21,6 +21,9 @@ ko:
     attributes:
       discussion:
         consensus: 합의사항
+      wiki:
+        title: 제목
+        body: 내용
     errors:
       models:
         boarding_request:
