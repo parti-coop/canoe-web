@@ -13,7 +13,7 @@ class SailingDiary < ApplicationRecord
 
   def build_emotions
     scanned_emotions = Emotion.scan(self.body)
-    self.emotions.select { |e| !scanned_emotions.include? e }.each { |e| e.destroy }
+    self.emotions.select { |e| !scanned_emotions.include? e }.each { |e| e.delete }
     self.emotions << scanned_emotions.select { |e| !self.emotions.exists?(e.id) }
   end
 
