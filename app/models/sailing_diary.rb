@@ -20,4 +20,11 @@ class SailingDiary < ApplicationRecord
   def scan_mentioned_congressmen(comment)
     parse_mention_sign(comment.body).map { |name| Congressman.find_by(name: name) }.compact
   end
+
+  def self.rebuild_all_emotions
+    self.all.each do |s|
+      s.build_emotions
+      s.save
+    end
+  end
 end
