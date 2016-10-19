@@ -1,8 +1,9 @@
-- proposal = activity.trackable
-- proposal_request = proposal.proposal_request
-= byline proposal.user
-님이
-%strong #{proposal.title}
-를 제안하였습니다.
-= date_f activity.created_at
-%u #{proposal_request.title}
+%small.text-muted
+  - proposal = activity.trackable
+  - proposal_request = proposal.proposal_request
+  = byline proposal.user
+  님이
+  %strong #{proposal.title}
+  를 제안하였습니다.
+  = date_f activity.created_at
+  %u #{proposal_request.title}

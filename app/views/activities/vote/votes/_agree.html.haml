@@ -1,9 +1,10 @@
-- vote = activity.trackable
-- proposal = vote.proposal
-- proposal_request = proposal.proposal_request
-= byline vote.user
-님이
-%strong #{proposal.title}
-에 동의합니다.
-= date_f activity.created_at
-%u #{proposal_request.title}
+%small.text-muted
+  - vote = activity.trackable
+  - proposal = vote.proposal
+  - proposal_request = proposal.proposal_request
+  = byline vote.user
+  님이
+  %strong #{proposal.title}
+  에 동의합니다.
+  = date_f activity.created_at
+  %u #{proposal_request.title}
