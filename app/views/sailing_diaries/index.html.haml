@@ -14,11 +14,11 @@
 
 %section
   .row.masonry-container
-    .col-sm-4
+    .col-sm-6
       .panel.panel-default
         .panel-body
           = render 'form'
 
     - @sailing_diaries.each do |sailing_diary|
-      .col-sm-4
+      .col-sm-6
         = render sailing_diary
