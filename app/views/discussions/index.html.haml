@@ -2,16 +2,16 @@
 
 - if @discussions.inboxed.any?
   %section
-    %h3 논의중
+    %h4 논의중
     .row.masonry-container
       - @discussions.inboxed.each do |discussion|
         .col-sm-4
-          = render discussion, show_recent_timeline: true
+          = render discussion
   %hr
 
 - if @discussions.archived.any?
   %section
-    %h3 종료
+    %h4 종료
     .row.masonry-container
       - @discussions.archived.each do |discussion|
         .col-sm-4
