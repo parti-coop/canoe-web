@@ -1,7 +1,12 @@
 .panel[discussion]{class: ( discussion.unread?(current_user)? 'panel-primary' : 'panel-default')}
   .panel-body
-    .media-left
-      = render 'users/thumbnail', user: discussion.user
+    .user-byline
+      .user-image{style: "background-image: url(#{discussion.user.image.sm.url});"}
+      %small.text-muted
+        = discussion.user.nickname
+        %small
+          #{date_f discussion.created_at}부터
+  .panel-body
     .media-body
       %h4.media-heading
         = link_to discussion do
@@ -9,8 +14,6 @@
           - if user_signed_in? and discussion.unread? current_user
             %sup
               %i.fa.fa-circle
-      %small.text-muted
-        #{date_f discussion.created_at}부터
 
   - recent_discussions = discussion.activities.recent.limit(2)
   - if recent_discussions.any? and local_assigns[:show_recent_timeline]

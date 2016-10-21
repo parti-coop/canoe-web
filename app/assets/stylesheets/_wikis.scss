@@ -5,4 +5,7 @@
     margin-top: $font-size-base;
     margin-bottom: $font-size-base * 2;
   }
+  & > .panel > .panel-body {
+    padding: 20px 30px;
+  }
 }

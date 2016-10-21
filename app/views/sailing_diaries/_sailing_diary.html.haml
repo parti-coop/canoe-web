@@ -1,14 +1,16 @@
 .panel.panel-default
   .panel-body
-    .media[sailing_diary]
-      .media-left
-        = render 'users/thumbnail', user: sailing_diary.user
-      .media-body
-        %div= smart_format sailing_diary.body
-        %small.text-muted
-          = link_to sailing_diary.sailed_on, sailing_diary
-          = link_to '수정', [:edit, sailing_diary], class: 'text-danger' if can? :edit, sailing_diary
-          = link_to '삭제', sailing_diary, method: :delete, class: 'text-danger', data: {confirm: t('application.delete_confirm')} if can? :destroy, sailing_diary
+    .user-byline
+      .user-image{style: "background-image: url(#{sailing_diary.user.image.sm.url});"}
+      %small.text-muted
+        = sailing_diary.user.nickname
+        %small
+          #{date_f sailing_diary.created_at}부터
+  .panel-body
+    %div= smart_format sailing_diary.body
+    %small.text-muted
+      = link_to '수정', [:edit, sailing_diary], class: 'text-danger' if can? :edit, sailing_diary
+      = link_to '삭제', sailing_diary, method: :delete, class: 'text-danger', data: {confirm: t('application.delete_confirm')} if can? :destroy, sailing_diary
 
   .panel-footer
     = render sailing_diary.comments
