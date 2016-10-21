@@ -1,17 +1,24 @@
 .panel.panel-default
-  .panel-heading
-    .text-muted
-      = byline opinion.user
-      = date_f opinion.created_at
-      - if can? :update, opinion
-        = link_to '수정', [:edit, opinion], class: 'text-danger'
-      - if can? :destroy, opinion
-        = link_to '삭제', opinion, method: :delete, class: 'text-danger'
+  .panel-body
+    .user-byline
+      .user-image{style: "background-image: url(#{opinion.user.image.sm.url});"}
+      %small.text-muted
+        = opinion.user.nickname
+        %small
+          #{date_f opinion.created_at}부터
+
   .panel-body
     %p
       - if opinion.updated?
         %span.text-muted (수정)
       = smart_format opinion.body, {}, wrapper_tag: "span"
+    .text-muted
+      %small
+        - if can? :update, opinion
+          = link_to '수정', [:edit, opinion]
+        - if can? :destroy, opinion
+          = link_to '삭제', opinion, method: :delete
+
   - if opinion.comments.any?
     .panel-footer
       = render opinion.comments
