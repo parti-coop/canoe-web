@@ -80,7 +80,7 @@ module V1
           present :canoe, @canoe, with: V1::Entities::CanoeDetailEntity
         end
 
-        desc '카누의 항해일지를 모두 가져 옵니다'
+        desc '카누의 일지를 모두 가져 옵니다'
         get :sailing_diaries do
           present :sailing_diaries, @canoe.sailing_diaries, with: V1::Entities::SailingDiaryEntity
         end

@@ -16,8 +16,8 @@
     .col-sm-6
       %section
         %h4
-          = link_to '최근 항해일지', canoe_sailing_diaries_path(@canoe)
+          = link_to '최근 일지', canoe_sailing_diaries_path(@canoe)
           %small.pull-right
-            = link_to '+ 항해일지 쓰기', canoe_sailing_diaries_path(@canoe)
+            = link_to '+ 일지 쓰기', canoe_sailing_diaries_path(@canoe)
         %div
           = render @canoe.sailing_diaries.recent.limit(10)

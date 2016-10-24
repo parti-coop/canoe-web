@@ -27,7 +27,7 @@
             새 카테고리
     %li
       = link_to canoe_sailing_diaries_path(@canoe) do
-        항해일지
+        일지
         %span.count= @canoe.sailing_diaries.count
     %li
       = link_to canoe_wikis_path(@canoe) do
@@ -35,11 +35,11 @@
         %span.count= @canoe.wikis.count
     %li
       = link_to canoe_memberships_path(@canoe) do
-        선원
+        팀원
         %span.count= @canoe.memberships.count
         - if @canoe.boarding_requests.any?
           %div.text-danger
-            (승선요청 #{@canoe.boarding_requests_count})
+            (가입요청 #{@canoe.boarding_requests_count})
     %li
       = link_to [:edit, @canoe] do
         설정

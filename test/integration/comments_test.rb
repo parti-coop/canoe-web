@@ -12,7 +12,7 @@ class CommentsTest < ActionDispatch::IntegrationTest
     assert opinions(:opinion1), assigns(:comment).commentable
   end
 
-  test '항해일지에 댓글을 답니다' do
+  test '일지에 댓글을 답니다' do
     sign_in(users(:one))
 
     post sailing_diary_comments_path(sailing_diaries(:sailing_diary1)), params: {comment: {body: 'body'}}

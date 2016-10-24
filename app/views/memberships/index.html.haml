@@ -1,5 +1,5 @@
 .page-header
-  %h2 선원
+  %h2 팀원
 
 .row
   - @memberships.each do |membership|
@@ -12,7 +12,7 @@
               = link_to '탈퇴', cancel_canoe_memberships_path(canoe_id: @canoe), method: :delete, class: 'text-danger'
 
 .page-header
-  %h3 승선 요청
+  %h3 가입 요청
 %ul.list-unstyled
   - @boarding_requests.each do |boarding_request|
     %li[boarding_request]

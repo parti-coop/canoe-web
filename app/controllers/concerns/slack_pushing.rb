@@ -33,7 +33,7 @@ module SlackPushing
       title = "@#{current_user.nickname}님이 카누 설정을 고쳤습니다."
     when "sailing_diaries#create"
       sailing_diary = subject
-      title = "@#{current_user.nickname}님이 항해일지를 만들었습니다."
+      title = "@#{current_user.nickname}님이 일지를 만들었습니다."
       body = body_with_sailing_diary(sailing_diary)
     when "discussions#create"
       discussion = subject
