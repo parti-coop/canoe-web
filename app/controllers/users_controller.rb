@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:sign_in]
 
   def kill_me
     current_user.update_attributes(uid: SecureRandom.hex(10))
