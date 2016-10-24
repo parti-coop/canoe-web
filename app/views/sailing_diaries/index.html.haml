@@ -6,11 +6,10 @@
   %ul.list-inline
     - Emotion.sign.values.each do |sign|
       - cnt = @canoe.sailing_diaries.with_emotion(sign).count
-      - if cnt > 0
-        %li{ style: 'padding-right: 0; padding-bottom: 5px;' }
-          = link_to canoe_sailing_diaries_path(@canoe, emotion: sign), class: 'btn btn-primary btn-xs' do
-            = sign.text
-            %small= cnt
+      %li{ style: 'padding-right: 0; padding-bottom: 5px;' }
+        = link_to canoe_sailing_diaries_path(@canoe, emotion: sign), style: 'text-decoration: underline' do
+          = sign.text
+          %small= cnt
 
 %section
   .row.masonry-container
