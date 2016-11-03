@@ -1,78 +1,83 @@
 = render 'discussions/header'
 
-
-.row
-  .col-xs-12.col-md-7
-    %section
-      %h4
-        여는글
-        %small.text-muted
-          = byline @discussion.user
-          #{date_f @discussion.created_at}부터
-      .discussion-body= markdown @discussion.body
-
-    %section
-      %h4= t('label.timeline')
-
-      - new_opinion = Opinion.new(discussion: @discussion)
-      - if can? :create, new_opinion
-        = form_for [@discussion, new_opinion] do |f|
-          .form-group
-            = f.text_area :body, class: 'form-control'
-          .form-group
-            = f.submit class: 'btn btn-primary'
-      - @discussion.activities.recent.each do |activity|
-        .activity{class: "activity--#{activity.trackable_type.underscore.parameterize.dasherize}--#{activity.action.parameterize.dasherize}"}
-          = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
-
-  .col-xs-12.col-md-5
-    %section
-      %h4
-        = Discussion.human_attribute_name(:consensus)
-        %small
-          - if @discussion.consensus.present? and can?(:consensus, @discussion)
-            = link_to '수정하기', edit_consensus_discussion_path, class: 'text-danger'
-      - if @discussion.consensus.present?
-        .concensus-body= markdown @discussion.consensus
-
-        - if @discussion.consensus_revisions.any?
+#discussion-block
+  .row
+    .col-xs-12.col-md-7
+      %section
+        %h4
+          여는글
           %small.text-muted
-            마지막 수정 : #{byline @discussion.consensus_revisions.current.user} #{date_f @discussion.consensus_revisions.current.created_at}
-            = link_to '이력보기', discussion_consensus_revisions_path(@discussion), class: 'text-danger'
-      - else
+            = byline @discussion.user
+            #{date_f @discussion.created_at}부터
+        .discussion-body
+          .panel.panel-default
+            .panel-body
+              = @discussion.body
+
+      %section
+        %h4= t('label.timeline')
+
+        - new_opinion = Opinion.new(discussion: @discussion)
+        - if can? :create, new_opinion
+          .panel.panel-default
+            .panel-body
+              = form_for [@discussion, new_opinion] do |f|
+                .form-group
+                  = f.text_area :body, class: 'form-control'
+                .form-group
+                  = f.submit '쓰기', class: 'btn btn-default'
+        - @discussion.activities.recent.each do |activity|
+          .activity{class: "activity--#{activity.trackable_type.underscore.parameterize.dasherize}--#{activity.action.parameterize.dasherize}"}
+            = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
+
+    .col-xs-12.col-md-5
+      %section
+        %h4
+          = Discussion.human_attribute_name(:consensus)
+          %small
+            - if @discussion.consensus.present? and can?(:consensus, @discussion)
+              = link_to '수정하기', edit_consensus_discussion_path, class: 'text-danger'
+        - if @discussion.consensus.present?
+          .concensus-body
+            .panel.panel-default
+              .panel-body
+                = markdown @discussion.consensus
+
+          - if @discussion.consensus_revisions.any?
+            %small.text-muted
+              마지막 수정 : #{byline @discussion.consensus_revisions.current.user} #{date_f @discussion.consensus_revisions.current.created_at}
+              = link_to '이력보기', discussion_consensus_revisions_path(@discussion), class: 'text-danger'
+        - else
+          %p
+            %span.text-muted 합의된 사항이 있나요?
+            = link_to edit_consensus_discussion_path, class: 'btn btn-default btn-sm' do
+              #{Discussion.human_attribute_name(:consensus)} 적기
+
+      %section
+        %h4 관련자료
+
         %p
-          %span.text-muted 합의된 사항이 있나요?
-          = link_to edit_consensus_discussion_path, class: 'btn btn-primary' do
-            #{Discussion.human_attribute_name(:consensus)} 적기
+          %span.text-muted 관련자료가 있나요?
+          = link_to '#', class: 'btn btn-default btn-sm' do
+            업로드
 
-    %section
-      %h4 관련자료
+      %section
+        %h4= ProposalRequest.model_name.human
+        = render @discussion.proposal_requests.inboxed
+        - if @discussion.proposal_requests.archived.any?
+          %h5
+            아카이브된 #{ProposalRequest.model_name.human}이 #{@discussion.proposal_requests.archived.count}개 있습니다.
+            %a{"data-toggle": "collapse", href: "##{dom_id(@discussion)}__archived", role: "button", class: 'text-muted'}
+              보기
+          .collapse{id: "#{dom_id(@discussion)}__archived"}
+            = render @discussion.proposal_requests.archived
 
-      %p
-        %span.text-muted 관련자료가 있나요?
-        = link_to '#', class: 'btn btn-primary' do
-          업로드
-
-    %section
-      %h4= ProposalRequest.model_name.human
-      = render @discussion.proposal_requests.inboxed
-      - if @discussion.proposal_requests.archived.any?
-        %h5
-          아카이브된 #{ProposalRequest.model_name.human}이 #{@discussion.proposal_requests.archived.count}개 있습니다.
-          %a{"data-toggle": "collapse", href: "##{dom_id(@discussion)}__archived", role: "button", class: 'text-muted'}
-            보기
-        .collapse{id: "#{dom_id(@discussion)}__archived"}
-          = render @discussion.proposal_requests.archived
-
-      .alert.alert-warning
-        - if @discussion.proposal_requests.empty?
-          %p.help-text 논의가 충분히 진행되면 제안을 받기 시작하세요.
-
-        - new_pr = ProposalRequest.new(discussion: @discussion)
-        - if can? :create, new_pr
-          = form_for [@discussion, new_pr] do |f|
-            .form-group
-              = f.text_field :title, placeholder: '새롭게 제안 받을 내용을 적으세요', class: 'form-control input-lg'
-            .form-group
-              = f.submit '작성', class: 'btn btn-primary'
+        .alert.alert-warning
+          - new_pr = ProposalRequest.new(discussion: @discussion)
+          - if can? :create, new_pr
+            = form_for [@discussion, new_pr] do |f|
+              .form-group
+                = f.text_field :title, placeholder: '투표로 결정할 사안은 무엇인가요?', class: 'form-control'
+              .form-group
+                = f.submit '작성', class: 'btn btn-default'
 
