@@ -11,8 +11,21 @@
           #{date_f @discussion.created_at}부터
       .discussion-body= markdown @discussion.body
 
-    %hr
+    %section
+      %h4= t('label.timeline')
 
+      - new_opinion = Opinion.new(discussion: @discussion)
+      - if can? :create, new_opinion
+        = form_for [@discussion, new_opinion] do |f|
+          .form-group
+            = f.text_area :body, class: 'form-control'
+          .form-group
+            = f.submit class: 'btn btn-primary'
+      - @discussion.activities.recent.each do |activity|
+        .activity{class: "activity--#{activity.trackable_type.underscore.parameterize.dasherize}--#{activity.action.parameterize.dasherize}"}
+          = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
+
+  .col-xs-12.col-md-5
     %section
       %h4
         = Discussion.human_attribute_name(:consensus)
@@ -32,8 +45,6 @@
           = link_to edit_consensus_discussion_path, class: 'btn btn-primary' do
             #{Discussion.human_attribute_name(:consensus)} 적기
 
-    %hr
-
     %section
       %h4 관련자료
 
@@ -41,8 +52,6 @@
         %span.text-muted 관련자료가 있나요?
         = link_to '#', class: 'btn btn-primary' do
           업로드
-
-    %hr
 
     %section
       %h4= ProposalRequest.model_name.human
@@ -67,18 +76,3 @@
             .form-group
               = f.submit '작성', class: 'btn btn-primary'
 
-
-  .col-xs-12.col-md-5
-    %div
-      %h4= t('label.timeline')
-
-      - new_opinion = Opinion.new(discussion: @discussion)
-      - if can? :create, new_opinion
-        = form_for [@discussion, new_opinion] do |f|
-          .form-group
-            = f.text_area :body, class: 'form-control'
-          .form-group
-            = f.submit class: 'btn btn-primary'
-      - @discussion.activities.recent.each do |activity|
-        .activity{class: "activity--#{activity.trackable_type.underscore.parameterize.dasherize}--#{activity.action.parameterize.dasherize}"}
-          = render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity
