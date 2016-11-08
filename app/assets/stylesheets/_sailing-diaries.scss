@@ -14,3 +14,9 @@ form.edit_sailing_diary .textoverlay-wrapper .textoverlay,
     padding: 0 3px;
   }
 }
+
+.sailing-diary-container {
+  .col-sm-6:first-child {
+    z-index: 999;
+  }
+}
