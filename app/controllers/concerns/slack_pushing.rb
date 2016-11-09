@@ -95,7 +95,7 @@ module SlackPushing
       body = body_with_discussion(discussion, opinion.body)
     when "comments#create"
       comment = subject
-      title = "@#{current_user.nickname}님이 댓글을 답니니다."
+      title = "@#{current_user.nickname}님이 댓글을 답니다."
       body = body_for_comment(comment)
     when "comments#update"
       comment = subject
