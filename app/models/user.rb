@@ -49,7 +49,7 @@ class User < ApplicationRecord
   # the other methods
 
   def admin?
-    %w(account@parti.xyz).include? email
+    %w(account@parti.xyz rest515@parti.xyz berry@parti.xyz dalikim@parti.xyz qus1225@gmail.com dmtgjh@naver.com lynnata@gmail.com ajimania@hanmail.net).include? email
   end
 
   private
