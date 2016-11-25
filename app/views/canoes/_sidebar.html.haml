@@ -27,7 +27,7 @@
             새 카테고리
     %li
       = link_to canoe_sailing_diaries_path(@canoe) do
-        일지
+        = SailingDiary.model_name.human
         %span.count= @canoe.sailing_diaries.count
     %li
       = link_to canoe_wikis_path(@canoe) do
