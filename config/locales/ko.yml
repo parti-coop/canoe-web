@@ -19,6 +19,11 @@ ko:
       membership: 회원
       boarding_request: 가입요청
     attributes:
+      canoe:
+        title: 이름
+        body: 설명
+        logo: 로고
+        slack_webhook_url: 슬랙 웹훅주소
       discussion:
         consensus: 합의사항
       wiki:
