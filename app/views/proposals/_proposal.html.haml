@@ -1,6 +1,6 @@
 .media
   .media-body
-    %h5= proposal.title
+    %h5= smart_format proposal.title
     %small.text-muted
       = byline proposal.user
       - if can? :edit, proposal
