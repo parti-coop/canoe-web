@@ -16,18 +16,24 @@
 
     = csrf_meta_tags
 
-  %body{class: "app-#{params[:controller]} app-#{params[:controller]}-#{params[:action]}"}
-    %section(style='position: fixed; z-index: 2000; width: 100%')
+  %body.pattern-trianglify{class: "app-#{params[:controller]} app-#{params[:controller]}-#{params[:action]}", style: 'background-size: cover;'}
+    %section
       .container
-        .unobtrusive-flash-container
-    - if content_for?(:header)
-      = yield :header
-    - else
-      = render 'application/header'
+        .jumbotron.jumbotron-transparent
+          .text-center
+            %h2
+              %strong> 이제 빠띠에서 카누를 즐기세요.
+            %h3
+              %strong> 카누의 모든 기능을 빠띠로 통합하였습니다. 지금 바로 시도해 보세요.
 
-    - if content_for?(:main)
-      = yield :main
-    - else
-      = yield
+
+          .text-center
+            %span{style: "font-size: 100px; font-weight: 400; vertical-align: middle; top: 5px; position: relative; color: rgba(0, 0, 0, 0.2)"}<>
+              카누
+            %span{style: "font-size: 50px; vertical-align: middle; color: rgba(0, 0, 0, 0.3)" }
+              %i.fa.fa-arrow-right
+            %span
+              = link_to 'http://parti.xyz' do
+                = image_tag 'parti_logo_purple.png', style: "width: 200px;"
     = javascript_include_tag 'application'
     = yield :script if content_for?(:script)
